@@ -8,6 +8,15 @@ import "firebase/auth"
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 // add firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDdDRhjG0ueUWyF8m0rMXVorFY_cz-bhzY",
+  authDomain: "mobile-passport-for-success.firebaseapp.com",
+  projectId: "mobile-passport-for-success",
+  storageBucket: "mobile-passport-for-success.appspot.com",
+  messagingSenderId: "999142558151",
+  appId: "1:999142558151:web:30fd83b8e33e8bad09b1e2",
+  measurementId: "G-4XWJW9YV9Q"
+};
 
 // Initialize Firebase
 let app;
