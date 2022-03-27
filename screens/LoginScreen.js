@@ -2,7 +2,6 @@ import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpaci
 import React, {useEffect, useState} from 'react'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
-import SignUpScreen from './SignUpScreen'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -21,8 +20,21 @@ const LoginScreen = () => {
   }, [])
 
   const onSignUpPress = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate('Register');
   };
+
+  const onForgetPasswordPress = () => {
+    navigation.navigate('Forgot Password');
+  };
+
+  const forgotPassword = (Email) => {
+    firebase.auth().sendPasswordResetEmail(Email)
+      .then(function (user) {
+        alert('Please check your email...')
+      }).catch(function (e) {
+        console.log(e)
+      })
+  }
 
 
   const handleLogin = () => {
@@ -75,6 +87,13 @@ const LoginScreen = () => {
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={onForgetPasswordPress}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Forgot Password?</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   )
@@ -84,6 +103,7 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
