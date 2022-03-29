@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,Text,View,} from 'react-native';
 
-const healthcare = ({navigation}) => {
+const Healthcare = ({navigation}) => {
     return(
     <View style={{alignItems: 'center',justifyContent: 'center'}}>
         <Text>
@@ -14,4 +14,4 @@ const healthcare = ({navigation}) => {
     );
 };
 
-export default healthcare
+export default Healthcare

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,Text,View,} from 'react-native';
 
-const financial = ({navigation}) => {
+const Financial = ({navigation}) => {
     return(
     <View style={{alignItems: 'center',justifyContent: 'center'}}>
         <Text>
@@ -14,4 +14,4 @@ const financial = ({navigation}) => {
     );
 };
 
-export default financial
+export default Financial

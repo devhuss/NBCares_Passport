@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,Text,View,} from 'react-native';
 
-const education = ({navigation}) => {
+const Education = ({navigation}) => {
     return(
     <View style={{alignItems: 'center',justifyContent: 'center'}}>
         <Text>
@@ -14,4 +14,4 @@ const education = ({navigation}) => {
     );
 };
 
-export default education
+export default Education

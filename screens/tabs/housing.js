@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,Text,View,} from 'react-native';
 
-const housing = ({navigation}) => {
+const Housing = ({navigation}) => {
     return(
     <View style={{alignItems: 'center',justifyContent: 'center'}}>
         <Text>
@@ -14,4 +14,4 @@ const housing = ({navigation}) => {
     );
 };
 
-export default housing
+export default Housing

@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity,SafeAreaView, FlatList } from 'react-native'
 import React from 'react'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
+import tempData from '../tempData'
 
 const HomeScreen = () => {
 
@@ -16,88 +17,35 @@ const HomeScreen = () => {
       .catch(error => alert(error.message))
   }
 
-  const handleDocuments = () => {
-    navigation.navigate('Documents')
-  }
 
-  const handleEducation = () => {
-    navigation.navigate('Education')
-  }
-
-  const handleEmployment = () => {
-    navigation.navigate('Employment')
-  }
-
-  const handleFinancial = () => {
-    navigation.navigate('Financial')
-  }
-
-  const handleHealthcare = () => {
-    navigation.navigate('Healthcare')
-  }
-
-  const handleHousing = () => {
-    navigation.navigate('Housing')
-  }
+  const ItemRender = ({ item, name }) => (
+    <TouchableOpacity
+      style={styles.circleButton}
+      onPress={()=> navigation.navigate(name, item)}
+    >
+      <Text style={styles.circleText}>{name}</Text>
+    </TouchableOpacity>
+  )
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
       <TouchableOpacity
-      onPress={handleSignOut}
+        onPress={handleSignOut}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
 
-{/* documents button */}
-    <TouchableOpacity
-    onPress={handleDocuments}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Documents</Text>
-      </TouchableOpacity>
+      
+      <FlatList
+        data={tempData}
+        renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
+        keyExtractor={item => item.name}
+      />
 
-{/* education button */}
-<TouchableOpacity
-    onPress={handleEducation}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Education</Text>
-      </TouchableOpacity>
 
-{/* employment button */}
-<TouchableOpacity
-    onPress={handleEmployment}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Employment</Text>
-      </TouchableOpacity>
-
-{/* financial button */}
-<TouchableOpacity
-    onPress={handleFinancial}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Financial Literacy</Text>
-      </TouchableOpacity>
-
-{/* healthcare button */}
-<TouchableOpacity
-    onPress={handleHealthcare}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Healthcare</Text>
-      </TouchableOpacity>
-
-{/* housing button */}
-<TouchableOpacity
-    onPress={handleHousing}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Housing</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   )
 }
 
