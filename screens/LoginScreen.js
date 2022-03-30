@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, } from 'react-native'
+import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, Image } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
@@ -19,6 +19,7 @@ const LoginScreen = () => {
     return unsubscribe
   }, [])
 
+   
   const onSignUpPress = () => {
     navigation.navigate('Register');
   };
@@ -48,11 +49,19 @@ const LoginScreen = () => {
   }
 
   return (
+    
     <KeyboardAvoidingView
       style={styles.container}
       //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.inputContainer}>
+<Image
+  style={{width: '75%', height: 175,resizeMode : 'stretch', marginBottom: 15 }}
+ source={require("../assets/nbcares_gold.png" )}
+/> 
+
+      
+      
+<View style={styles.inputContainer}>
         <TextInput
           placeholder='Email'
           value={email}
@@ -70,6 +79,12 @@ const LoginScreen = () => {
           secureTextEntry
         />
       </View>
+      <TouchableOpacity
+          onPress={onForgetPasswordPress}
+          style={[styles.buttonFrgt, styles.buttonOutlineFgt]}
+        >
+          <Text style={styles.buttonOutlineText_Frgt}>Forgot Password?</Text>
+        </TouchableOpacity>
 
 {/* login button */}
       <View style={styles.buttonContainer}>
@@ -79,21 +94,15 @@ const LoginScreen = () => {
         >
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-
 {/* register button */}
         <TouchableOpacity
           onPress={onSignUpPress}
-          style={[styles.button, styles.buttonOutline]}
+          style={[styles.buttonRgst, styles.buttonOutlineRgst]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText_Rgst}>Don't have an Account? Register here</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={onForgetPasswordPress}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Forgot Password?</Text>
-        </TouchableOpacity>
+        
       </View>
     </KeyboardAvoidingView>
   )
@@ -122,30 +131,61 @@ const styles = StyleSheet.create({
     width: '60%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 14,
+    
   },
   button: {
     backgroundColor: 'darkred',
     width: '100%',
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: 'darkred',
+
   },
   buttonOutline: {
     backgroundColor: 'white',
     marginTop: 5,
     borderColor: 'darkred',
     borderWidth: 2,
+    
 
   },
+  buttonRgst: {
+    marginTop: 75,
+     width: '81%',
+     padding: 1,
+     alignItems: 'flex-end',
+     fontWeight: '700',
+     fontSize: 16,
+     bottom: 1
+   },
+
+  buttonFrgt: {
+   marginTop: 5,
+    width: '80%',
+    padding: 1,
+    alignItems: 'flex-end',
+    fontWeight: '700',
+    fontSize: 16
+  },
+ 
   buttonText: {
     color: 'white',
     fontWeight: '700',
     fontSize: 16
   },
-  buttonOutlineText: {
+  buttonOutlineText_Frgt: {
     color: 'darkred',
     fontWeight: '700',
-    fontSize: 16
+    fontSize: 12
+    
+  },
+
+  buttonOutlineText_Rgst: {
+    color: 'black',
+    fontWeight: '700',
+    fontSize: 10,
+    bottom: 1
   },
 })

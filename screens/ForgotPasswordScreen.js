@@ -13,8 +13,8 @@ const ForgotPasswordScreen = () => {
     const navigation = useNavigation()
 
     const handleforgotPassword = (Email) => {
-    auth
-    sendPasswordResetEmail(auth, email)
+    auth().
+    sendPasswordResetEmail(this.email, this.auth)
       .then(userCredentials => {
         const user = userCredentials.user;
       })
