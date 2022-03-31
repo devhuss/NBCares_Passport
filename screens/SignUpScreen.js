@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
+
+  const fire = new Fire();
 
   const navigation = useNavigation();
 
@@ -22,7 +24,7 @@ const SignUpScreen = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = fire.auth().onAuthStateChanged((user) => {
       if (user) {
         navigation.replace("Home");
       }
@@ -31,7 +33,7 @@ const SignUpScreen = () => {
   }, []);
 
   const handleSignUp = () => {
-    auth
+    fire.auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;

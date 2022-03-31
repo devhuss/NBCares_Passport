@@ -3,42 +3,51 @@ const tempData = [
     name: "Documents",
     todos: [
       {
+        id: 0,
         title: "Do first Document Task",
         completed: false,
         step: [
           {
-            title: "step 10",
+            id: 0,
+            title: "step 1",
             completed: false,
           },
         ],
       },
       {
+        id: 1,
         title: "Do second Document Task",
         completed: false,
         step: [
           {
+            id: 0,
             title: "step 1",
             completed: false,
           },
           {
+            id: 1,
             title: "step 2",
             completed: true,
           },
         ],
       },
       {
+        id: 2,
         title: "Do third Document Task",
         completed: false,
         step: [
           {
+            id: 0,
             title: "step 1",
             completed: true,
           },
           {
+            id: 1,
             title: "step 2",
             completed: false,
           },
           {
+            id: 2,
             title: "step 3",
             completed: true,
           },
@@ -134,3 +143,4 @@ const tempData = [
 ];
 
 export default tempData;
+

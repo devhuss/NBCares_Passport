@@ -9,107 +9,52 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import TodoModal from "../../components/TodoModal";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import TaskList from "../../components/TaskList";
 
 const Documents = ({ route, navigation }) => {
-  const [showList, setShowList] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const { name } = route.params;
   const { todos } = route.params;
 
-  const toggleCompleted = (item, index) => {
-    item.completed = !item.completed;
+  const addTask = () => {
+    todos.push({
+      id: 3,
+      title: "Fourth Task",
+      completed: false,
+      step: [],
+    });
     setRefresh(!refresh);
   };
 
-  const addTask = () => {
+  const addStep = () => {
     todos[0].step.push({
+      id: 4,
       title: "TEST",
       completed: false,
     });
     setRefresh(!refresh);
   };
 
-  const completedCount = (item) => {
-    return item.filter((step) => step.completed).length;
-  };
-
-  const ItemRender = ({ item, title }) => (
-    <View>
-      <View style={styles.taskContainer}>
-        <TouchableOpacity>
-          <Ionicons
-            name={item.completed ? "ios-square" : "ios-square-outline"}
-            size={28}
-            color={styles.color1}
-            style={{ width: 40 }}
-          />
-        </TouchableOpacity>
-        <View style={styles.test}>
-          <Text>{title}</Text>
-          
-          <Text>{completedCount(item)} of {item.length}</Text>
-        </View>
-      </View>
-
-      {/* <FlatList
-        data={item}
-        keyExtractor={(item) => item.title}
-        extraData={refresh}
-        renderItem={({ item, index }) => (
-          <View>
-            <TouchableOpacity onPress={() => toggleCompleted(item, index)}>
-              <Ionicons
-                name={item.completed ? "ios-square" : "ios-square-outline"}
-                size={24}
-                color={styles.color1}
-                style={{ width: 32 }}
-              />
-            </TouchableOpacity>
-            <Text
-              style={{
-                textDecorationLine: item.completed ? "line-through" : "none",
-              }}
-            >
-              {item.title}
-            </Text>
-          </View>
-        )}
-      /> */}
-
-      {/* <TouchableOpacity onPress={() => addTask(item, "random Task")}>
-        <Text>addTask</Text>
-      </TouchableOpacity> */}
-    </View>
-  );
-
   return (
-    <SafeAreaView style={{ flex: 3, justifyContent: "center" }}>
+    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <Text style={{ fontSize: 25 }}>itemId: {name} </Text>
 
       <FlatList
         data={todos}
         renderItem={({ item }) => (
-          <ItemRender item={item.step} title={item.title} />
+          <TaskList
+            item={item}
+            item2={item.step}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
         )}
-        keyExtractor={(item) => item.title}
-        contentContainerStyle={{ paddingHorizontal: 32, paddingVertical: 32 }}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}
         extraData={refresh}
       />
-
-      <Modal
-        animationType="fade"
-        visible={showList}
-        onRequestClose={() => setShowList(!showList)}
-      >
-        <TodoModal list={todos} closeModal={() => setShowList(!showList)} />
-      </Modal>
-
-      <TouchableOpacity onPress={() => setShowList(!showList)}>
-        <Text>TEST MODAL</Text>
-      </TouchableOpacity>
 
       <TouchableOpacity onPress={() => setRefresh(!refresh)}>
         <Text>Refresh LIST</Text>
@@ -119,9 +64,13 @@ const Documents = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  task: {
+    fontWeight: "700",
+    fontSize: 16,
+  },
   item: {
     backgroundColor: "#f9c2ff",
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
   },
   header: {
@@ -139,11 +88,6 @@ const styles = StyleSheet.create({
   },
   color2: {
     color: "#000000",
-  },
-  taskContainer: {
-    paddingVertical: 16,
-    flexDirection: "row",
-    alignItems: "center",
   },
 });
 

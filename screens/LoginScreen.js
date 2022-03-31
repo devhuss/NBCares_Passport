@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
@@ -16,8 +16,10 @@ const LoginScreen = () => {
 
   const navigation = useNavigation();
 
+  const fire = new Fire();
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.replace("Home");
       }
@@ -34,20 +36,20 @@ const LoginScreen = () => {
     navigation.navigate("Forgot Password");
   };
 
-  const forgotPassword = (Email) => {
-    firebase
-      .auth()
-      .sendPasswordResetEmail(Email)
-      .then(function (user) {
-        alert("Please check your email...");
-      })
-      .catch(function (e) {
-        console.log(e);
-      });
-  };
+  // const forgotPassword = (Email) => {
+  //   firebase
+  //     .auth()
+  //     .sendPasswordResetEmail(Email)
+  //     .then(function (user) {
+  //       alert("Please check your email...");
+  //     })
+  //     .catch(function (e) {
+  //       console.log(e);
+  //     });
+  // };
 
   const handleLogin = () => {
-    auth
+    fire.auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
