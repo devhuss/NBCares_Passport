@@ -33,9 +33,17 @@ var count = 0;
 // This class is a set of calls to get data from the fire database
 class Fire extends React.Component {
 
+  constructor(props) {
+      super(props);
+    }
+
+  // Interface of the unsubscribe function
+  unsubscribe() {
+    
+  }
+
   // Gets the current lists in the database according to the current user
-  getLists(callback) {
-    console.log(count++)
+  getLists(callback) {    
 
     // When the state of authentication changes (EX: logging out) it wont try to pull data
     // from the fire database

@@ -1,15 +1,13 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import TabRender from "../../components/TabRender";
 
-const Healthcare = ({ navigation }) => {
+const Healthcare = ({ route, navigation }) => {
+  
+  const { name } = route.params;
+  const { todos } = route.params;
+  
   return (
-    <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <Text>This is the healthcare tab to be filled later :)</Text>
-      <Button
-        onPress={() => navigation.navigate("Home")}
-        title="Previous"
-      ></Button>
-    </View>
+   <TabRender name={name} todos={todos} />
   );
 };
 

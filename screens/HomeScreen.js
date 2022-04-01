@@ -7,83 +7,94 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import tempData from "../tempData";
 
-var fire = null;
-// convert back to functional component and try with useEffect
-class HomeScreen extends React.Component {
-  state = {
-    lists: [],
-    loading: true,
-  }
+const HomeScreen = () => {
+  
+  //console.log('==================================================')
+  const [lists, setLists] = useState([]);
+  const [loading, setLoading] = useState(true);
+  //console.log('INITIALIZE: ' + loading)
 
-  componentDidMount() {
-    fire = new Fire()
+  // Initialize Firebase class to use methods 
+  const fire = new Fire();
 
+  // useEffect is a Effect hook that triggers depending on render
+  // this useEffect triggers once when HomeScreen renders, when triggered it calls the firebase getLists function
+  // to retrieve the data from the Database, after the cleanup function is called to unsubscribe to the firebase
+  // listener that recieves the data
+  useEffect(() => {
     fire.getLists((lists) => {
-      console.log('afasdf');
-      this.setState({lists}, () => {
-        this.setState({ loading: false})
-      })
+      setLists(lists)
+      //console.log('GET LIST CALL: ' + loading)
     })
-  }
-
-  componentWillUnmount() {
-    fire.detach()
-  }
-
-  
-
-  render() {
-
-    //const navigation = useNavigation();
-
-    const handleSignOut = () => {
-      fire.auth
-        .signOut()
-        .then(() => {
-          navigation.replace("Login");
-        })
-        .catch((error) => alert(error.message));
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      //console.log('CLEAN UP CALL')
+      //console.log(lists)
+      fire.detach()
     };
-  
-    const ItemRender = ({ item, name }) => (
-      <TouchableOpacity
-        style={styles.circleButton}
-        onPress={() => this.props.navigation.navigate(name, item)}
-      >
-        <Text style={styles.circleText}>{name}</Text>
-      </TouchableOpacity>
-    );
+  }, []);
 
-    if (this.state.loading) {
-      return (
-        <View style={styles.container}>
-          <ActivityIndicator size='large' color={'blue'} />
-        </View>
-      )
-    }
- 
+  // This useEffect triggers when the useState 'lists' changes, when it changes the loading state to false 
+  // so that the activity indicator is disabled and shows the content of the screen when loaded
+
+  // At least thats how it should work but currently the useEffect is triggered on the initialization of the useState
+  // this can be considered a bug
+  useEffect(() => {
+    //console.log('LISTCHANGED ' + loading)
+    setLoading(false)
+  }, [lists])
+
+  const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    fire.auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login");
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const ItemRender = ({ item, name }) => (
+    <TouchableOpacity
+      style={styles.circleButton}
+      onPress={() => navigation.navigate(name, item)}
+    >
+      <Text style={styles.circleText}>{name}</Text>
+    </TouchableOpacity>
+  );
+
+  // If loading is true then display activity indicator
+  if (loading) {
     return (
-      <SafeAreaView style={styles.container}>
-        {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
-        <Text>userID: {fire.userID}</Text>
-        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-          <Text style={styles.buttonText}>Sign out</Text>
-        </TouchableOpacity> */}
-  
-        <FlatList
-          data={this.state.lists}
-          renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </SafeAreaView>
-      
-    );
+      <View style={styles.container}>
+        <ActivityIndicator size='large' color={'blue'} />
+      </View>
+    )
   }
+
+  return (
+
+    <SafeAreaView style={styles.container}>
+      {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
+      <Text>userID: {fire.userID}</Text>
+      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity> */}
+
+      <FlatList
+        data={lists}
+        renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </SafeAreaView>
+    
+  );
 };
 
 export default HomeScreen;
