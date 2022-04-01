@@ -2,7 +2,7 @@ import React from "react";
 import TabRender from "../../components/TabRender";
 
 const Documents = ({ route, navigation }) => {
-  
+
   const { name } = route.params;
   const { todos } = route.params;
 

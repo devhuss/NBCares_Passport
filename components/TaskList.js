@@ -40,9 +40,9 @@ const TaskList = ({ item, item2, refresh, setRefresh }) => {
         style={styles.taskContainer}
         onPress={() => setShowList(!showList)}
       >
-        <TouchableOpacity onPress={() => toggleCompleted(item2)}>
+        <TouchableOpacity onPress={() => toggleCompleted(item)}>
           <Ionicons
-            name={item2.completed ? "ios-square" : "ios-square-outline"}
+            name={item.completed ? "ios-square" : "ios-square-outline"}
             size={28}
             color={"gray"}
             style={{ width: 40 }}
@@ -53,8 +53,8 @@ const TaskList = ({ item, item2, refresh, setRefresh }) => {
             style={[
               styles.task,
               {
-                textDecorationLine: item2.completed ? "line-through" : "none",
-                color: item2.completed ? "grey" : "black",
+                textDecorationLine: item.completed ? "line-through" : "none",
+                color: item.completed ? "grey" : "black",
               },
             ]}
           >

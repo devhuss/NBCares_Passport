@@ -34,36 +34,31 @@ var count = 0;
 class Fire extends React.Component {
 
   constructor(props) {
-      super(props);
-    }
+    super(props);
+  }
 
   // Interface of the unsubscribe function
   unsubscribe() {
-    
+
   }
 
   // Gets the current lists in the database according to the current user
-  getLists(callback) {    
+  getLists(callback) {
 
     // When the state of authentication changes (EX: logging out) it wont try to pull data
     // from the fire database
     this.auth.onAuthStateChanged((user) => {
       if (user != null) {
-        let ref = firebase
-          .firestore()
-          .collection("users")
-          .doc(this.userID)
-          .collection("lists");
-
+      
         // Sets up a function that would stop the listener that checks the database for changes
         // but also pushes the data from the database into an array and returns it to where it was called
-        this.unsubscribe = ref.onSnapshot((snapshot) => {
+        this.unsubscribe = this.ref.onSnapshot((snapshot) => {
           const lists = [];
 
           snapshot.forEach((doc) => {
             lists.push({ id: doc.id, ...doc.data() });
           });
-          
+
           callback(lists);
         });
       }
@@ -72,6 +67,14 @@ class Fire extends React.Component {
 
   get userID() {
     return this.auth.currentUser.uid;
+  }
+
+  get ref() {
+    return firebase
+      .firestore()
+      .collection("users")
+      .doc(this.userID)
+      .collection("lists");
   }
 
   get auth() {

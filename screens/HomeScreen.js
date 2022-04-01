@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import tempData from "../tempData";
 
 const HomeScreen = () => {
-  
+
   //console.log('==================================================')
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,11 +81,11 @@ const HomeScreen = () => {
   return (
 
     <SafeAreaView style={styles.container}>
-      {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
+      <Text>Email: {fire.auth.currentUser?.email}</Text>
       <Text>userID: {fire.userID}</Text>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       <FlatList
         data={lists}
@@ -93,7 +93,7 @@ const HomeScreen = () => {
         keyExtractor={(item) => item.id.toString()}
       />
     </SafeAreaView>
-    
+
   );
 };
 
