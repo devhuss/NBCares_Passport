@@ -1,17 +1,14 @@
-import React from 'react';
-import {Button,Text,View,} from 'react-native';
+import React from "react";
+import TabRender from "../../components/TabRender";
 
-const healthcare = ({navigation}) => {
-    return(
-    <View style={{alignItems: 'center',justifyContent: 'center'}}>
-        <Text>
-            This is the healthcare tab to be filled later :)
-        </Text>
-        <Button
-        onPress = {()=> navigation.navigate("Home")} title='Previous'>
-        </Button>
-    </View>
-    );
-};
+const Healthcare = ({ route, navigation }) => {
 
-export default healthcare
+  const { list } = route.params;
+  const { fire } = route.params;
+
+  return (
+    <TabRender list={list} fire={fire} />
+  )
+}
+
+export default Healthcare;

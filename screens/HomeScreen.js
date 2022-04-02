@@ -1,119 +1,115 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { auth } from '../firebase'
-import { useNavigation } from '@react-navigation/native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Fire } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
 
-  const navigation = useNavigation()
+  //console.log('==================================================')
+  const [lists, setLists] = useState([]);
+  const [loading, setLoading] = useState(true);
+  //console.log('INITIALIZE: ' + loading)
+
+  // Initialize Firebase class to use methods 
+  const fire = new Fire();
+
+  // useEffect is a Effect hook that triggers depending on render
+  // this useEffect triggers once when HomeScreen renders, when triggered it calls the firebase getLists function
+  // to retrieve the data from the Database, after the cleanup function is called to unsubscribe to the firebase
+  // listener that recieves the data
+  useEffect(() => {
+    fire.getLists((lists) => {
+
+      setLists(lists)
+      //console.log('GET LIST CALL: ' + loading)
+    })
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      //console.log('CLEAN UP CALL')
+      //console.log(lists)
+      fire.detach()
+    };
+  }, []);
+
+  // This useEffect triggers when the useState 'lists' changes, when it changes the loading state to false 
+  // so that the activity indicator is disabled and shows the content of the screen when loaded
+
+  // At least thats how it should work but currently the useEffect is triggered on the initialization of the useState
+  // this can be considered a bug
+  useEffect(() => {
+    //console.log('LISTCHANGED ' + loading)
+    setLoading(false)
+  }, [lists])
+
+  const navigation = useNavigation();
 
   const handleSignOut = () => {
-    auth
+    fire.auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        navigation.replace("Login");
       })
-      .catch(error => alert(error.message))
-  }
+      .catch((error) => alert(error.message));
+  };
 
-  const handleDocuments = () => {
-    navigation.navigate('Documents')
-  }
+  const ItemRender = ({ item, name }) => (
+    <TouchableOpacity
+      style={styles.circleButton}
+      onPress={() => navigation.navigate(name, { list: item, fire: fire })}
+    >
+      <Text style={styles.circleText}>{name}</Text>
+    </TouchableOpacity>
+  );
 
-  const handleEducation = () => {
-    navigation.navigate('Education')
-  }
-
-  const handleEmployment = () => {
-    navigation.navigate('Employment')
-  }
-
-  const handleFinancial = () => {
-    navigation.navigate('Financial')
-  }
-
-  const handleHealthcare = () => {
-    navigation.navigate('Healthcare')
-  }
-
-  const handleHousing = () => {
-    navigation.navigate('Housing')
+  // If loading is true then display activity indicator
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size='large' color={'blue'} />
+      </View>
+    )
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <TouchableOpacity
-      onPress={handleSignOut}
-        style={styles.button}
-      >
+
+    <SafeAreaView style={styles.container}>
+      <Text>Email: {fire.auth.currentUser?.email}</Text>
+      <Text>userID: {fire.userID}</Text>
+      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
 
-{/* documents button */}
-    <TouchableOpacity
-    onPress={handleDocuments}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Documents</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={lists}
+        renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </SafeAreaView>
 
-{/* education button */}
-<TouchableOpacity
-    onPress={handleEducation}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Education</Text>
-      </TouchableOpacity>
+  );
+};
 
-{/* employment button */}
-<TouchableOpacity
-    onPress={handleEmployment}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Employment</Text>
-      </TouchableOpacity>
-
-{/* financial button */}
-<TouchableOpacity
-    onPress={handleFinancial}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Financial Literacy</Text>
-      </TouchableOpacity>
-
-{/* healthcare button */}
-<TouchableOpacity
-    onPress={handleHealthcare}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Healthcare</Text>
-      </TouchableOpacity>
-
-{/* housing button */}
-<TouchableOpacity
-    onPress={handleHousing}
-      style={styles.circleButton}
-      >
-        <Text style={styles.circleText}>Housing</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-export default HomeScreen
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
    button: {
     width: '60%',
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 40,
     position: 'absolute',
     bottom:30,
@@ -127,17 +123,17 @@ const styles = StyleSheet.create({
   circleButton: {
     width: 70,
     height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 10,
     borderRadius: 100,
-    borderWidth:3,
-    borderColor:'black',
-    backgroundColor: '#c5b358',
+    borderWidth: 3,
+    borderColor: "black",
+    backgroundColor: "#c5b358",
   },
   circleText: {
-    color: 'white',
-    fontWeight: '700',
+    color: "white",
+    fontWeight: "700",
     fontSize: 12,
   },
-})
+});

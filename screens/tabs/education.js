@@ -1,17 +1,14 @@
-import React from 'react';
-import {Button,Text,View,} from 'react-native';
+import React from "react";
+import TabRender from "../../components/TabRender";
 
-const education = ({navigation}) => {
-    return(
-    <View style={{alignItems: 'center',justifyContent: 'center'}}>
-        <Text>
-            This is the education tab to be filled later :)
-        </Text>
-        <Button
-        onPress = {()=> navigation.navigate("Home")} title='Previous'>
-        </Button>
-    </View>
-    );
-};
+const Education = ({ route, navigation }) => {
 
-export default education
+  const { list } = route.params;
+  const { fire } = route.params;
+
+  return (
+    <TabRender list={list} fire={fire} />
+  )
+}
+
+export default Education;

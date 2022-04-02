@@ -20,14 +20,12 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
         <Stack.Screen options={{headerShown: true}} name="Register" component={SignUpScreen} />
-        <Stack.Screen options={{headerShown: true}} name="Forgot Password" component={ForgotPasswordScreen} />
-        <Stack.Screen options={{headerShown: false}} name="SignUp" component={SignUpScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Documents" component={DocumentsScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Housing" component={HousingScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Education" component={EducationScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Employment" component={EmploymentScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Financial" component={FinancialScreen} />
-        <Stack.Screen options={{headerShown: false}} name="Healthcare" component={HealthcareScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Documents" component={DocumentsScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Housing" component={HousingScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Education" component={EducationScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Employment" component={EmploymentScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Financial" component={FinancialScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Healthcare" component={HealthcareScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

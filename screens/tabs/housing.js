@@ -1,17 +1,13 @@
-import React from 'react';
-import {Button,Text,View,} from 'react-native';
+import React from "react";
+import TabRender from "../../components/TabRender";
+const Housing = ({ route, navigation }) => {
 
-const housing = ({navigation}) => {
-    return(
-    <View style={{alignItems: 'center',justifyContent: 'center'}}>
-        <Text>
-            This is the housing tab to be filled later :)
-        </Text>
-        <Button
-        onPress = {()=> navigation.navigate("Home")} title='Previous'>
-        </Button>
-    </View>
-    );
-};
+  const { list } = route.params;
+  const { fire } = route.params;
 
-export default housing
+  return (
+    <TabRender list={list} fire={fire} />
+  )
+}
+
+export default Housing;

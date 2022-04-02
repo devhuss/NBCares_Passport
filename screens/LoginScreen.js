@@ -1,58 +1,59 @@
-import { StyleSheet, Text, TextInput, View, KeyboardAvoidingView, TouchableOpacity, Image } from 'react-native'
-import React, {useEffect, useState} from 'react'
-import { auth } from '../firebase'
-import { useNavigation } from '@react-navigation/native'
+
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Image
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Fire } from "../firebase";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+
+  const fire = new Fire();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home")
+        navigation.replace("Home");
       }
-    })
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
    
   const onSignUpPress = () => {
-    navigation.navigate('Register');
+    navigation.navigate("Register");
   };
 
   const onForgetPasswordPress = () => {
-    navigation.navigate('Forgot Password');
+    navigation.navigate("Forgot Password");
   };
 
-  const forgotPassword = (Email) => {
-    firebase.auth().sendPasswordResetEmail(Email)
-      .then(function (user) {
-        alert('Please check your email...')
-      }).catch(function (e) {
-        console.log(e)
-      })
-  }
-
-
   const handleLogin = () => {
-    auth
+    fire.auth
       .signInWithEmailAndPassword(email, password)
-      .then(userCredentials => {
+      .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
+        console.log("Logged in with:", user.email);
       })
-      .catch(error => alert(error.message))
-  }
+      .catch((error) => alert(error.message));
+  };
 
   return (
     
     <KeyboardAvoidingView
       style={styles.container}
-      //behavior={Platform.OS === "ios" ? "padding" : "height"}
+    //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
 <Image
   style={{width: '75%', height: 175,resizeMode : 'stretch', marginBottom: 15 }}
@@ -63,18 +64,18 @@ const LoginScreen = () => {
       
 <View style={styles.inputContainer}>
         <TextInput
-          placeholder='Email'
+          placeholder="Email"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
       </View>
 
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder='Password'
+          placeholder="Password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           style={styles.input}
           secureTextEntry
         />
@@ -86,15 +87,14 @@ const LoginScreen = () => {
           <Text style={styles.buttonOutlineText_Frgt}>Forgot Password?</Text>
         </TouchableOpacity>
 
-{/* login button */}
+      
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={styles.button}
-        >
+        {/* login button */}
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-{/* register button */}
+
+        {/* register button */}
         <TouchableOpacity
           onPress={onSignUpPress}
           style={[styles.buttonRgst, styles.buttonOutlineRgst]}
@@ -105,23 +105,22 @@ const LoginScreen = () => {
         
       </View>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
-    width: '80%'
+    width: "80%",
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -132,24 +131,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 14,
-    
   },
   button: {
-    backgroundColor: 'darkred',
-    width: '100%',
+    backgroundColor: "darkred",
+    width: "100%",
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     borderColor: 'darkred',
-
   },
   buttonOutline: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginTop: 5,
-    borderColor: 'darkred',
+    borderColor: "darkred",
     borderWidth: 2,
-    
-
   },
   buttonRgst: {
     marginTop: 75,
@@ -171,21 +166,19 @@ const styles = StyleSheet.create({
   },
  
   buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
   buttonOutlineText_Frgt: {
     color: 'darkred',
     fontWeight: '700',
     fontSize: 12
-    
   },
-
   buttonOutlineText_Rgst: {
     color: 'black',
     fontWeight: '700',
     fontSize: 10,
     bottom: 1
   },
-})
+});
