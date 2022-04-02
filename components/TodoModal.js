@@ -12,24 +12,30 @@ import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) => {
-  const [newStep, setNewStep] = useState('')
+  const [newStep, setNewStep] = useState('dsad')
 
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 
     updateList({ list })
     setRefresh(!refresh);
+    
   };
 
   const addStep = () => {
-    task.steps.push({
-      title: "test Step",
-      completed: false
-    });
-
-    //console.log(lists)
-    updateList({list});
-    setRefresh(!refresh);
+    if (newStep) {
+      task.steps.push({
+        title: newStep,
+        completed: false
+      });
+  
+      updateList({ list });
+      setNewStep('')
+      setRefresh(!refresh);
+    } else {
+      // a message saying that the textinput should not be empty
+    }
+    
   };
 
 
@@ -91,7 +97,7 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
       />
 
       <View style={[styles.section, styles.footer]} behavior='padding' >
-        <TextInput style={[styles.input, { borderColor: 'black' }]} />
+        <TextInput style={[styles.input, { borderColor: 'black' }]} onChangeText={text => setNewStep(text)} value={newStep} />
         <TouchableOpacity style={[styles.addTodo, { backgroundColor: 'black' }]} onPress={() => addStep()} >
           <AntDesign name="plus" size={24} color={'white'} />
         </TouchableOpacity>

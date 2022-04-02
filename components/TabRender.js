@@ -19,24 +19,28 @@ export default TabRender = ({ list, fire }) => {
   const [newTask, setNewTask] = useState('');
 
   const addTask = () => {
-    list.tasks.push({
-      title: "test task",
-      completed: false,
-      step: [],
-    });
+    if (newTask) {
+      list.tasks.push({
+        title: newTask,
+        completed: false,
+        steps: [],
+      });
 
-    //console.log(lists)
-    updateList({list});
-    setRefresh(!refresh);
+      updateList({ list });
+      setNewTask('');
+      setRefresh(!refresh);
+    } else {
+      // a message saying text input cannot be empty
+    }
   };
 
 
   const updateList = ({ list }) => {
-    console.log(list)
+    //console.log(list)
     fire.updateList(list)
   }
 
- 
+
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
@@ -59,7 +63,7 @@ export default TabRender = ({ list, fire }) => {
       />
 
       <View style={[styles.section, styles.footer]} behavior='padding' >
-        <TextInput style={[styles.input, { borderColor: 'black' }]} />
+        <TextInput style={[styles.input, { borderColor: 'black' }]} onChangeText={text => setNewTask(text)} value={newTask} />
         <TouchableOpacity style={[styles.addTodo, { backgroundColor: 'black' }]} onPress={() => addTask()} >
           <AntDesign name="plus" size={24} color={'white'} />
         </TouchableOpacity>
