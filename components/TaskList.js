@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
-const TaskList = ({ item, item2, refresh, setRefresh }) => {
+const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
@@ -17,6 +17,7 @@ const TaskList = ({ item, item2, refresh, setRefresh }) => {
   // This toggles the Completed Boolean of the array item then updates the TaskList
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
+    updateLists({lists});
     setRefresh(!refresh);
   };
 
@@ -32,6 +33,8 @@ const TaskList = ({ item, item2, refresh, setRefresh }) => {
           parent={item}
           refresh={refresh}
           setRefresh={setRefresh}
+          updateLists={updateLists}
+          lists={lists}
           closeModal={() => setShowList(!showList)}
         />
       </Modal>

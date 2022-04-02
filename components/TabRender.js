@@ -8,31 +8,35 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
+  TextInput
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
+import { Fire } from "../firebase";
 
-export default TabRender = ({ name, todos }) => {
+export default TabRender = ({ lists, fire, name, todos }) => {
   const [refresh, setRefresh] = useState(false);
+  const [newTask, setNewTask] = useState('');
 
-  // const addTask = () => {
-  //   todos.push({
-  //     id: 3,
-  //     title: "Fourth Task",
-  //     completed: false,
-  //     step: [],
-  //   });
-  //   setRefresh(!refresh);
-  // };
+  const addTask = () => {
+    todos.push({
+      title: "test task",
+      completed: false,
+      step: [],
+    });
 
-  // const addStep = () => {
-  //   todos[0].step.push({
-  //     id: 4,
-  //     title: "TEST",
-  //     completed: false,
-  //   });
-  //   setRefresh(!refresh);
-  // };
+    //console.log(lists)
+    updateLists({lists});
+    setRefresh(!refresh);
+  };
+
+
+  const updateLists = ({ lists }) => {
+    console.log(lists)
+    fire.updateLists(lists)
+  }
+
+ 
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
@@ -46,6 +50,8 @@ export default TabRender = ({ name, todos }) => {
             item2={item.step}
             refresh={refresh}
             setRefresh={setRefresh}
+            updateLists={updateLists}
+            lists={lists}
           />
         )}
         keyExtractor={(item, index) => index}
@@ -53,14 +59,40 @@ export default TabRender = ({ name, todos }) => {
         extraData={refresh}
       />
 
-      <TouchableOpacity onPress={() => setRefresh(!refresh)}>
-        <Text>Refresh LIST</Text>
-      </TouchableOpacity>
+      <View style={[styles.section, styles.footer]} behavior='padding' >
+        <TextInput style={[styles.input, { borderColor: 'black' }]} />
+        <TouchableOpacity style={[styles.addTodo, { backgroundColor: 'black' }]} onPress={() => addTask()} >
+          <AntDesign name="plus" size={24} color={'white'} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  section: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+  footer: {
+    paddingHorizontal: 32,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  input: {
+    flex: 1,
+    height: 48,
+    borderWidth: 4,
+    borderRadius: 6,
+    marginRight: 8,
+    paddingHorizontal: 8,
+  },
+  addTodo: {
+    borderRadius: 4,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   task: {
     fontWeight: "700",
     fontSize: 16,

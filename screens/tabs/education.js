@@ -3,12 +3,13 @@ import TabRender from "../../components/TabRender";
 
 const Education = ({ route, navigation }) => {
 
-  const { name } = route.params;
-  const { todos } = route.params;
+  const { lists } = route.params;
+  const { item } = route.params;
+  const { fire } = route.params;
 
   return (
-    <TabRender name={name} todos={todos} />
-  );
-};
+    <TabRender lists={item} name={item.name} todos={item.todos} fire={fire} />
+  )
+}
 
 export default Education;

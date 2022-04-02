@@ -49,7 +49,7 @@ class Fire extends React.Component {
     // from the fire database
     this.auth.onAuthStateChanged((user) => {
       if (user != null) {
-      
+
         // Sets up a function that would stop the listener that checks the database for changes
         // but also pushes the data from the database into an array and returns it to where it was called
         this.unsubscribe = this.ref.onSnapshot((snapshot) => {
@@ -59,6 +59,7 @@ class Fire extends React.Component {
             lists.push({ id: doc.id, ...doc.data() });
           });
 
+          //console.log('LIST RETRIEVED' + lists);
           callback(lists);
         });
       }
@@ -77,6 +78,18 @@ class Fire extends React.Component {
       .collection("lists");
   }
 
+  addLists(lists) {
+    let ref = this.ref
+
+    ref.add(lists)
+  }
+
+  updateLists(lists) {
+    let ref = this.ref
+
+    ref.doc(lists.id).update(lists)
+  }
+
   get auth() {
     return firebase.auth();
   }
@@ -85,8 +98,11 @@ class Fire extends React.Component {
   detach() {
     this.unsubscribe();
   }
-}
 
+  test() {
+    console.log('TESTER')
+  }
+}
 
 const auth = firebase.auth();
 
