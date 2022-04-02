@@ -49,14 +49,6 @@ const HomeScreen = () => {
     setLoading(false)
   }, [lists])
 
-  const updateLists = ({ lists }) => {
-    fire.addLists({
-      name: 'Education',
-      tasks: [],
-    })
-
-  }
-
   const navigation = useNavigation();
 
   const handleSignOut = () => {
@@ -100,10 +92,6 @@ const HomeScreen = () => {
         renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
         keyExtractor={(item) => item.id.toString()}
       />
-
-      <TouchableOpacity onPress={() => updateLists({ lists })} >
-        <Text>UPDATE</Text>
-      </TouchableOpacity>
     </SafeAreaView>
 
   );
