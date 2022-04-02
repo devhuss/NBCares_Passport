@@ -105,17 +105,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
-    backgroundColor: "#0782F9",
-    width: "60%",
+   button: {
+    width: '60%',
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 40,
+    position: 'absolute',
+    bottom:30,
+    
   },
   buttonText: {
-    color: "white",
-    fontWeight: "700",
+    color: 'lightblue',
+    fontWeight: '700',
     fontSize: 16,
   },
   circleButton: {
