@@ -14,44 +14,43 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
 import { Fire } from "../firebase";
 
-export default TabRender = ({ lists, fire, name, todos }) => {
+export default TabRender = ({ list, fire }) => {
   const [refresh, setRefresh] = useState(false);
   const [newTask, setNewTask] = useState('');
 
   const addTask = () => {
-    todos.push({
+    list.tasks.push({
       title: "test task",
       completed: false,
       step: [],
     });
 
     //console.log(lists)
-    updateLists({lists});
+    updateList({list});
     setRefresh(!refresh);
   };
 
 
-  const updateLists = ({ lists }) => {
-    console.log(lists)
-    fire.updateLists(lists)
+  const updateList = ({ list }) => {
+    console.log(list)
+    fire.updateList(list)
   }
 
  
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
-      <Text style={{ fontSize: 25 }}>itemId: {name} </Text>
+      <Text style={{ fontSize: 25 }}>itemId: {list.name} </Text>
 
       <FlatList
-        data={todos}
+        data={list.tasks}
         renderItem={({ item }) => (
           <TaskList
-            item={item}
-            item2={item.step}
+            task={item}
             refresh={refresh}
             setRefresh={setRefresh}
-            updateLists={updateLists}
-            lists={lists}
+            list={list}
+            updateList={updateList}
           />
         )}
         keyExtractor={(item, index) => index}

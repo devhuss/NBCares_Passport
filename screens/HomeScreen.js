@@ -77,7 +77,7 @@ const HomeScreen = () => {
   const ItemRender = ({ item, name }) => (
     <TouchableOpacity
       style={styles.circleButton}
-      onPress={() => navigation.navigate(name, { lists: lists, item: item, fire: fire })}
+      onPress={() => navigation.navigate(name, {list: item, fire: fire })}
     >
       <Text style={styles.circleText}>{name}</Text>
     </TouchableOpacity>

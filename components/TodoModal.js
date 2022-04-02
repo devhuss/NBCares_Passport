@@ -11,24 +11,24 @@ import {
 import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-const TodoModal = ({ item, parent, refresh, setRefresh, updateLists, lists, closeModal }) => {
+const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) => {
   const [newStep, setNewStep] = useState('')
 
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 
-    updateLists({lists})
+    updateList({ list })
     setRefresh(!refresh);
   };
 
   const addStep = () => {
-    parent.step.push({
+    task.steps.push({
       title: "test Step",
       completed: false
     });
 
     //console.log(lists)
-    //updateLists({lists});
+    updateList({list});
     setRefresh(!refresh);
   };
 
@@ -51,21 +51,21 @@ const TodoModal = ({ item, parent, refresh, setRefresh, updateLists, lists, clos
         <AntDesign name="close" size={24} color="black" />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => toggleCompleted(parent)}>
+      <TouchableOpacity onPress={() => toggleCompleted(task)}>
         <Ionicons
-          name={parent.completed ? "ios-square" : "ios-square-outline"}
+          name={task.completed ? "ios-square" : "ios-square-outline"}
           size={24}
           color={styles.color1}
           style={{ width: 32 }}
         />
-        <Text>{parent.title}</Text>
+        <Text>{task.title}</Text>
         <Text>
-          {item.filter((step) => step.completed).length} of {item.length}
+          {task.steps.filter((step) => step.completed).length} of {task.steps.length}
         </Text>
       </TouchableOpacity>
 
       <FlatList
-        data={item}
+        data={task.steps}
         keyExtractor={(item, index) => index}
         extraData={refresh}
         contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}

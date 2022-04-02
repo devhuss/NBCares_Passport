@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
-const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
+const TaskList = ({ task, refresh, setRefresh, list, updateList }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
@@ -17,7 +17,7 @@ const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
   // This toggles the Completed Boolean of the array item then updates the TaskList
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
-    updateLists({lists});
+    updateList({list});
     setRefresh(!refresh);
   };
 
@@ -29,12 +29,11 @@ const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
         onRequestClose={() => setShowList(!showList)}
       >
         <TodoModal
-          item={item2}
-          parent={item}
+          task={task}
           refresh={refresh}
           setRefresh={setRefresh}
-          updateLists={updateLists}
-          lists={lists}
+          list={list}
+          updateList={updateList}
           closeModal={() => setShowList(!showList)}
         />
       </Modal>
@@ -43,9 +42,9 @@ const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
         style={styles.taskContainer}
         onPress={() => setShowList(!showList)}
       >
-        <TouchableOpacity onPress={() => toggleCompleted(item)}>
+        <TouchableOpacity onPress={() => toggleCompleted(task)}>
           <Ionicons
-            name={item.completed ? "ios-square" : "ios-square-outline"}
+            name={task.completed ? "ios-square" : "ios-square-outline"}
             size={28}
             color={"gray"}
             style={{ width: 40 }}
@@ -56,16 +55,16 @@ const TaskList = ({ item, item2, refresh, setRefresh, updateLists, lists }) => {
             style={[
               styles.task,
               {
-                textDecorationLine: item.completed ? "line-through" : "none",
-                color: item.completed ? "grey" : "black",
+                textDecorationLine: task.completed ? "line-through" : "none",
+                color: task.completed ? "grey" : "black",
               },
             ]}
           >
-            {item.title}
+            {task.title}
           </Text>
 
           <Text>
-            {item2.filter((step) => step.completed).length} of {item2.length}
+            {task.steps.filter((step) => step.completed).length} of {task.steps.length}
           </Text>
         </View>
       </TouchableOpacity>

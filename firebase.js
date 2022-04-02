@@ -84,10 +84,10 @@ class Fire extends React.Component {
     ref.add(lists)
   }
 
-  updateLists(lists) {
+  updateList(list) {
     let ref = this.ref
 
-    ref.doc(lists.id).update(lists)
+    ref.doc(list.id).update(list)
   }
 
   get auth() {
