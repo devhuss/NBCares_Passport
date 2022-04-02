@@ -83,15 +83,19 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text>Email: {fire.auth.currentUser?.email}</Text>
       <Text>userID: {fire.userID}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
+
 
       <FlatList
         data={lists}
         renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
         keyExtractor={(item) => item.id.toString()}
       />
+
+      <View>
+        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+          <Text style={styles.buttonText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
 
   );
@@ -105,15 +109,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-   button: {
+  button: {
+    //backgroundColor: 'blue',
     width: '60%',
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 40,
-    position: 'absolute',
-    bottom:30,
-    
+    bottom: 30,
   },
   buttonText: {
     color: 'lightblue',
