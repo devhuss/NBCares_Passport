@@ -5,21 +5,23 @@ import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
-  TextInput
+  TextInput,
+  Animated
 } from "react-native";
 
 import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
 
 const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) => {
-  const [newStep, setNewStep] = useState('dsad')
+  const [newStep, setNewStep] = useState('')
 
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 
     updateList({ list })
     setRefresh(!refresh);
-    
+
   };
 
   const addStep = () => {
@@ -28,28 +30,49 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
         title: newStep,
         completed: false
       });
-  
+
       updateList({ list });
       setNewStep('')
       setRefresh(!refresh);
     } else {
       // a message saying that the textinput should not be empty
     }
-    
+
   };
 
-
-  const addTasp = () => {
-    todos[0].step.push({
-      id: 4,
-      title: "TEST",
-      completed: false,
-    });
+  const deleteStep = (index) => {
+    task.steps.splice(index, 1);
+    updateList({ list })
     setRefresh(!refresh);
-  };
+  }
+
+  const rightActions = (dragX, index) => {
+    const scale = dragX.interpolate({
+      inputRange: [-100, 0],
+      outputRange: [1, 0.9],
+      extrapolate: 'clamp'
+    })
+
+    const opacity = dragX.interpolate({
+      inputRange: [-100, -20, 0],
+      outputRange: [1, 0.9, 0],
+      extrapolate: 'clamp'
+    })
+
+
+    return (
+      <TouchableOpacity onPress={() => deleteStep(index)}>
+        <Animated.View style={[styles.deleteButton, { opacity: opacity }]}>
+          <Animated.Text style={{ color: 'white', fontWeight: 'bold', transform: [{ scale }] }}>
+            Delete
+          </Animated.Text>
+        </Animated.View>
+      </TouchableOpacity>
+    )
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+    <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
       <TouchableOpacity
         style={{ position: "absolute", top: 8, right: 32, zIndex: 10 }}
         onPress={closeModal}
@@ -57,44 +80,51 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
         <AntDesign name="close" size={24} color="black" />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => toggleCompleted(task)}>
+      <TouchableOpacity style={styles.title} onPress={() => toggleCompleted(task)}>
         <Ionicons
           name={task.completed ? "ios-square" : "ios-square-outline"}
           size={24}
           color={styles.color1}
           style={{ width: 32 }}
         />
-        <Text>{task.title}</Text>
-        <Text>
-          {task.steps.filter((step) => step.completed).length} of {task.steps.length}
-        </Text>
+        <View>
+          <Text style={{ fontSize: 25 }}>{task.title}</Text>
+          <Text>
+            {task.steps.filter((step) => step.completed).length} of {task.steps.length}
+          </Text>
+        </View>
       </TouchableOpacity>
+
 
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
         extraData={refresh}
-        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}
+        contentContainerStyle={{ paddingHorizontal: 15,}}
         renderItem={({ item, index }) => (
-          <View style={styles.taskContainer}>
-            <TouchableOpacity onPress={() => toggleCompleted(item)}>
-              <Ionicons
-                name={item.completed ? "ios-square" : "ios-square-outline"}
-                size={24}
-                color={styles.color1}
-                style={{ width: 32 }}
-              />
-            </TouchableOpacity>
-            <Text
-              style={{
-                textDecorationLine: item.completed ? "line-through" : "none",
-              }}
-            >
-              {item.title}
-            </Text>
-          </View>
+          <Swipeable renderRightActions={(_, dragX) => rightActions(dragX, index)} >
+            <View style={styles.taskContainer}>
+              <TouchableOpacity onPress={() => toggleCompleted(item)}>
+                <Ionicons
+                  name={item.completed ? "ios-square" : "ios-square-outline"}
+                  size={24}
+                  color={styles.color1}
+                  style={{ width: 32 }}
+                />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  textDecorationLine: item.completed ? "line-through" : "none",
+                }}
+              >
+                {item.title}
+              </Text>
+            </View>
+          </Swipeable>
         )}
       />
+
+
 
       <View style={[styles.section, styles.footer]} behavior='padding' >
         <TextInput style={[styles.input, { borderColor: 'black' }]} onChangeText={text => setNewStep(text)} value={newStep} />
@@ -102,13 +132,22 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
           <AntDesign name="plus" size={24} color={'white'} />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 export default TodoModal;
 
 const styles = StyleSheet.create({
+  title: {
+    //backgroundColor: 'grey',
+    flexDirection: "row",
+    alignItems: 'center',
+    marginTop: 50,
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
   section: {
     flex: 1,
     alignSelf: 'stretch',
@@ -133,8 +172,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   taskContainer: {
-    backgroundColor: "lightgrey",
+   // backgroundColor: "lightgrey",
     marginBottom: 3,
+    marginLeft: 20,
     paddingVertical: 8,
     paddingHorizontal: 8,
     flexDirection: "row",
@@ -144,4 +184,12 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: 'tomato',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+    marginBottom: 3,
+  }
 });

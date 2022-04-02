@@ -1,5 +1,4 @@
 import React from "react";
-import { Text, View } from "react-native";
 import TabRender from "../../components/TabRender";
 
 const Documents = ({ route, navigation }) => {

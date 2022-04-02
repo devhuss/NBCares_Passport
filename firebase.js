@@ -3,6 +3,7 @@ import React from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "@firebase/firestore";
+import templateData from "./tempData";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -76,6 +77,18 @@ class Fire extends React.Component {
       .collection("users")
       .doc(this.userID)
       .collection("lists");
+  }
+
+  addUser(uid, email) {
+    let users = firebase.firestore().collection('users')
+
+    users.doc(uid).set({
+      userEmail: email
+    })
+
+    for (let index = 0; index < templateData.length; index++) {
+      users.doc(uid).collection('lists').add(templateData[index])
+    }
   }
 
   addLists(lists) {

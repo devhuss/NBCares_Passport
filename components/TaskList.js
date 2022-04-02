@@ -1,9 +1,10 @@
-import { Text, StyleSheet, View, TouchableOpacity, Modal } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Modal, Animated } from "react-native";
 import React, { useState } from "react";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
-const TaskList = ({ task, refresh, setRefresh, list, updateList }) => {
+import { Swipeable } from "react-native-gesture-handler";
+const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
@@ -17,87 +18,95 @@ const TaskList = ({ task, refresh, setRefresh, list, updateList }) => {
   // This toggles the Completed Boolean of the array item then updates the TaskList
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
-    updateList({list});
+    updateList({ list });
     setRefresh(!refresh);
   };
 
-  return (
-    <View>
-      <Modal
-        animationType="slide"
-        visible={showList}
-        onRequestClose={() => setShowList(!showList)}
-      >
-        <TodoModal
-          task={task}
-          refresh={refresh}
-          setRefresh={setRefresh}
-          list={list}
-          updateList={updateList}
-          closeModal={() => setShowList(!showList)}
-        />
-      </Modal>
+  const deleteTask = (index) => {
+    list.tasks.splice(index, 1);
+    updateList({ list })
+    setRefresh(!refresh);
+  }
 
-      <TouchableOpacity
-        style={styles.taskContainer}
-        onPress={() => setShowList(!showList)}
-      >
-        <TouchableOpacity onPress={() => toggleCompleted(task)}>
-          <Ionicons
-            name={task.completed ? "ios-square" : "ios-square-outline"}
-            size={28}
-            color={"gray"}
-            style={{ width: 40 }}
-          />
-        </TouchableOpacity>
-        <View style={styles.test}>
-          <Text
-            style={[
-              styles.task,
-              {
-                textDecorationLine: task.completed ? "line-through" : "none",
-                color: task.completed ? "grey" : "black",
-              },
-            ]}
-          >
-            {task.title}
-          </Text>
 
-          <Text>
-            {task.steps.filter((step) => step.completed).length} of {task.steps.length}
-          </Text>
-        </View>
+
+  const rightActions = (dragX, index) => {
+    const scale = dragX.interpolate({
+      inputRange: [-100, 0],
+      outputRange: [1, 0.9],
+      extrapolate: 'clamp'
+    })
+
+    const opacity = dragX.interpolate({
+      inputRange: [-100, -20, 0],
+      outputRange: [1, 0.9, 0],
+      extrapolate: 'clamp'
+    })
+
+
+    return (
+      <TouchableOpacity onPress={() => deleteTask(index)}>
+        <Animated.View style={[styles.deleteButton, { opacity: opacity }]}>
+          <Animated.Text style={{ color: 'white', fontWeight: 'bold', transform: [{ scale }] }}>
+            Delete
+          </Animated.Text>
+        </Animated.View>
       </TouchableOpacity>
+    )
+  }
 
-      {/* <FlatList
-        data={item}
-        keyExtractor={(item) => item.title}
-        extraData={refresh}
-        renderItem={({ item, index }) => (
-          <View>
-            <TouchableOpacity onPress={() => toggleCompleted(item, index)}>
-              <Ionicons
-                name={item.completed ? "ios-square" : "ios-square-outline"}
-                size={24}
-                color={styles.color1}
-                style={{ width: 32 }}
-              />
-            </TouchableOpacity>
+  return (
+    <Swipeable renderRightActions={(_, dragX) => rightActions(dragX, index)} >
+      <View>
+        <Modal
+          animationType="slide"
+          visible={showList}
+          onRequestClose={() => setShowList(!showList)}
+        >
+          <TodoModal
+            task={task}
+            refresh={refresh}
+            setRefresh={setRefresh}
+            list={list}
+            updateList={updateList}
+            closeModal={() => setShowList(!showList)}
+          />
+        </Modal>
+
+        <TouchableOpacity
+          style={styles.taskContainer}
+          onPress={() => setShowList(!showList)}
+        // activeOpacity={0.8}
+        >
+
+          <TouchableOpacity onPress={() => toggleCompleted(task)}>
+            <Ionicons
+              name={task.completed ? "ios-square" : "ios-square-outline"}
+              size={28}
+              color={"gray"}
+              style={{ width: 40 }}
+            />
+          </TouchableOpacity>
+          <View style={styles.test}>
             <Text
-              style={{
-                textDecorationLine: item.completed ? "line-through" : "none",
-              }}
+              style={[
+                styles.task,
+                {
+                  textDecorationLine: task.completed ? "line-through" : "none",
+                  color: task.completed ? "grey" : "black",
+                },
+              ]}
             >
-              {item.title}
+              {task.title}
+            </Text>
+
+            <Text>
+              {task.steps.filter((step) => step.completed).length} of {task.steps.length}
             </Text>
           </View>
-        )}
-      /> */}
-
-      {/* <TouchableOpacity onPress={() => addStep(item, "random Task")}>
-        <Text>addTask</Text>
-      </TouchableOpacity> */}
-    </View>
+        </TouchableOpacity>
+      </View>
+    </Swipeable>
   );
 };
 
@@ -105,7 +114,7 @@ export default TaskList;
 
 const styles = StyleSheet.create({
   taskContainer: {
-    backgroundColor: "lightgrey",
+    //backgroundColor: "lightgrey",
     marginBottom: 3,
     paddingVertical: 8,
     paddingHorizontal: 8,
@@ -116,4 +125,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: 'tomato',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+    marginBottom: 3,
+
+  }
 });

@@ -2,12 +2,12 @@ import React from "react";
 import TabRender from "../../components/TabRender";
 const Housing = ({ route, navigation }) => {
 
-  const { name } = route.params;
-  const { todos } = route.params;
+  const { list } = route.params;
+  const { fire } = route.params;
 
   return (
-    <TabRender name={name} todos={todos} />
-  );
-};
+    <TabRender list={list} fire={fire} />
+  )
+}
 
 export default Housing;

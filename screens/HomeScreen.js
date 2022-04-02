@@ -10,8 +10,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
-import tempData from "../tempData";
-import { out } from "react-native/Libraries/Animated/Easing";
 
 const HomeScreen = () => {
 
@@ -29,7 +27,7 @@ const HomeScreen = () => {
   // listener that recieves the data
   useEffect(() => {
     fire.getLists((lists) => {
-      
+
       setLists(lists)
       //console.log('GET LIST CALL: ' + loading)
     })
@@ -52,15 +50,11 @@ const HomeScreen = () => {
   }, [lists])
 
   const updateLists = ({ lists }) => {
-    //const test = lists
+    fire.addLists({
+      name: 'Education',
+      tasks: [],
+    })
 
-    
-    console.log('================================================')
-    console.log(lists)
-    const output = Object.assign({}, ...lists)
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    console.log(output)
-    //fire.updateLists(output)
   }
 
   const navigation = useNavigation();
@@ -77,7 +71,7 @@ const HomeScreen = () => {
   const ItemRender = ({ item, name }) => (
     <TouchableOpacity
       style={styles.circleButton}
-      onPress={() => navigation.navigate(name, {list: item, fire: fire })}
+      onPress={() => navigation.navigate(name, { list: item, fire: fire })}
     >
       <Text style={styles.circleText}>{name}</Text>
     </TouchableOpacity>
@@ -107,7 +101,7 @@ const HomeScreen = () => {
         keyExtractor={(item) => item.id.toString()}
       />
 
-      <TouchableOpacity  onPress={() => updateLists({lists})} >
+      <TouchableOpacity onPress={() => updateLists({ lists })} >
         <Text>UPDATE</Text>
       </TouchableOpacity>
     </SafeAreaView>

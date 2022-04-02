@@ -24,7 +24,7 @@ const SignUpScreen = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = fire.auth().onAuthStateChanged((user) => {
+    const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.replace("Home");
       }
@@ -33,11 +33,12 @@ const SignUpScreen = () => {
   }, []);
 
   const handleSignUp = () => {
-    fire.auth()
+    fire.auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        // console.log(user.email);
+        console.log(user.email);
+        fire.addUser(user.uid, user.email)
       })
       .catch((error) => alert(error.message));
   };

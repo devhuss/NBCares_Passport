@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
-import { Fire } from "../firebase";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default TabRender = ({ list, fire }) => {
   const [refresh, setRefresh] = useState(false);
@@ -40,17 +40,16 @@ export default TabRender = ({ list, fire }) => {
     fire.updateList(list)
   }
 
-
-
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+    <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
       <Text style={{ fontSize: 25 }}>itemId: {list.name} </Text>
 
       <FlatList
         data={list.tasks}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TaskList
             task={item}
+            index={index}
             refresh={refresh}
             setRefresh={setRefresh}
             list={list}
@@ -68,7 +67,7 @@ export default TabRender = ({ list, fire }) => {
           <AntDesign name="plus" size={24} color={'white'} />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
