@@ -6,9 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/nbcares_gold.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#8b0000"
+      "backgroundColor": "#af272f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
