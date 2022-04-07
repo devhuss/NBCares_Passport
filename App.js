@@ -11,6 +11,7 @@ import EducationScreen from './screens/tabs/education';
 import EmploymentScreen from './screens/tabs/employment';
 import FinancialScreen from './screens/tabs/financial';
 import HealthcareScreen from './screens/tabs/healthcare';
+import VitalScreen from './screens/tabs/vital';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen options={{headerShown: true}} name="Employment" component={EmploymentScreen} />
         <Stack.Screen options={{headerShown: true}} name="Financial" component={FinancialScreen} />
         <Stack.Screen options={{headerShown: true}} name="Healthcare" component={HealthcareScreen} />
+        <Stack.Screen options={{headerShown: true}} name="Vital Signs" component={VitalScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
