@@ -60,6 +60,10 @@ const HomeScreen = () => {
       .catch((error) => alert(error.message));
   };
 
+  const handleVital = () => {
+    navigation.navigate("Vital Signs")
+  }
+
   const ItemRender = ({ item, name }) => (
     <TouchableOpacity
       style={styles.circleButton}
@@ -92,9 +96,14 @@ const HomeScreen = () => {
       />
 
       <View>
+      <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
+        <Text style={styles.circleText}>Vital Signs</Text>
+      </TouchableOpacity>
+
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
+
       </View>
     </SafeAreaView>
 

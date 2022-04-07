@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View, TextInput, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Vital = () => {
 
@@ -13,6 +14,7 @@ const Vital = () => {
     const[life, setMood1] = useState('');
 
     return(
+    <ScrollView>
     <View style={styles.container}>
         
         {/* multiline makes it so that everything wraps
@@ -91,7 +93,7 @@ const Vital = () => {
         </View>
 
     </View>
-    
+    </ScrollView>
     );
 }
 
