@@ -3,7 +3,7 @@ const templateData = [
     name: "Documents",
     tasks: [
       {
-        title: "Do first Document Task",
+        title: "Do first Documents Task",
         completed: false,
         steps: [
           {
@@ -12,7 +12,7 @@ const templateData = [
             completed: false,
           },
         ],
-      },
+      }, 
     ]
   },
   {
@@ -28,6 +28,74 @@ const templateData = [
             completed: false,
           },
         ],
+      },
+
+      {//individual new task from here
+        title: "Set Goals",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },//to here
+
+        {
+        title: "Registration",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Assessment",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Consultation",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Attend Classes",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Graduate",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
       },
     ]
   },
@@ -45,6 +113,72 @@ const templateData = [
           },
         ],
       },
+      {
+        title: "Establish Eligibility",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+        {
+        title: "Assess Career Goals",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Preparation Phase",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "Step 1: Employment Plan",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Job Search",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Training/Upskililng",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Securing Employment",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
     ]
   },
   {
@@ -60,6 +194,72 @@ const templateData = [
             completed: false,
           },
         ],
+      },
+      {
+        title: "Intake",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+        {
+        title: "Credit Assessment",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Set Goals",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Create a Budget",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Financial Asset",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Emergency Fund",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
       },
     ]
   },
@@ -77,6 +277,72 @@ const templateData = [
           },
         ],
       },
+      {
+        title: "Get a Physical",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+        {
+        title: "Nutrition/Exercise",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Dental",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Vision",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Mental Health",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Choose Your Own",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
     ]
   },
   {
@@ -92,6 +358,72 @@ const templateData = [
             completed: false,
           },
         ],
+      },
+      {
+        title: "Assess Needs",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+        {
+        title: "Budget",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Security Deposit",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Search",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Apply for Housing",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
+      },
+      {
+        title: "Lease-up",
+        completed: false,
+        steps: [
+          {
+            id: 0,
+            title: "step 1",
+            completed: false,
+          },
+        ]
       },
     ]
   },
