@@ -3,18 +3,33 @@ import {Text, View, TextInput, StyleSheet, TouchableOpacity, Image} from 'react-
 import { ScrollView } from 'react-native-gesture-handler';
 
 const Vital = () => {
-
+    
     //these are for the top boxes
     const[income, setIncome] = useState('');
     const[creditScore, setCreditScore] = useState('');
     const[emergency, setEmergency] = useState('');
     const[budget, setBudget] = useState('');
 
-    //this is for the mood smiles
+    {/* this is for the mood smiles I'm trying to set the variables so that once you
+    click a button it shows next to the large text what you pressed i.e. excellent or
+    horrible. But, I don't really understand so I'm going to leave this for later.
+    It will go hand in hand with saving the data as well.  */}
     const[life, setMood1] = useState('');
+    const[physical, setMood2] = useState('');
+    const[mental, setMood3] = useState('');
+    const[housing, setMood4] = useState('');
+    const[community, setMood5] = useState('');
+    const[network, setMood6] = useState('');
+    const[job, setMood7] = useState('');
+    const[education, setMood8] = useState('');
+
 
     return(
     <ScrollView>
+    
+    <View>
+        <Text style={{padding: 10, fontSize:25, fontWeight: 'bold'}}>Financial</Text>
+    </View>
     <View style={styles.container}>
         
         {/* multiline makes it so that everything wraps
@@ -59,7 +74,240 @@ const Vital = () => {
 
         {/* start of the smiles page. Everything is its own button so it is a bit of a mess */}
         <Text style={styles.text2}>How I feel about my... {'\n'}</Text>
+        {/* life and vision of self */}
         <Text style={{fontSize: 20, left: 10}}>Life + Vision of Self: {life}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Physical Health: {physical}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Mental Health: {mental}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Housing: {housing}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Community: {community}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Network: {network}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Job/Career: {job}</Text>
+        <View style={styles.pictures}>
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/excellent.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/good.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/okay.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/bad.png')}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+            <Image style={{width: 75, height: 70}}
+            resizeMode='contain'
+            source={require('../../assets/horrible.png')}/>
+        </TouchableOpacity>
+        </View>
+
+        <Text style={{fontSize: 20, left: 10}}>{'\n'}Education/Training: {education}</Text>
         <View style={styles.pictures}>
         <TouchableOpacity>
             <Image style={{width: 75, height: 70}}
@@ -129,7 +377,6 @@ const styles = StyleSheet.create({
         left: 7,
     },
     text2: {
-        left: 10,
         fontSize: 25,
         fontWeight: 'bold',
     },
@@ -137,6 +384,5 @@ const styles = StyleSheet.create({
         left: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        
     },
 })
