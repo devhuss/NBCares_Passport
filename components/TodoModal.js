@@ -12,14 +12,16 @@ import {
 import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import { PageContext } from "../context";
 
 const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) => {
   const [newStep, setNewStep] = useState('')
+  const { fire } = React.useContext(PageContext)
 
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 
-    updateList({ list })
+    fire.updateList(list);
     setRefresh(!refresh);
 
   };
@@ -31,7 +33,7 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
         completed: false
       });
 
-      updateList({ list });
+      fire.updateList(list);
       setNewStep('')
       setRefresh(!refresh);
     } else {
@@ -42,7 +44,7 @@ const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) 
 
   const deleteStep = (index) => {
     task.steps.splice(index, 1);
-    updateList({ list })
+    fire.updateList(list);
     setRefresh(!refresh);
   }
 

@@ -4,10 +4,11 @@ import TabRender from "../../components/TabRender";
 const Employment = ({ route, navigation }) => {
 
   const { list } = route.params;
-  const { fire } = route.params;
+  const { listID } = route.params;
+  //const { fire } = route.params;
 
   return (
-    <TabRender list={list} fire={fire} />
+    <TabRender list={list} listID={listID} />
   )
 }
 

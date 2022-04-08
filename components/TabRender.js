@@ -8,15 +8,22 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  TextInput
+  TextInput,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { PageContext, PageContext2 } from "../context";
 
-export default TabRender = ({ list, fire }) => {
+export default TabRender = ({ list, listID }) => {
   const [refresh, setRefresh] = useState(false);
-  const [newTask, setNewTask] = useState('');
+  const [newTask, setNewTask] = useState("");
+  const { fire } = React.useContext(PageContext);
+  //const { value3 } = React.useContext(PageContext2);
+  //const [lists, setLists] = React.useContext(PageContext2);
+  const lists = React.useContext(PageContext2);
+
+  console.log(lists);
 
   const addTask = () => {
     if (newTask) {
@@ -27,18 +34,17 @@ export default TabRender = ({ list, fire }) => {
       });
 
       updateList({ list });
-      setNewTask('');
+      setNewTask("");
       setRefresh(!refresh);
     } else {
       // a message saying text input cannot be empty
     }
   };
 
-
   const updateList = ({ list }) => {
     //console.log(list)
-    fire.updateList(list)
-  }
+    fire.updateList(list);
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
@@ -61,10 +67,17 @@ export default TabRender = ({ list, fire }) => {
         extraData={refresh}
       />
 
-      <View style={[styles.section, styles.footer]} behavior='padding' >
-        <TextInput style={[styles.input, { borderColor: 'black' }]} onChangeText={text => setNewTask(text)} value={newTask} />
-        <TouchableOpacity style={[styles.addTodo, { backgroundColor: 'black' }]} onPress={() => addTask()} >
-          <AntDesign name="plus" size={24} color={'white'} />
+      <View style={[styles.section, styles.footer]} behavior="padding">
+        <TextInput
+          style={[styles.input, { borderColor: "black" }]}
+          onChangeText={(text) => setNewTask(text)}
+          value={newTask}
+        />
+        <TouchableOpacity
+          style={[styles.addTodo, { backgroundColor: "black" }]}
+          onPress={() => addTask()}
+        >
+          <AntDesign name="plus" size={24} color={"white"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -74,12 +87,12 @@ export default TabRender = ({ list, fire }) => {
 const styles = StyleSheet.create({
   section: {
     flex: 1,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
   },
   footer: {
     paddingHorizontal: 32,
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   input: {
     flex: 1,
@@ -92,8 +105,8 @@ const styles = StyleSheet.create({
   addTodo: {
     borderRadius: 4,
     padding: 12,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   task: {
     fontWeight: "700",

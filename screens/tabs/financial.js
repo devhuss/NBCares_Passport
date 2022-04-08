@@ -7,7 +7,7 @@ const Financial = ({ route, navigation }) => {
   const { fire } = route.params;
 
   return (
-    <TabRender list={list} fire={fire} />
+    <TabRender list={list} />
   )
 }
 
