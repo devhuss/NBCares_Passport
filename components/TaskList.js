@@ -12,14 +12,15 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
 import { Swipeable } from "react-native-gesture-handler";
 import { PageContext } from "../context";
+
 const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
-  const { fire, lists, refreshs } = React.useContext(PageContext);
-  const [refresh, setRefresh] = refreshs
+  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
+  const [refresh, setRefresh] = refreshs;
   const list = lists[listID];
-  //const [refresh, setRefresh] = useState(false);
+  const [points, setPoints] = pointss;
 
   // This returns the completed amount of steps based on the array item (Used in FlatList)
   const completedCount = (item) => {
@@ -27,16 +28,26 @@ const TaskList = ({ task, index, listID }) => {
   };
 
   // This toggles the Completed Boolean of the array item then updates the TaskList
-  const toggleCompleted = (item) => {
-    item.completed = !item.completed;
+  const toggleCompleted = (item, index) => {
+    item.complete = !item.complete;
+
+    if (item.complete && !item.completed) {
+      setPoints(points + item.points);
+      fire.updatePoints({
+        userPoints: points + item.points,
+      });
+    }
+
+    item.completed = true;
     fire.updateList(list);
+
     setRefresh(!refresh);
   };
 
   const deleteTask = (index) => {
     list.tasks.splice(index, 1);
     fire.updateList(list);
-    setRefresh(!refresh);
+    //setRefresh(!refresh);
   };
 
   const rightActions = (dragX, index) => {
@@ -89,9 +100,9 @@ const TaskList = ({ task, index, listID }) => {
           onPress={() => setShowList(!showList)}
           // activeOpacity={0.8}
         >
-          <TouchableOpacity onPress={() => toggleCompleted(task)}>
+          <TouchableOpacity onPress={() => toggleCompleted(task, index)}>
             <Ionicons
-              name={task.completed ? "ios-square" : "ios-square-outline"}
+              name={task.complete ? "ios-square" : "ios-square-outline"}
               size={28}
               color={"gray"}
               style={{ width: 40 }}
@@ -102,18 +113,20 @@ const TaskList = ({ task, index, listID }) => {
               style={[
                 styles.task,
                 {
-                  textDecorationLine: task.completed ? "line-through" : "none",
-                  color: task.completed ? "grey" : "black",
+                  textDecorationLine: task.complete ? "line-through" : "none",
+                  color: task.complete ? "grey" : "black",
                 },
               ]}
             >
               {task.title}
             </Text>
 
-            <Text>
-              {task.steps.filter((step) => step.completed).length} of{" "}
-              {task.steps.length}
-            </Text>
+            {task.steps.length > 0 ? (
+              <Text>
+                {task.steps.filter((step) => step.complete).length} of{" "}
+                {task.steps.length}
+              </Text>
+            ) : null}
           </View>
         </TouchableOpacity>
       </View>

@@ -16,23 +16,23 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PageContext } from "../context";
 
 export default TabRender = ({ listID }) => {
-  
   const [newTask, setNewTask] = useState("");
-  const { fire, lists, refreshs } = React.useContext(PageContext);
-  const [refresh, setRefresh] = refreshs
+  const { fire, lists } = React.useContext(PageContext);
+  //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
 
   const addTask = () => {
     if (newTask) {
       list.tasks.push({
         title: newTask,
+        complete: false,
         completed: false,
         steps: [],
       });
 
       updateList({ list });
       setNewTask("");
-      setRefresh(!refresh);
+      //setRefresh(!refresh);
     } else {
       // a message saying text input cannot be empty
     }
@@ -49,15 +49,11 @@ export default TabRender = ({ listID }) => {
       <FlatList
         data={list.tasks}
         renderItem={({ item, index }) => (
-          <TaskList
-            task={item}
-            index={index}
-            listID={listID}
-          />
+          <TaskList task={item} index={index} listID={listID} />
         )}
         keyExtractor={(item, index) => index}
         contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}
-        extraData={refresh}
+        //extraData={refresh}
       />
 
       <View style={[styles.section, styles.footer]} behavior="padding">

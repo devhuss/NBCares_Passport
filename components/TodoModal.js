@@ -6,73 +6,79 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
-  Animated
+  Animated,
 } from "react-native";
 
 import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  Swipeable,
+} from "react-native-gesture-handler";
 import { PageContext } from "../context";
 
 const TodoModal = ({ task, listID, closeModal }) => {
-  const [newStep, setNewStep] = useState('')
-  const { fire, lists, refreshs } = React.useContext(PageContext);
-  const [refresh, setRefresh] = refreshs
+  const [newStep, setNewStep] = useState("");
+  const { fire, lists } = React.useContext(PageContext);
+  //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 
     fire.updateList(list);
-    setRefresh(!refresh);
-
+    //setRefresh(!refresh);
   };
 
   const addStep = () => {
     if (newStep) {
       task.steps.push({
         title: newStep,
-        completed: false
+        completed: false,
       });
 
       fire.updateList(list);
-      setNewStep('')
-      setRefresh(!refresh);
+      setNewStep("");
+      //setRefresh(!refresh);
     } else {
       // a message saying that the textinput should not be empty
     }
-
   };
 
   const deleteStep = (index) => {
     task.steps.splice(index, 1);
     fire.updateList(list);
-    setRefresh(!refresh);
-  }
+    //setRefresh(!refresh);
+  };
 
   const rightActions = (dragX, index) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0.9],
-      extrapolate: 'clamp'
-    })
+      extrapolate: "clamp",
+    });
 
     const opacity = dragX.interpolate({
       inputRange: [-100, -20, 0],
       outputRange: [1, 0.9, 0],
-      extrapolate: 'clamp'
-    })
-
+      extrapolate: "clamp",
+    });
 
     return (
       <TouchableOpacity onPress={() => deleteStep(index)}>
         <Animated.View style={[styles.deleteButton, { opacity: opacity }]}>
-          <Animated.Text style={{ color: 'white', fontWeight: 'bold', transform: [{ scale }] }}>
+          <Animated.Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              transform: [{ scale }],
+            }}
+          >
             Delete
           </Animated.Text>
         </Animated.View>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
@@ -83,7 +89,10 @@ const TodoModal = ({ task, listID, closeModal }) => {
         <AntDesign name="close" size={24} color="black" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.title} onPress={() => toggleCompleted(task)}>
+      <TouchableOpacity
+        style={styles.title}
+        onPress={() => toggleCompleted(task)}
+      >
         <Ionicons
           name={task.completed ? "ios-square" : "ios-square-outline"}
           size={24}
@@ -92,20 +101,24 @@ const TodoModal = ({ task, listID, closeModal }) => {
         />
         <View>
           <Text style={{ fontSize: 25 }}>{task.title}</Text>
-          <Text>
-            {task.steps.filter((step) => step.completed).length} of {task.steps.length}
-          </Text>
+          {task.steps.length > 0 ? (
+            <Text>
+              {task.steps.filter((step) => step.complete).length} of{" "}
+              {task.steps.length}
+            </Text>
+          ) : null}
         </View>
       </TouchableOpacity>
-
 
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
-        extraData={refresh}
-        contentContainerStyle={{ paddingHorizontal: 15,}}
+        //extraData={refresh}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
         renderItem={({ item, index }) => (
-          <Swipeable renderRightActions={(_, dragX) => rightActions(dragX, index)} >
+          <Swipeable
+            renderRightActions={(_, dragX) => rightActions(dragX, index)}
+          >
             <View style={styles.taskContainer}>
               <TouchableOpacity onPress={() => toggleCompleted(item)}>
                 <Ionicons
@@ -127,12 +140,17 @@ const TodoModal = ({ task, listID, closeModal }) => {
         )}
       />
 
-
-
-      <View style={[styles.section, styles.footer]} behavior='padding' >
-        <TextInput style={[styles.input, { borderColor: 'black' }]} onChangeText={text => setNewStep(text)} value={newStep} />
-        <TouchableOpacity style={[styles.addTodo, { backgroundColor: 'black' }]} onPress={() => addStep()} >
-          <AntDesign name="plus" size={24} color={'white'} />
+      <View style={[styles.section, styles.footer]} behavior="padding">
+        <TextInput
+          style={[styles.input, { borderColor: "black" }]}
+          onChangeText={(text) => setNewStep(text)}
+          value={newStep}
+        />
+        <TouchableOpacity
+          style={[styles.addTodo, { backgroundColor: "black" }]}
+          onPress={() => addStep()}
+        >
+          <AntDesign name="plus" size={24} color={"white"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -145,7 +163,7 @@ const styles = StyleSheet.create({
   title: {
     //backgroundColor: 'grey',
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 50,
     marginHorizontal: 10,
     paddingVertical: 10,
@@ -153,12 +171,12 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 1,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
   },
   footer: {
     paddingHorizontal: 32,
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   input: {
     flex: 1,
@@ -171,11 +189,11 @@ const styles = StyleSheet.create({
   addTodo: {
     borderRadius: 4,
     padding: 12,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   taskContainer: {
-   // backgroundColor: "lightgrey",
+    // backgroundColor: "lightgrey",
     marginBottom: 3,
     marginLeft: 20,
     paddingVertical: 8,
@@ -189,10 +207,10 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     flex: 1,
-    backgroundColor: 'tomato',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "tomato",
+    justifyContent: "center",
+    alignItems: "center",
     width: 70,
     marginBottom: 3,
-  }
+  },
 });

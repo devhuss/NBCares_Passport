@@ -18,6 +18,7 @@ import { PageContext } from "./context";
 
 const Stack = createNativeStackNavigator();
 
+
 const fire = new Fire();
 
 let initialRender = true;
@@ -25,34 +26,47 @@ export default function App() {
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [points, setPoints] = useState(0);
+
+  // useEffect is a Effect hook that triggers depending on render
+  // this useEffect triggers once when App.js renders, when triggered it calls the firebase getLists function
+  // to retrieve the data from the Database, after the cleanup function is called to unsubscribe to the firebase
+  // listener that recieves the data
 
   useEffect(() => {
+
+    // prevents the useEffect from doing anything on first render
     if (initialRender) {
       initialRender = false;
     } else {
-      console.log("APP.JS");
+      // Retrieves the lists from the users database
       fire.getLists((lists) => {
         setLists(lists);
-        //console.log('GET LIST CALL: ' + loading)
       });
 
+      // Retrieves the points from the user database
+      fire.refUser.get().then((doc) => {
+        setPoints(doc.data().userPoints);
+      });
+
+      // Unsubscribes to the lists listener
       return function cleanup() {
-        //console.log('CLEAN UP CALL')
-        //console.log(lists)
         fire.detach();
       };
     }
+    // Updates on authID change
   }, [authID]);
 
-  //console.log(lists);
-
   return (
+    // PageContext enables the child components to have access to values set by the provider
+    // The values can be accessed in any file under its tag with the use of 'useContext'
     <PageContext.Provider
       value={{
         fire: fire,
+        lists: lists,
         authen: [authID, setAuthID],
         refreshs: [refresh, setRefresh],
-        lists: lists,
+        pointss: [points, setPoints],
       }}
     >
       <NavigationContainer>
