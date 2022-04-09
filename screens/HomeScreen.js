@@ -10,15 +10,17 @@ import {
 import React, { useState, useEffect } from "react";
 import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
-import { PageContext, PageContext2 } from "../context";
+import { PageContext } from "../context";
 
 const HomeScreen = () => {
   //console.log('==================================================')
-  const [lists, setLists] = useState([]);
-  const [tests, setTests] = useState([1,2]);
+  //const [lists, setLists] = useState([]);
+  const [tests, setTests] = useState([1, 2]);
   const [points, setPoints] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { value, fire } = React.useContext(PageContext);
+  const { fire, authen, lists } = React.useContext(PageContext);
+  const [authID, setAuthID] = authen;
+
   //console.log('INITIALIZE: ' + loading)
 
   // Initialize Firebase class to use methods
@@ -29,20 +31,20 @@ const HomeScreen = () => {
   // this useEffect triggers once when HomeScreen renders, when triggered it calls the firebase getLists function
   // to retrieve the data from the Database, after the cleanup function is called to unsubscribe to the firebase
   // listener that recieves the data
-  useEffect(() => {
-    fire.getLists((lists) => {
-      setLists(lists);
-      //console.log('GET LIST CALL: ' + loading)
-    });
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      //console.log('CLEAN UP CALL')
-      //console.log(lists)
-      fire.detach();
-    };
-  }, []);
 
-  
+  useEffect(() => {
+    setAuthID(fire.userID);
+    // fire.getLists((lists) => {
+    //   setLists(lists);
+    //   //console.log('GET LIST CALL: ' + loading)
+    // });
+    // // Specify how to clean up after this effect:
+    // return function cleanup() {
+    //   //console.log('CLEAN UP CALL')
+    //   //console.log(lists)
+    //   fire.detach();
+    // };
+  }, []);
 
   // const listContext = React.useMemo(
   //   () => ({
@@ -96,11 +98,11 @@ const HomeScreen = () => {
     </TouchableOpacity>
   );
 
+  let count = 0;
+
   const test = () => {
-    console.log(
-      "--------------------------------------------------------------------"
-    );
-    console.log(lists[0].name);
+    setAuthID(count++);
+    console.log(authID);
   };
 
   // If loading is true then display activity indicator
@@ -113,42 +115,76 @@ const HomeScreen = () => {
   }
 
   return (
-    <PageContext2.Provider value={tests}>
-      <SafeAreaView style={styles.container}>
-        <Text>Email: {fire.auth.currentUser?.email}</Text>
-        <Text>userID: {fire.userID}</Text>
-        <Text>POINTS: {value}</Text>
+    <SafeAreaView style={styles.container}>
+      <Text>Email: {fire.auth.currentUser?.email}</Text>
+      <Text>userID: {fire.userID}</Text>
+      <Text>POINTS: 0</Text>
 
-        <FlatList
+      {/* <FlatList
           data={lists}
           renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
           keyExtractor={(item) => item.id.toString()}
-        />
+        /> */}
 
-        <View>
-          <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
-            <Text style={styles.circleText}>Vital Signs</Text>
-          </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Education", { list: lists[0], listID: 0 });
+          }}
+          style={styles.circleButton}
+        >
+          <Text style={styles.circleText}>Education</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(lists[1].name, { listID: 1 });
-            }}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>EMPLOYMENT</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Employment", { list: lists[1], listID: 1 });
+          }}
+          style={styles.circleButton}
+        >
+          <Text style={styles.circleText}>Employment</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={test} style={styles.circleButton}>
-            <Text style={styles.circleText}>Print</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Financial", { list: lists[2], listID: 2 });
+          }}
+          style={styles.circleButton}
+        >
+          <Text style={styles.circleText}>Financial</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-            <Text style={styles.buttonText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    </PageContext2.Provider>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Housing", { list: lists[3], listID: 3 });
+          }}
+          style={styles.circleButton}
+        >
+          <Text style={styles.circleText}>Housing</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Healthcare", { list: lists[4], listID: 4 });
+          }}
+          style={styles.circleButton}
+        >
+          <Text style={styles.circleText}>Healthcare</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
+          <Text style={styles.circleText}>Vital Signs</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={test} style={styles.circleButton}>
+          <Text style={styles.circleText}>Print</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+          <Text style={styles.buttonText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 

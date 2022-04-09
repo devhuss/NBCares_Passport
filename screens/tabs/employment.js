@@ -3,12 +3,10 @@ import TabRender from "../../components/TabRender";
 
 const Employment = ({ route, navigation }) => {
 
-  const { list } = route.params;
   const { listID } = route.params;
-  //const { fire } = route.params;
 
   return (
-    <TabRender list={list} listID={listID} />
+    <TabRender listID={listID} />
   )
 }
 

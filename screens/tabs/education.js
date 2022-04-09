@@ -3,11 +3,10 @@ import TabRender from "../../components/TabRender";
 
 const Education = ({ route, navigation }) => {
 
-  const { list } = route.params;
-  const { fire } = route.params;
+  const { listID } = route.params;
 
   return (
-    <TabRender list={list} />
+    <TabRender listID={listID} />
   )
 }
 

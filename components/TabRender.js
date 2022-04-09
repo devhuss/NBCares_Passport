@@ -13,17 +13,14 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { PageContext, PageContext2 } from "../context";
+import { PageContext } from "../context";
 
-export default TabRender = ({ list, listID }) => {
-  const [refresh, setRefresh] = useState(false);
+export default TabRender = ({ listID }) => {
+  
   const [newTask, setNewTask] = useState("");
-  const { fire } = React.useContext(PageContext);
-  //const { value3 } = React.useContext(PageContext2);
-  //const [lists, setLists] = React.useContext(PageContext2);
-  const lists = React.useContext(PageContext2);
-
-  console.log(lists);
+  const { fire, lists, refreshs } = React.useContext(PageContext);
+  const [refresh, setRefresh] = refreshs
+  const list = lists[listID];
 
   const addTask = () => {
     if (newTask) {
@@ -42,7 +39,6 @@ export default TabRender = ({ list, listID }) => {
   };
 
   const updateList = ({ list }) => {
-    //console.log(list)
     fire.updateList(list);
   };
 
@@ -56,10 +52,7 @@ export default TabRender = ({ list, listID }) => {
           <TaskList
             task={item}
             index={index}
-            refresh={refresh}
-            setRefresh={setRefresh}
-            list={list}
-            updateList={updateList}
+            listID={listID}
           />
         )}
         keyExtractor={(item, index) => index}

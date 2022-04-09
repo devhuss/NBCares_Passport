@@ -20,11 +20,41 @@ const Stack = createNativeStackNavigator();
 
 const fire = new Fire();
 
+let initialRender = true;
 export default function App() {
-  
+  const [authID, setAuthID] = useState("");
+  const [lists, setLists] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    if (initialRender) {
+      initialRender = false;
+    } else {
+      console.log("APP.JS");
+      fire.getLists((lists) => {
+        setLists(lists);
+        //console.log('GET LIST CALL: ' + loading)
+      });
+
+      return function cleanup() {
+        //console.log('CLEAN UP CALL')
+        //console.log(lists)
+        fire.detach();
+      };
+    }
+  }, [authID]);
+
+  //console.log(lists);
 
   return (
-    <PageContext.Provider value={{ value: 1, value2: 2, fire: fire }}>
+    <PageContext.Provider
+      value={{
+        fire: fire,
+        authen: [authID, setAuthID],
+        refreshs: [refresh, setRefresh],
+        lists: lists,
+      }}
+    >
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen

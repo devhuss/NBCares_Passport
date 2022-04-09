@@ -14,10 +14,11 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
 import { PageContext } from "../context";
 
-const TodoModal = ({ task, refresh, setRefresh, list, updateList, closeModal }) => {
+const TodoModal = ({ task, listID, closeModal }) => {
   const [newStep, setNewStep] = useState('')
-  const { fire } = React.useContext(PageContext)
-
+  const { fire, lists, refreshs } = React.useContext(PageContext);
+  const [refresh, setRefresh] = refreshs
+  const list = lists[listID];
   const toggleCompleted = (item) => {
     item.completed = !item.completed;
 

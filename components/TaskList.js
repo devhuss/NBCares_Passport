@@ -12,11 +12,13 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
 import { Swipeable } from "react-native-gesture-handler";
 import { PageContext } from "../context";
-const TaskList = ({ task, index, refresh, setRefresh, list }) => {
+const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
-  const { fire } = React.useContext(PageContext);
+  const { fire, lists, refreshs } = React.useContext(PageContext);
+  const [refresh, setRefresh] = refreshs
+  const list = lists[listID];
   //const [refresh, setRefresh] = useState(false);
 
   // This returns the completed amount of steps based on the array item (Used in FlatList)
@@ -77,9 +79,7 @@ const TaskList = ({ task, index, refresh, setRefresh, list }) => {
         >
           <TodoModal
             task={task}
-            refresh={refresh}
-            setRefresh={setRefresh}
-            list={list}
+            listID={listID}
             closeModal={() => setShowList(!showList)}
           />
         </Modal>
