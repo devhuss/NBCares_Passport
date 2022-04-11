@@ -1,433 +1,263 @@
 const templateData = [
   {
-    name: "Documents",
-    tasks: [
-      {
-        title: "Do first Documents Task",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
-      }, 
-    ]
-  },
-  {
     name: "Education",
     tasks: [
+      // {
+      //   title: "Do first Education Task",
+      //   complete: false,
+      //   completed: false,
+      //   points: 1,
+      //   steps: [
+      //     {
+      //       id: 0,
+      //       title: "step 1",
+      //       complete: false,
+      //       completed: false,
+      //       points: 1,
+      //     },
+      //   ],
+      // },
       {
-        title: "Do first Education Task",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
-      },
-
-      {//individual new task from here
+        //individual new task from here
         title: "Set Goals",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
-      },//to here
-
-        {
+        points: 1,
+        steps: [],
+      }, //to here
+      {
         title: "Registration",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Assessment",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Consultation",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Attend Classes",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Graduate",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
-    ]
+    ],
   },
   {
     name: "Employment",
     tasks: [
       {
-        title: "Do first Employment Task",
+        title: "Establish Eligibility",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
+        points: 1,
+        steps: [],
       },
       {
-        title: "Establish Eligibility",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
-      },
-        {
         title: "Assess Career Goals",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Preparation Phase",
+        complete: false,
         completed: false,
+        points: 1,
         steps: [
           {
             id: 0,
             title: "Step 1: Employment Plan",
-            completed: false,
+            complete: false,
+        completed: false,
+            points: 1,
           },
-        ]
+        ],
       },
       {
         title: "Job Search",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Training/Upskililng",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Securing Employment",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
-    ]
+    ],
   },
   {
     name: "Financial",
     tasks: [
       {
-        title: "Do first Financial Task",
+        title: "Intake",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
+        points: 1,
+        steps: [],
       },
       {
-        title: "Intake",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
-      },
-        {
         title: "Credit Assessment",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Set Goals",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Create a Budget",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Financial Asset",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Emergency Fund",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
-    ]
+    ],
   },
   {
     name: "Healthcare",
     tasks: [
       {
-        title: "Do first Healthcare Task",
+        title: "Get a Physical",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
+        points: 1,
+        steps: [],
       },
       {
-        title: "Get a Physical",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
-      },
-        {
         title: "Nutrition/Exercise",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Dental",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Vision",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Mental Health",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Choose Your Own",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
-    ]
+    ],
   },
   {
     name: "Housing",
     tasks: [
       {
-        title: "Do first Housing Task",
+        title: "Assess Needs",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ],
+        points: 1,
+        steps: [],
       },
       {
-        title: "Assess Needs",
-        completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
-      },
-        {
         title: "Budget",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Security Deposit",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Search",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Apply for Housing",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
       {
         title: "Lease-up",
+        complete: false,
         completed: false,
-        steps: [
-          {
-            id: 0,
-            title: "step 1",
-            completed: false,
-          },
-        ]
+        points: 1,
+        steps: [],
       },
-    ]
+    ],
   },
 ];
 
 export default templateData;
-

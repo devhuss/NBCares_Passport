@@ -1,14 +1,26 @@
-import { Text, StyleSheet, View, TouchableOpacity, Modal, Animated } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Modal,
+  Animated,
+} from "react-native";
 import React, { useState } from "react";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TodoModal from "./TodoModal";
 import { Swipeable } from "react-native-gesture-handler";
-const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
+import { PageContext } from "../context";
+
+const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
-  //const [refresh, setRefresh] = useState(false);
+  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
+  const [refresh, setRefresh] = refreshs;
+  const list = lists[listID];
+  const [points, setPoints] = pointss;
 
   // This returns the completed amount of steps based on the array item (Used in FlatList)
   const completedCount = (item) => {
@@ -16,47 +28,60 @@ const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
   };
 
   // This toggles the Completed Boolean of the array item then updates the TaskList
-  const toggleCompleted = (item) => {
-    item.completed = !item.completed;
-    updateList({ list });
+  const toggleCompleted = (item, index) => {
+    item.complete = !item.complete;
+
+    if (item.complete && !item.completed) {
+      setPoints(points + item.points);
+      fire.updatePoints({
+        userPoints: points + item.points,
+      });
+    }
+
+    item.completed = true;
+    fire.updateList(list);
+
     setRefresh(!refresh);
   };
 
   const deleteTask = (index) => {
     list.tasks.splice(index, 1);
-    updateList({ list })
-    setRefresh(!refresh);
-  }
-
-
+    fire.updateList(list);
+    //setRefresh(!refresh);
+  };
 
   const rightActions = (dragX, index) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0.9],
-      extrapolate: 'clamp'
-    })
+      extrapolate: "clamp",
+    });
 
     const opacity = dragX.interpolate({
       inputRange: [-100, -20, 0],
       outputRange: [1, 0.9, 0],
-      extrapolate: 'clamp'
-    })
-
+      extrapolate: "clamp",
+    });
 
     return (
       <TouchableOpacity onPress={() => deleteTask(index)}>
         <Animated.View style={[styles.deleteButton, { opacity: opacity }]}>
-          <Animated.Text style={{ color: 'white', fontWeight: 'bold', transform: [{ scale }] }}>
+          <Animated.Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              transform: [{ scale }],
+            }}
+          >
             Delete
           </Animated.Text>
         </Animated.View>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   return (
-    <Swipeable renderRightActions={(_, dragX) => rightActions(dragX, index)} >
+    <Swipeable renderRightActions={(_, dragX) => rightActions(dragX, index)}>
       <View>
         <Modal
           animationType="slide"
@@ -65,10 +90,7 @@ const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
         >
           <TodoModal
             task={task}
-            refresh={refresh}
-            setRefresh={setRefresh}
-            list={list}
-            updateList={updateList}
+            listID={listID}
             closeModal={() => setShowList(!showList)}
           />
         </Modal>
@@ -76,12 +98,11 @@ const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
         <TouchableOpacity
           style={styles.taskContainer}
           onPress={() => setShowList(!showList)}
-        // activeOpacity={0.8}
+          // activeOpacity={0.8}
         >
-
-          <TouchableOpacity onPress={() => toggleCompleted(task)}>
+          <TouchableOpacity onPress={() => toggleCompleted(task, index)}>
             <Ionicons
-              name={task.completed ? "ios-square" : "ios-square-outline"}
+              name={task.complete ? "ios-square" : "ios-square-outline"}
               size={28}
               color={"gray"}
               style={{ width: 40 }}
@@ -92,17 +113,20 @@ const TaskList = ({ task, index, refresh, setRefresh, list, updateList }) => {
               style={[
                 styles.task,
                 {
-                  textDecorationLine: task.completed ? "line-through" : "none",
-                  color: task.completed ? "grey" : "black",
+                  textDecorationLine: task.complete ? "line-through" : "none",
+                  color: task.complete ? "grey" : "black",
                 },
               ]}
             >
               {task.title}
             </Text>
 
-            <Text>
-              {task.steps.filter((step) => step.completed).length} of {task.steps.length}
-            </Text>
+            {task.steps.length > 0 ? (
+              <Text>
+                {task.steps.filter((step) => step.complete).length} of{" "}
+                {task.steps.length}
+              </Text>
+            ) : null}
           </View>
         </TouchableOpacity>
       </View>
@@ -127,11 +151,10 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     flex: 1,
-    backgroundColor: 'tomato',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "tomato",
+    justifyContent: "center",
+    alignItems: "center",
     width: 70,
     marginBottom: 3,
-
-  }
+  },
 });

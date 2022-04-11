@@ -7,15 +7,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { PageContext } from "../context";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { fire } = React.useContext(PageContext);
   const [passwordRepeat, setPasswordRepeat] = useState("");
-
-  const fire = new Fire();
 
   const navigation = useNavigation();
 
@@ -38,14 +37,14 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log(user.email);
-        fire.addUser(user.uid, user.email)
+        fire.addUser(user.uid, user.email);
       })
       .catch((error) => alert(error.message));
   };
   return (
     <KeyboardAvoidingView
       style={styles.container}
-    //behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.inputContainer}>
         <TextInput
