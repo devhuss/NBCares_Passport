@@ -13,20 +13,19 @@ import { useNavigation } from "@react-navigation/native";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
+
 
   const fire = new Fire();
 
   const navigation = useNavigation();
 
-  const onLoginPress = () => {
-    navigation.navigate("Login");
-  };
+ 
 
   useEffect(() => {
     const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Information");
       }
     });
     return unsubscribe;
@@ -38,14 +37,14 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log(user.email);
-        fire.addUser(user.uid, user.email)
+        fire.addUser(user.uid, user.email);
       })
       .catch((error) => alert(error.message));
   };
   return (
     <KeyboardAvoidingView
       style={styles.container}
-    //behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.inputContainer}>
         <TextInput
@@ -72,7 +71,7 @@ const SignUpScreen = () => {
           value={passwordRepeat}
           onChangeText={text => setPasswordRepeat(text)}
           style={styles.input}
-          secureTextEntry
+          // secureTextEntry
         />
       </View> */}
 
