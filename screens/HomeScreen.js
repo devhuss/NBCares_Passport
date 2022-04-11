@@ -80,6 +80,8 @@ const HomeScreen = () => {
 
   return (
 
+    
+
     <SafeAreaView style={styles.container}>
       <Text>Email: {fire.auth.currentUser?.email}</Text>
       <Text>userID: {fire.userID}</Text>

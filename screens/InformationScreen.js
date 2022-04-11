@@ -45,6 +45,61 @@ const InformationScreen = () => {
               <View style={styles.modalView}>
                 <Text style={styles.modalComplianceTitle}>NB CARES</Text>
                 <Text>{text}</Text>
+                <Text>Enter up to six family members</Text>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend}
+                    onChangeText={(text) => setFamilyOrFriend(text)}
+                    style={styles.input}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend2}
+                    onChangeText={(text) => setFamilyOrFriend2(text)}
+                    style={styles.input}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend3}
+                    onChangeText={(text) => setFamilyOrFriend3(text)}
+                    style={styles.input}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend4}
+                    onChangeText={(text) => setFamilyOrFriend4(text)}
+                    style={styles.input}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend5}
+                    onChangeText={(text) => setFamilyOrFriend5(text)}
+                    style={styles.input}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter Family or Friend"
+                    value={familyOrFriend6}
+                    onChangeText={(text) => setFamilyOrFriend6(text)}
+                    style={styles.input}
+                  />
+                </View>
+
                 {/* <View style={styles.checkBoxContainer}>
                     <CheckBox style = {styles.checkBox}
                     disabled={false}
@@ -61,7 +116,10 @@ const InformationScreen = () => {
                     { backgroundColor: toggleCheckBox ? "darkred" : "darkred" },
                   ]}
                   disabled={toggleCheckBox}
-                  onPress={() => setComplianceModal(false)}
+                  onPress={
+                    (() => onContinuePress(true),
+                    () => setComplianceModal(false))
+                  }
                 >
                   <Text>Agree & Continue</Text>
                 </TouchableOpacity>
@@ -70,74 +128,12 @@ const InformationScreen = () => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
-<SafeAreaView>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend}
-          onChangeText={(text) => setFamilyOrFriend(text)}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend2}
-          onChangeText={(text) => setFamilyOrFriend2(text)}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend3}
-          onChangeText={(text) => setFamilyOrFriend3(text)}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend4}
-          onChangeText={(text) => setFamilyOrFriend4(text)}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend5}
-          onChangeText={(text) => setFamilyOrFriend5(text)}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Enter Family or Friend"
-          value={familyOrFriend6}
-          onChangeText={(text) => setFamilyOrFriend6(text)}
-          style={styles.input}
-        />
-      </View>
-
-
-
-      <View style={styles.buttonContainer}>
+      <SafeAreaView>
         <TouchableOpacity onPress={onContinuePress} style={styles.button}>
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
-      </View>
       </SafeAreaView>
-
     </View>
-
-    
-
   );
 };
 
@@ -153,18 +149,27 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 25,
-    paddingHorizontal: 25,
     paddingVertical: 10,
     borderRadius: 10,
+  },
+  button: {
+    backgroundColor: "darkred",
+    width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
   },
   input: {
     backgroundColor: "white",
     paddingHorizontal: 25,
     paddingVertical: 10,
     borderRadius: 10,
-   // marginTop: 25,
-    
+    // marginTop: 25,
   },
   modalContainer: {
     flex: 1,
@@ -206,8 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     //top: 600,
-    marginLeft: 75
-
+    marginLeft: 75,
   },
   button: {
     backgroundColor: "darkred",
