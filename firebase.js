@@ -12,13 +12,13 @@ import templateData from "./tempData";
 
 // add firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDdDRhjG0ueUWyF8m0rMXVorFY_cz-bhzY",
-  authDomain: "mobile-passport-for-success.firebaseapp.com",
-  projectId: "mobile-passport-for-success",
-  storageBucket: "mobile-passport-for-success.appspot.com",
-  messagingSenderId: "999142558151",
-  appId: "1:999142558151:web:30fd83b8e33e8bad09b1e2",
-  measurementId: "G-4XWJW9YV9Q",
+  apiKey: "AIzaSyACrOtEHuVC4UAmYEU2iX3c-PtNKHufnfU",
+  authDomain: "mobile-passport-4-success.firebaseapp.com",
+  projectId: "mobile-passport-4-success",
+  storageBucket: "mobile-passport-4-success.appspot.com",
+  messagingSenderId: "21497270259",
+  appId: "1:21497270259:web:0588ef61fac93d8b394c86",
+  measurementId: "G-Q87JLT2GH3"
 };
 
 // Initialize Firebase
