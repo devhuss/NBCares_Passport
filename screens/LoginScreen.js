@@ -6,6 +6,9 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Image,
+  Linking,
+  Button,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -101,19 +104,43 @@ const LoginScreen = () => {
             Don't have an Account? Register here
           </Text>
         </TouchableOpacity>
+
+        <Button title = "Visit our Website" 
+        onPress={() => Linking.openURL('https://jmkryzanski.pythonanywhere.com')}/>
       </View>
+  
+<Image
+       style={styles.paraDYM}
+      source={require("../assets/paraDYM_academy.png" )}
+     // source={{uri: 'https://www.paradymacademy.org/'}}
+/> 
+
+
     </KeyboardAvoidingView>
+
+    
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  paraDYM:{
+    alignItems: "flex-start",
+    width: '25%', 
+    height: 100,
+    resizeMode : 'stretch',
+    justifyContent: 'flex-end',
+    bottom: -125,
+  },
+
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
   },
+ 
   inputContainer: {
     width: "80%",
   },

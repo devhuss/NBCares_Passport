@@ -5,27 +5,40 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Modal,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import text from "./text";
 import { PageContext } from "../context";
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { fire } = React.useContext(PageContext);
   const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [complianceModal, setComplianceModal] = useState(true);
+  const [familyOrFriend, setFamilyOrFriend] = useState("");
+  const [familyOrFriend2, setFamilyOrFriend2] = useState("");
+  const [familyOrFriend3, setFamilyOrFriend3] = useState("");
+  const [familyOrFriend4, setFamilyOrFriend4] = useState("");
+  const [familyOrFriend5, setFamilyOrFriend5] = useState("");
+  const [familyOrFriend6, setFamilyOrFriend6] = useState("");
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const { fire } = React.useContext(PageContext);
+  
+
 
   const navigation = useNavigation();
 
-  const onLoginPress = () => {
-    navigation.navigate("Login");
-  };
+ 
 
   useEffect(() => {
     const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Information");
       }
     });
     return unsubscribe;
@@ -71,7 +84,7 @@ const SignUpScreen = () => {
           value={passwordRepeat}
           onChangeText={text => setPasswordRepeat(text)}
           style={styles.input}
-          secureTextEntry
+          // secureTextEntry
         />
       </View> */}
 
@@ -80,7 +93,11 @@ const SignUpScreen = () => {
           <Text style={styles.buttonText}>Register & Login</Text>
         </TouchableOpacity>
       </View>
+
+     
     </KeyboardAvoidingView>
+
+    
   );
 };
 
