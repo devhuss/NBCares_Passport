@@ -2,12 +2,9 @@ import React from "react";
 import TabRender from "../../components/TabRender";
 
 const Financial = ({ route, navigation }) => {
-  const { list } = route.params;
-  const { fire } = route.params;
+  const { listID } = route.params;
 
-  return (
-    <TabRender list={list} fire={fire} />
-  );
+  return <TabRender listID={listID} />;
 };
 
 export default Financial;

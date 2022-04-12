@@ -10,14 +10,15 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import text from "./text";
+import { PageContext } from "../context";
 
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
   const [complianceModal, setComplianceModal] = useState(true);
   const [familyOrFriend, setFamilyOrFriend] = useState("");
   const [familyOrFriend2, setFamilyOrFriend2] = useState("");
@@ -26,10 +27,9 @@ const SignUpScreen = () => {
   const [familyOrFriend5, setFamilyOrFriend5] = useState("");
   const [familyOrFriend6, setFamilyOrFriend6] = useState("");
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const { fire } = React.useContext(PageContext);
+  
 
-
-
-  const fire = new Fire();
 
   const navigation = useNavigation();
 
