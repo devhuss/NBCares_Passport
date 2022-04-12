@@ -18,8 +18,7 @@ import text from "./text";
 import CheckBox from "@react-native-community/checkbox";
 
 const InformationScreen = () => {
-  const [name, setEmail] = useState("");
-  const [phoneNumber, setPassword] = useState("");
+
   const [familyOrFriend, setFamilyOrFriend] = useState("");
   const [familyOrFriend2, setFamilyOrFriend2] = useState("");
   const [familyOrFriend3, setFamilyOrFriend3] = useState("");
@@ -29,6 +28,10 @@ const InformationScreen = () => {
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [complianceModal, setComplianceModal] = useState(true);
+
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
 
   const navigation = useNavigation();
 
@@ -80,9 +83,9 @@ const InformationScreen = () => {
                     onChangeText={(text) => setFamilyOrFriend4(text)}
                     style={styles.input}
                   />
-                </View>
+                
 
-                <View style={styles.inputContainer}>
+                
                   <TextInput
                     placeholder="Enter Family or Friend"
                     value={familyOrFriend5}
@@ -99,15 +102,6 @@ const InformationScreen = () => {
                     style={styles.input}
                   />
                 </View>
-
-                {/* <View style={styles.checkBoxContainer}>
-                    <CheckBox style = {styles.checkBox}
-                    disabled={false}
-                    value={toggleCheckBox}
-                    onValueChange={(newValue => setToggleCheckBox(newValue))}
-                    />
-                    <Text>I agree.</Text>
-                    </View> */}
 
                 <TouchableOpacity
                   style={[
@@ -128,10 +122,32 @@ const InformationScreen = () => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
+
+      {/* START OF INFORMATION PAGE */}
       <SafeAreaView>
+          <View style = {styles.infoContainer}>
+          <Text style = {styles.informationText}>Information</Text>
+
+          <TextInput
+        style={styles.input}
+        onChangeText={setName}
+        value={name}
+        placeholder="Enter your first and last name"
+
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setPhoneNumber}
+        value={phoneNumber}
+        placeholder="Enter your phone number"
+        keyboardType="numeric"
+      />
+      <View style = {styles.buttonContainer}>
         <TouchableOpacity onPress={onContinuePress} style={styles.button}>
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
+        </View>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -146,15 +162,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    width: "80%",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
+    width: "100%",
+   // alignItems: "center",
+    //justifyContent: "center",
     borderRadius: 10,
   },
   button: {
     backgroundColor: "darkred",
-    width: "100%",
+    width: "75%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -164,13 +179,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 25,
-    paddingVertical: 10,
-    borderRadius: 10,
-    // marginTop: 25,
-  },
+  
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -225,4 +234,22 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    
+  },
+  informationText:{
+      fontSize:75,
+      fontVariant:['small-caps', 'oldstyle-nums', 'lining-nums', 'tabular-nums', 'proportional-nums'],
+      color: 'darkred'
+
+  },
+  infoContainer:{
+    justifyContent: 'center',
+   // alignItems:'center'
+   top: 75
+  }
 });
