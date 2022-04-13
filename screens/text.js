@@ -3,7 +3,7 @@ const text =
 
 Authorization to Disclose/Obtain Information\n
 
-I, ________________________________, hereby authorize agencies participating in the NB
+I, hereby authorize agencies participating in the NB
 CARES Program to disclose, obtain, or communicate information about my participation and
 progress in this self-sufficiency initiative. Authorized agencies include the American Job Center,
 the Bristol Department of Adult Education, Central Connecticut State University, Community
