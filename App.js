@@ -22,6 +22,7 @@ export default function App() {
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [vitalsigns, setVitalsigns] = useState([])
   const [points, setPoints] = useState(0);
 
   // useEffect is a Effect hook that triggers depending on render
@@ -39,6 +40,15 @@ export default function App() {
       fire.getLists((lists) => {
         setLists(lists);
       });
+
+      fire.getVitalSigns((vitalsign) => {
+        setVitalsigns(vitalsign);
+      });
+
+      // fire.getUserData((data) => {
+      //   setUserData(data);
+      //   setPoints(data[1].userPoints)
+      // });
 
       // Retrieves the points from the user database
       fire.refUser.get().then((doc) => {
@@ -62,6 +72,7 @@ export default function App() {
         lists: lists,
         authen: [authID, setAuthID],
         refreshs: [refresh, setRefresh],
+        vitals: [vitalsigns, setVitalsigns],
         pointss: [points, setPoints],
       }}
     >

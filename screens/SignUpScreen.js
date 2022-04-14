@@ -14,7 +14,6 @@ import { useNavigation } from "@react-navigation/native";
 import text from "./text";
 import { PageContext } from "../context";
 
-
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,12 +27,8 @@ const SignUpScreen = () => {
   const [familyOrFriend6, setFamilyOrFriend6] = useState("");
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const { fire } = React.useContext(PageContext);
-  
-
 
   const navigation = useNavigation();
-
- 
 
   useEffect(() => {
     const unsubscribe = fire.auth.onAuthStateChanged((user) => {
@@ -93,11 +88,7 @@ const SignUpScreen = () => {
           <Text style={styles.buttonText}>Register & Login</Text>
         </TouchableOpacity>
       </View>
-
-     
     </KeyboardAvoidingView>
-
-    
   );
 };
 

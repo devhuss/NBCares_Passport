@@ -17,25 +17,18 @@ const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
-  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
+  const { fire, lists, userDatas, refreshs } = React.useContext(PageContext);
   const [refresh, setRefresh] = refreshs;
+  const [userData, setUserData] = userDatas;
   const list = lists[listID];
-  const [points, setPoints] = pointss;
-
-  // This returns the completed amount of steps based on the array item (Used in FlatList)
-  const completedCount = (item) => {
-    return item.filter((step) => step.completed).length;
-  };
 
   // This toggles the Completed Boolean of the array item then updates the TaskList
   const toggleCompleted = (item, index) => {
     item.complete = !item.complete;
 
     if (item.complete && !item.completed) {
-      setPoints(points + item.points);
-      fire.updatePoints({
-        userPoints: points + item.points,
-      });
+      userData[1].userPoints = userData[1].userPoints + 1;
+      fire.updateUserData(userData[1]);
     }
 
     item.completed = true;

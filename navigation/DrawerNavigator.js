@@ -9,11 +9,11 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator screenOptions = {{headerShown: false}}>
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="Home" component={TabNavigator} />
       <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
     </Drawer.Navigator>
   );
-}
+};
 
 export default DrawerNavigator;

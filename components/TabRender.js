@@ -21,6 +21,8 @@ export default TabRender = ({ listID }) => {
   //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
 
+  //console.log('TabRENDER: ', lists[listID])
+
   const addTask = () => {
     if (newTask) {
       list.tasks.push({

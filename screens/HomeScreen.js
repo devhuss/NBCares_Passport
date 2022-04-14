@@ -14,13 +14,18 @@ import { PageContext } from "../context";
 let initialRender = true;
 const HomeScreen = () => {
   // These variables can be considered 'global' to any file that is under the context provider in the root file
-  const { fire, authen, lists, refreshs, pointss } =
+  const { fire, authen, lists, refreshs, vitals, pointss } =
     React.useContext(PageContext);
   const [authID, setAuthID] = authen;
   const [refresh, setRefresh] = refreshs;
+  const [vitalsigns, setVitalsigns] = vitals;
   const [points, setPoints] = pointss;
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation();
+  const navigation = useNavigation(); 
+
+  //const test = new Date(vitalsigns[0].createdAt.toDate()).toString()
+
+  console.log('HOME: ', vitalsigns)
 
   const increasePoints = () => {
     setPoints(points + 1);
@@ -55,6 +60,7 @@ const HomeScreen = () => {
   }, [lists]);
 
   const handleSignOut = () => {
+    fire.detach()
     fire.auth
       .signOut()
       .then(() => {
@@ -66,22 +72,6 @@ const HomeScreen = () => {
   const handleVital = () => {
     navigation.navigate("Vital Signs");
   };
-
-  // const ItemRender = ({ item, name }) => (
-  //   <TouchableOpacity
-  //     style={styles.circleButton}
-  //     onPress={() =>
-  //       navigation.navigate(name, {
-  //         list: item,
-  //         fire: fire,
-  //         points: points,
-  //         setPoints: setPoints,
-  //       })
-  //     }
-  //   >
-  //     <Text style={styles.circleText}>{name}</Text>
-  //   </TouchableOpacity>
-  // );
 
   // If loading is true then display activity indicator
   if (loading) {
@@ -107,7 +97,7 @@ const HomeScreen = () => {
       <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Education", { list: lists[0], listID: 0 });
+            navigation.navigate("Education", {listID: 0 });
           }}
           style={styles.circleButton}
         >
@@ -116,7 +106,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Employment", { list: lists[1], listID: 1 });
+            navigation.navigate("Employment", {listID: 1 });
           }}
           style={styles.circleButton}
         >
@@ -125,7 +115,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Financial", { list: lists[2], listID: 2 });
+            navigation.navigate("Financial", {listID: 2 });
           }}
           style={styles.circleButton}
         >
@@ -134,7 +124,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Healthcare", { list: lists[3], listID: 3 });
+            navigation.navigate("Healthcare", {listID: 3 });
           }}
           style={styles.circleButton}
         >
@@ -143,7 +133,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Housing", { list: lists[4], listID: 4 });
+            navigation.navigate("Housing", {listID: 4 });
           }}
           style={styles.circleButton}
         >
@@ -167,6 +157,24 @@ const HomeScreen = () => {
             style={styles.circleButton}
           >
             <Text style={styles.circleText}>decrease</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              // fire.refUser.get().then((doc) => {
+              //   console.log(doc.data())
+              // })
+
+              let time = fire.timeStamp
+
+              fire.addVitalsign({
+                createdAt: time,
+              })
+
+            }}
+            style={styles.circleButton}
+          >
+            <Text style={styles.circleText}>Change to admin</Text>
           </TouchableOpacity>
         </View>
 

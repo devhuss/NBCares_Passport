@@ -105,32 +105,32 @@ const LoginScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <Button title = "Visit our Website" 
-        onPress={() => Linking.openURL('https://jmkryzanski.pythonanywhere.com')}/>
+        <Button
+          title="Visit our Website"
+          onPress={() =>
+            Linking.openURL("https://jmkryzanski.pythonanywhere.com")
+          }
+        />
       </View>
-  
-<Image
-       style={styles.paraDYM}
-      source={require("../assets/paraDYM_academy.png" )}
-     // source={{uri: 'https://www.paradymacademy.org/'}}
-/> 
 
-
+      <Image
+        style={styles.paraDYM}
+        source={require("../assets/paraDYM_academy.png")}
+        // source={{uri: 'https://www.paradymacademy.org/'}}
+      />
     </KeyboardAvoidingView>
-
-    
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  paraDYM:{
+  paraDYM: {
     alignItems: "flex-start",
-    width: '25%', 
+    width: "25%",
     height: 100,
-    resizeMode : 'stretch',
-    justifyContent: 'flex-end',
+    resizeMode: "stretch",
+    justifyContent: "flex-end",
     bottom: -125,
   },
 
@@ -138,9 +138,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
   },
- 
+
   inputContainer: {
     width: "80%",
   },

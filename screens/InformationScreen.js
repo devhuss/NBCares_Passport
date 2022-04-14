@@ -15,10 +15,11 @@ import React, { useEffect, useState } from "react";
 import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import text from "./text";
+import { PageContext } from "../context";
 import CheckBox from "@react-native-community/checkbox";
 
 const InformationScreen = () => {
-
+  const { fire } = React.useContext(PageContext)
   const [familyOrFriend, setFamilyOrFriend] = useState("");
   const [familyOrFriend2, setFamilyOrFriend2] = useState("");
   const [familyOrFriend3, setFamilyOrFriend3] = useState("");
@@ -32,10 +33,13 @@ const InformationScreen = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-
   const navigation = useNavigation();
 
   const onContinuePress = () => {
+    fire.updateUser({
+      userName: name,
+      phone: phoneNumber,
+    })
     navigation.navigate("Home");
   };
 
@@ -83,9 +87,7 @@ const InformationScreen = () => {
                     onChangeText={(text) => setFamilyOrFriend4(text)}
                     style={styles.input}
                   />
-                
 
-                
                   <TextInput
                     placeholder="Enter Family or Friend"
                     value={familyOrFriend5}
@@ -125,28 +127,27 @@ const InformationScreen = () => {
 
       {/* START OF INFORMATION PAGE */}
       <SafeAreaView>
-          <View style = {styles.infoContainer}>
-          <Text style = {styles.informationText}>Information</Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.informationText}>Information</Text>
 
           <TextInput
-        style={styles.input}
-        onChangeText={setName}
-        value={name}
-        placeholder="Enter your first and last name"
-
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={setPhoneNumber}
-        value={phoneNumber}
-        placeholder="Enter your phone number"
-        keyboardType="numeric"
-      />
-      <View style = {styles.buttonContainer}>
-        <TouchableOpacity onPress={onContinuePress} style={styles.button}>
-          <Text style={styles.buttonText}>Continue</Text>
-        </TouchableOpacity>
-        </View>
+            style={styles.input}
+            onChangeText={setName}
+            value={name}
+            placeholder="Enter your first and last name"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setPhoneNumber}
+            value={phoneNumber}
+            placeholder="Enter your phone number"
+            keyboardType="numeric"
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={onContinuePress} style={styles.button}>
+              <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     </View>
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
-   // alignItems: "center",
+    // alignItems: "center",
     //justifyContent: "center",
     borderRadius: 10,
   },
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-  
+
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -239,17 +240,21 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    
   },
-  informationText:{
-      fontSize:75,
-      fontVariant:['small-caps', 'oldstyle-nums', 'lining-nums', 'tabular-nums', 'proportional-nums'],
-      color: 'darkred'
-
+  informationText: {
+    fontSize: 75,
+    fontVariant: [
+      "small-caps",
+      "oldstyle-nums",
+      "lining-nums",
+      "tabular-nums",
+      "proportional-nums",
+    ],
+    color: "darkred",
   },
-  infoContainer:{
-    justifyContent: 'center',
-   // alignItems:'center'
-   top: 75
-  }
+  infoContainer: {
+    justifyContent: "center",
+    // alignItems:'center'
+    top: 75,
+  },
 });

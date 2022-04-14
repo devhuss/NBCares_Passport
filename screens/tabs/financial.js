@@ -8,4 +8,3 @@ const Financial = ({ route, navigation }) => {
 };
 
 export default Financial;
-

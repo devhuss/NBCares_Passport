@@ -8,8 +8,11 @@ import {
   Image,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { PageContext } from "../../context";
 
 const Vital = () => {
+  const { fire } = React.useContext(PageContext);
   //these are for the top boxes
   const [income, setIncome] = useState("");
   const [creditScore, setCreditScore] = useState("");
@@ -28,6 +31,24 @@ const Vital = () => {
   const [network, setMood6] = useState("");
   const [job, setMood7] = useState("");
   const [education, setMood8] = useState("");
+
+  const saveData = () => {
+    fire.addVitalsign({
+      createdAt: fire.timeStamp,
+      income: income,
+      creditScore: creditScore,
+      emergency: emergency,
+      budget: budget,
+      life: life,
+      physical: physical,
+      mental: mental,
+      housing: housing,
+      community: community,
+      network: network,
+      job: job,
+      education: education,
+    });
+  };
 
   return (
     <ScrollView>
@@ -459,6 +480,12 @@ const Vital = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity
+        style={[styles.button, { alignItems: "center" }]}
+        onPress={saveData}
+      >
+        <Text style={{ color: "white" }}>SAVE</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
