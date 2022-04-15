@@ -18,15 +18,27 @@ import {
 import { PageContext } from "../context";
 
 const TodoModal = ({ task, listID, closeModal }) => {
+  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [newStep, setNewStep] = useState("");
-  const { fire, lists } = React.useContext(PageContext);
+  const [points, setPoints] = pointss;
+  const [refresh, setRefresh] = refreshs;
+  
   //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
   const toggleCompleted = (item) => {
-    item.completed = !item.completed;
+    item.complete = !item.complete;
 
+    if (item.complete && !item.completed) {
+      setPoints(points + 1);
+      fire.updatePoints({
+        userPoints: points + 1,
+      });
+    }
+
+    item.completed = true;
     fire.updateList(list);
-    //setRefresh(!refresh);
+
+    setRefresh(!refresh);
   };
 
   const addStep = () => {
@@ -94,7 +106,7 @@ const TodoModal = ({ task, listID, closeModal }) => {
         onPress={() => toggleCompleted(task)}
       >
         <Ionicons
-          name={task.completed ? "ios-square" : "ios-square-outline"}
+          name={task.complete ? "ios-square" : "ios-square-outline"}
           size={24}
           color={styles.color1}
           style={{ width: 32 }}
@@ -122,7 +134,7 @@ const TodoModal = ({ task, listID, closeModal }) => {
             <View style={styles.taskContainer}>
               <TouchableOpacity onPress={() => toggleCompleted(item)}>
                 <Ionicons
-                  name={item.completed ? "ios-square" : "ios-square-outline"}
+                  name={item.complete ? "ios-square" : "ios-square-outline"}
                   size={24}
                   color={styles.color1}
                   style={{ width: 32 }}
@@ -130,7 +142,7 @@ const TodoModal = ({ task, listID, closeModal }) => {
               </TouchableOpacity>
               <Text
                 style={{
-                  textDecorationLine: item.completed ? "line-through" : "none",
+                  textDecorationLine: item.complete ? "line-through" : "none",
                 }}
               >
                 {item.title}

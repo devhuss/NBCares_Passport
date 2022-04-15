@@ -17,9 +17,9 @@ const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
   const [showList, setShowList] = useState(false);
-  const { fire, lists, userDatas, refreshs } = React.useContext(PageContext);
+  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [refresh, setRefresh] = refreshs;
-  const [userData, setUserData] = userDatas;
+  const [points, setPoints] = pointss;
   const list = lists[listID];
 
   // This toggles the Completed Boolean of the array item then updates the TaskList
@@ -27,8 +27,10 @@ const TaskList = ({ task, index, listID }) => {
     item.complete = !item.complete;
 
     if (item.complete && !item.completed) {
-      userData[1].userPoints = userData[1].userPoints + 1;
-      fire.updateUserData(userData[1]);
+      setPoints(points + 1);
+      fire.updatePoints({
+        userPoints: points + 1,
+      });
     }
 
     item.completed = true;

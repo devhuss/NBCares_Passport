@@ -4,6 +4,8 @@ const templateData = [
     tasks: [
       // {
       //   title: "Do first Education Task",
+      //   type: "system" or "user",
+      //   type: "system",
       //   complete: false,
       //   completed: false,
       //   points: 1,
@@ -11,6 +13,7 @@ const templateData = [
       //     {
       //       id: 0,
       //       title: "step 1",
+      //       type: "system",
       //       complete: false,
       //       completed: false,
       //       points: 1,
@@ -20,6 +23,7 @@ const templateData = [
       {
         //individual new task from here
         title: "Set Goals",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -27,6 +31,7 @@ const templateData = [
       }, //to here
       {
         title: "Registration",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -34,6 +39,7 @@ const templateData = [
       },
       {
         title: "Assessment",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -41,6 +47,7 @@ const templateData = [
       },
       {
         title: "Consultation",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -48,6 +55,7 @@ const templateData = [
       },
       {
         title: "Attend Classes",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -55,6 +63,7 @@ const templateData = [
       },
       {
         title: "Graduate",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -67,6 +76,7 @@ const templateData = [
     tasks: [
       {
         title: "Establish Eligibility",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -74,6 +84,7 @@ const templateData = [
       },
       {
         title: "Assess Career Goals",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -81,6 +92,7 @@ const templateData = [
       },
       {
         title: "Preparation Phase",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -88,14 +100,16 @@ const templateData = [
           {
             id: 0,
             title: "Step 1: Employment Plan",
+            type: "system",
             complete: false,
-        completed: false,
+            completed: false,
             points: 1,
           },
         ],
       },
       {
         title: "Job Search",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -103,6 +117,7 @@ const templateData = [
       },
       {
         title: "Training/Upskililng",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -110,6 +125,7 @@ const templateData = [
       },
       {
         title: "Securing Employment",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -122,6 +138,7 @@ const templateData = [
     tasks: [
       {
         title: "Intake",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -129,6 +146,7 @@ const templateData = [
       },
       {
         title: "Credit Assessment",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -136,6 +154,7 @@ const templateData = [
       },
       {
         title: "Set Goals",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -143,6 +162,7 @@ const templateData = [
       },
       {
         title: "Create a Budget",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -150,6 +170,7 @@ const templateData = [
       },
       {
         title: "Financial Asset",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -157,6 +178,7 @@ const templateData = [
       },
       {
         title: "Emergency Fund",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -169,6 +191,7 @@ const templateData = [
     tasks: [
       {
         title: "Get a Physical",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -176,6 +199,7 @@ const templateData = [
       },
       {
         title: "Nutrition/Exercise",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -183,6 +207,7 @@ const templateData = [
       },
       {
         title: "Dental",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -190,6 +215,7 @@ const templateData = [
       },
       {
         title: "Vision",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -197,6 +223,7 @@ const templateData = [
       },
       {
         title: "Mental Health",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -204,6 +231,7 @@ const templateData = [
       },
       {
         title: "Choose Your Own",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -216,6 +244,7 @@ const templateData = [
     tasks: [
       {
         title: "Assess Needs",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -223,6 +252,7 @@ const templateData = [
       },
       {
         title: "Budget",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -230,6 +260,7 @@ const templateData = [
       },
       {
         title: "Security Deposit",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -237,6 +268,7 @@ const templateData = [
       },
       {
         title: "Search",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -244,6 +276,7 @@ const templateData = [
       },
       {
         title: "Apply for Housing",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
@@ -251,6 +284,7 @@ const templateData = [
       },
       {
         title: "Lease-up",
+        type: "system",
         complete: false,
         completed: false,
         points: 1,
