@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   FlatList,
   ActivityIndicator,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -73,6 +74,12 @@ const HomeScreen = () => {
     navigation.navigate("Vital Signs");
   };
 
+  const [state, setState] = useState(true);
+
+  const toggle = () => {
+    setState(!state);
+  }
+
   // If loading is true then display activity indicator
   if (loading) {
     return (
@@ -81,6 +88,8 @@ const HomeScreen = () => {
       </View>
     );
   }
+
+  // these functions is to toggle the center button. it will be the animation
 
   return (
     <SafeAreaView style={styles.container}>
@@ -93,55 +102,81 @@ const HomeScreen = () => {
           renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
           keyExtractor={(item) => item.id.toString()}
         /> */}
+      <Text style={{position: 'absolute', alignItems:'center', top: 0, fontSize: 30}}>
+        {state ? 'Push to Begin!': 'Welcome!'}
+      </Text>
 
-      <View>
+      <View style={{right: 120, top:200}}>
+        
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Education", {listID: 0 });
           }}
-          style={styles.circleButton}
+          style={[styles.circleButton, {left:60, bottom: 70}]}
         >
-          <Text style={styles.circleText}>Education</Text>
+          <Image style={{width: 60, height: 60}}
+            resizeMode='contain'
+            source={require('../assets/education.png')}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Employment", {listID: 1 });
           }}
-          style={styles.circleButton}
+          style={[styles.circleButton, {left:290, bottom: 140}]}
         >
-          <Text style={styles.circleText}>Employment</Text>
+          <Image style={{width: 60, height: 55, bottom: 2}}
+          resizeMode='contain'
+          source={require('../assets/employment.png')}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Financial", {listID: 2 });
           }}
-          style={styles.circleButton}
+          style={[styles.circleButton, {left:60, bottom: 20}]}
         >
-          <Text style={styles.circleText}>Financial</Text>
+          <Image style={{width: 60, height: 60}}
+          resizeMode='contain'
+          source={require('../assets/money.png')}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Healthcare", {listID: 3 });
           }}
-          style={styles.circleButton}
+          style={[styles.circleButton, {left:170, bottom: 40}]}
         >
-          <Text style={styles.circleText}>Healthcare</Text>
+          <Image style={{width: 55, height: 60, right: 2, top: 1}}
+          resizeMode='contain'
+          source={require('../assets/healthcare.png')}/>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Housing", {listID: 4 });
           }}
-          style={styles.circleButton}
+          style={[styles.circleButton, {left:290, bottom: 160}]}
         >
-          <Text style={styles.circleText}>Housing</Text>
+          <Image style={{width: 50, height: 60}}
+          resizeMode='contain'
+          source={require('../assets/housing.png')}/>
         </TouchableOpacity>
 
+        {/* replace the image with the counter. But this is the man in the center*/}
+        <TouchableOpacity style={[styles.largeCircle, {left:122, bottom: 380}]}
+            onPress={toggle}>
+        <Image style={{width: 100, height: 130}}
+          resizeMode='contain'
+          source={require('../assets/close.png')} />
+        </TouchableOpacity>
+        </View>
+
+        <View style={{bottom: 100}}>
         <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
-          <Text style={styles.circleText}>Vital Signs</Text>
+          <Image style={{width: 50}}
+            resizeMode='contain'
+            source={require('../assets/vital.png')} />
         </TouchableOpacity>
 
         <View style={{ flexDirection: "row" }}>
@@ -178,7 +213,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+        <TouchableOpacity onPress={handleSignOut} style={[styles.button, {left: 60}]}>
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
@@ -223,5 +258,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 12,
+  },
+  largeCircle: {
+    width: 175,
+    height: 175,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: "black",
+    backgroundColor: "#c5b358",
   },
 });
