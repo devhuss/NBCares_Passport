@@ -74,6 +74,12 @@ const HomeScreen = () => {
     navigation.navigate("Vital Signs");
   };
 
+  const [state, setState] = useState(true);
+
+  const toggle = () => {
+    setState(!state);
+  }
+
   // If loading is true then display activity indicator
   if (loading) {
     return (
@@ -82,6 +88,8 @@ const HomeScreen = () => {
       </View>
     );
   }
+
+  // these functions is to toggle the center button. it will be the animation
 
   return (
     <SafeAreaView style={styles.container}>
@@ -94,9 +102,12 @@ const HomeScreen = () => {
           renderItem={({ item }) => <ItemRender item={item} name={item.name} />}
           keyExtractor={(item) => item.id.toString()}
         /> */}
+      <Text style={{position: 'absolute', alignItems:'center', top: 0, fontSize: 30}}>
+        {state ? 'Push to Begin!': 'Welcome!'}
+      </Text>
 
-      <View style={{right: 120, top:180}}>
-        <Text style={{right: 100}}>Welcome!</Text>
+      <View style={{right: 120, top:200}}>
+        
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Education", {listID: 0 });
@@ -153,7 +164,8 @@ const HomeScreen = () => {
         </TouchableOpacity>
 
         {/* replace the image with the counter. But this is the man in the center*/}
-        <TouchableOpacity style={[styles.largeCircle, {left:122, bottom: 380}]}>
+        <TouchableOpacity style={[styles.largeCircle, {left:122, bottom: 380}]}
+            onPress={toggle}>
         <Image style={{width: 100, height: 130}}
           resizeMode='contain'
           source={require('../assets/close.png')} />
