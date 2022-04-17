@@ -9,6 +9,7 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
@@ -27,8 +28,10 @@ export default TabRender = ({ listID }) => {
     if (newTask) {
       list.tasks.push({
         title: newTask,
+        type: "user",
         complete: false,
         completed: false,
+        points: 1,
         steps: [],
       });
 
@@ -55,22 +58,27 @@ export default TabRender = ({ listID }) => {
         )}
         keyExtractor={(item, index) => index}
         contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}
+        // keyboardShouldPersistTaps="handled"
         //extraData={refresh}
       />
 
-      <View style={[styles.section, styles.footer]} behavior="padding">
+      <KeyboardAvoidingView
+        style={[styles.section, styles.footer]}
+        behavior="height"
+      >
         <TextInput
           style={[styles.input, { borderColor: "black" }]}
           onChangeText={(text) => setNewTask(text)}
           value={newTask}
         />
+
         <TouchableOpacity
           style={[styles.addTodo, { backgroundColor: "black" }]}
           onPress={() => addTask()}
         >
           <AntDesign name="plus" size={24} color={"white"} />
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </GestureHandlerRootView>
   );
 };

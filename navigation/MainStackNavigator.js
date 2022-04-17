@@ -10,13 +10,17 @@ import FinancialScreen from "../screens/tabs/financial";
 import HealthcareScreen from "../screens/tabs/healthcare";
 import InformationScreen from "../screens/InformationScreen";
 import VitalScreen from "../screens/tabs/vital";
+import Tasks from "../screens/tabs/Tasks";
+import Steps from "../screens/tabs/Steps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
   headerStyle: {
-    backgroundColor: "#859a9b",
+    
+    // backgroundColor: "#859a9b",
+    backgroundColor: "#677d7e",
   },
   headerTintColor: "white",
   headerBackTitle: "Back",
@@ -36,6 +40,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Financial" component={FinancialScreen} />
       <Stack.Screen name="Healthcare" component={HealthcareScreen} />
       <Stack.Screen name="Vital Signs" component={VitalScreen} />
+      <Stack.Screen name="Tasks" component={Tasks} />
+      <Stack.Screen name="Steps" options={{headerShown: false}} component={Steps} />
     </Stack.Navigator>
   );
 };

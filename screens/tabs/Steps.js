@@ -15,84 +15,39 @@ import {
   GestureHandlerRootView,
   Swipeable,
 } from "react-native-gesture-handler";
-import { PageContext } from "../context";
+import { PageContext } from "../../context";
 
-const TodoModal = ({ task, listID, closeModal }) => {
+const Steps = ({ route }) => {
+  const { task } = route.params;
+  const { listID } = route.params;
   const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [newStep, setNewStep] = useState("");
   const [points, setPoints] = pointss;
-  const [refresh, setRefresh] = useState(false);
-  
+  const [refresh, setRefresh] = refreshs;
+
   //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
-
-  // const toggleCompleted = (item) => {
-  //   if (item.completed && item.type != "system") {
-  //     item.complete = !item.complete;
-  //     fire.updateList(list);
-  //   }
-
-  //   if (!item.complete && !item.completed) {
-  //     if (item.type == "system") {
-  //       Alert.alert(
-  //         "Complete [" + item.title + "]",
-  //         "You will not be able to uncomplete this task",
-  //         [
-  //           {
-  //             text: "Cancel",
-  //             onPress: () => {},
-  //             style: "cancel",
-  //           },
-  //           {
-  //             text: "OK",
-  //             onPress: () => {
-  //               add_completeTask(item);
-  //             },
-  //           },
-  //         ]
-  //       );
-  //     } else {
-  //       add_completeTask(item);
-  //     }
-  //   }
-
-  //   setRefresh(!refresh);
-  // };
-
-  // const add_completeTask = (item) => {
-  //   setPoints(points + item.points);
-  //   fire.updatePoints({
-  //     userPoints: points + item.points,
-  //   });
-  //   item.complete = true;
-  //   item.completed = true;
-  //   fire.updateList(list);
-  // };
-
   const toggleCompleted = (item) => {
     item.complete = !item.complete;
 
-    // if (item.complete && !item.completed) {
-    //   setPoints(points + 1);
-    //   fire.updatePoints({
-    //     userPoints: points + 1,
-    //   });
-    // }
+    if (item.complete && !item.completed) {
+      setPoints(points + 1);
+      fire.updatePoints({
+        userPoints: points + 1,
+      });
+    }
 
-    // item.completed = true;
-    // fire.updateList(list);
+    item.completed = true;
+    fire.updateList(list);
 
-     setRefresh(!refresh);
+    setRefresh(!refresh);
   };
 
   const addStep = () => {
     if (newStep) {
       task.steps.push({
         title: newStep,
-        type: 'user',
-        complete: false,
         completed: false,
-        points: 0,
       });
 
       fire.updateList(list);
@@ -140,13 +95,13 @@ const TodoModal = ({ task, listID, closeModal }) => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
-      <TouchableOpacity
+    <GestureHandlerRootView style={{ flex: 1, justifyContent: "center", backgroundColor: '#859a9b' }}>
+      {/* <TouchableOpacity
         style={{ position: "absolute", top: 8, right: 32, zIndex: 10 }}
-        onPress={closeModal}
+        // onPress={ }
       >
         <AntDesign name="close" size={24} color="black" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity
         style={styles.title}
@@ -199,24 +154,24 @@ const TodoModal = ({ task, listID, closeModal }) => {
         )}
       />
 
-      <View style={[styles.section, styles.footer]} behavior="height">
+      <View style={[styles.section, styles.footer]} behavior="padding">
         <TextInput
           style={[styles.input, { borderColor: "black" }]}
-          // onChangeText={(text) => setNewStep(text)}
-          // value={newStep}
+          onChangeText={(text) => setNewStep(text)}
+          value={newStep}
         />
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={[styles.addTodo, { backgroundColor: "black" }]}
           onPress={() => addStep()}
         >
           <AntDesign name="plus" size={24} color={"white"} />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
   );
 };
 
-export default TodoModal;
+export default Steps;
 
 const styles = StyleSheet.create({
   title: {
