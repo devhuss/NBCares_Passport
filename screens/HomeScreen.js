@@ -15,7 +15,7 @@ import { PageContext } from "../context";
 let initialRender = true;
 const HomeScreen = () => {
   // These variables can be considered 'global' to any file that is under the context provider in the root file
-  const { fire, authen, lists, refreshs, vitals, pointss } =
+  const { fire, authen, lists, refreshs, vitals, pointss, headers } =
     React.useContext(PageContext);
   const [authID, setAuthID] = authen;
   const [refresh, setRefresh] = refreshs;
@@ -23,6 +23,8 @@ const HomeScreen = () => {
   const [points, setPoints] = pointss;
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const [header, setHeader] = headers;
+
 
   //const test = new Date(vitalsigns[0].createdAt.toDate()).toString()
 
@@ -111,6 +113,7 @@ const HomeScreen = () => {
       <View style={{ right: 120, top: 200 }}>
         <TouchableOpacity
           onPress={() => {
+            setHeader(lists[0].name);
             navigation.navigate("Tasks", { listID: 0 });
           }}
           style={[styles.circleButton, { left: 60, bottom: 70 }]}
@@ -125,6 +128,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
+            setHeader(lists[1].name);
             navigation.navigate("Tasks", { listID: 1 });
           }}
           style={[styles.circleButton, { left: 290, bottom: 140 }]}
@@ -139,6 +143,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
+            setHeader(lists[2].name);
             navigation.navigate("Tasks", { listID: 2 });
           }}
           style={[styles.circleButton, { left: 60, bottom: 20 }]}
@@ -153,6 +158,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
+            setHeader(lists[3].name);
             navigation.navigate("Tasks", { listID: 3 });
           }}
           style={[styles.circleButton, { left: 170, bottom: 40 }]}
@@ -167,6 +173,7 @@ const HomeScreen = () => {
 
         <TouchableOpacity
           onPress={() => {
+            setHeader(lists[4].name);
             navigation.navigate("Tasks", { listID: 4 });
           }}
           style={[styles.circleButton, { left: 290, bottom: 160 }]}

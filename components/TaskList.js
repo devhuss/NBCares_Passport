@@ -143,12 +143,16 @@ const TaskList = ({ task, index, listID }) => {
             { backgroundColor: task.complete ? "#c7d1d1" : "#859a9b" },
           ]}
           onPress={() => {
-            navigation.navigate("Steps", { task: task, listID: listID });
+            navigation.navigate("Steps", {
+              task: task,
+              index: index,
+              listID: listID,
+            });
           }}
           // onPress={() => setShowList(!showList)}
           // activeOpacity={0.8}
         >
-          <TouchableOpacity onPress={() => toggleCompleted(task, index)}>
+          <TouchableOpacity onPress={() => toggleCompleted(task)}>
             <Ionicons
               name={task.complete ? "ios-checkbox-outline" : "ios-square"}
               size={35}
@@ -172,15 +176,37 @@ const TaskList = ({ task, index, listID }) => {
             <View style={{ flexDirection: "row" }}>
               {task.steps.length > 0 ? (
                 <View style={{ flexDirection: "row" }}>
-                  <Text style={[styles.taskSubText]}>
+                  <Text
+                    style={[
+                      styles.taskSubText,
+                      { color: task.complete ? "#969696" : "#e8e8e8" },
+                    ]}
+                  >
                     {task.steps.filter((step) => step.complete).length} of{" "}
                     {task.steps.length}
                   </Text>
-                  <Text style={[styles.taskSubText,{ paddingHorizontal: 10  }]}>||</Text>
+                  <Text
+                    style={[
+                      styles.taskSubText,
+                      {
+                        paddingHorizontal: 10,
+                        color: task.complete ? "#969696" : "#e8e8e8",
+                      },
+                    ]}
+                  >
+                    ||
+                  </Text>
                 </View>
               ) : null}
 
-              <Text style={[styles.taskSubText, {color: task.complete ? '#969696' : '#e8e8e8'}]}>Type: system</Text>
+              <Text
+                style={[
+                  styles.taskSubText,
+                  { color: task.complete ? "#969696" : "#e8e8e8" },
+                ]}
+              >
+                Type: {task.type}
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -217,7 +243,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   taskSubText: {
-    color: "#e8e8e8", fontWeight: "700"
+    color: "#e8e8e8",
+    fontWeight: "700",
   },
   deleteButton: {
     flex: 1,

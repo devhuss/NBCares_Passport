@@ -7,6 +7,7 @@ import {
   FlatList,
   TextInput,
   Animated,
+  Alert,
 } from "react-native";
 
 import React, { useState } from "react";
@@ -16,52 +17,61 @@ import {
   Swipeable,
 } from "react-native-gesture-handler";
 import { PageContext } from "../../context";
+import AddModal from "../../components/AddModal";
 
-const Steps = ({ route }) => {
+const Steps = ({ route, navigation }) => {
   const { task } = route.params;
+  const { index } = route.params;
   const { listID } = route.params;
   const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [newStep, setNewStep] = useState("");
   const [points, setPoints] = pointss;
   const [refresh, setRefresh] = refreshs;
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
   const toggleCompleted = (item) => {
-    item.complete = !item.complete;
-
-    if (item.complete && !item.completed) {
-      setPoints(points + 1);
-      fire.updatePoints({
-        userPoints: points + 1,
-      });
+    if (item.completed && item.type != "system") {
+      item.complete = !item.complete;
+      fire.updateList(list);
     }
 
-    item.completed = true;
-    fire.updateList(list);
-
+    if (!item.complete && !item.completed) {
+      if (item.type == "system") {
+        Alert.alert(
+          "Complete [" + item.title + "]",
+          "You will not be able to uncomplete this task",
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+              style: "cancel",
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                add_completeTask(item);
+              },
+            },
+          ]
+        );
+      } else {
+        add_completeTask(item);
+      }
+    }
     setRefresh(!refresh);
   };
 
-  const addStep = () => {
-    if (newStep) {
-      task.steps.push({
-        title: newStep,
-        completed: false,
-      });
-
-      fire.updateList(list);
-      setNewStep("");
-      //setRefresh(!refresh);
-    } else {
-      // a message saying that the textinput should not be empty
-    }
-  };
-
-  const deleteStep = (index) => {
-    task.steps.splice(index, 1);
+  const add_completeTask = (item) => {
+    setPoints(points + item.points);
+    fire.updatePoints({
+      userPoints: points + item.points,
+    });
+    item.complete = true;
+    item.completed = true;
     fire.updateList(list);
-    //setRefresh(!refresh);
   };
 
   const rightActions = (dragX, index) => {
@@ -77,9 +87,24 @@ const Steps = ({ route }) => {
       extrapolate: "clamp",
     });
 
+    const radi = dragX.interpolate({
+      inputRange: [-100, -20, 0],
+      outputRange: [10, 7.5, 0],
+      extrapolate: "clamp",
+    });
+
     return (
       <TouchableOpacity onPress={() => deleteStep(index)}>
-        <Animated.View style={[styles.deleteButton, { opacity: opacity }]}>
+        <Animated.View
+          style={[
+            styles.deleteButton,
+            {
+              opacity: opacity,
+              borderBottomRightRadius: radi,
+              borderTopRightRadius: radi,
+            },
+          ]}
+        >
           <Animated.Text
             style={{
               color: "white",
@@ -95,39 +120,85 @@ const Steps = ({ route }) => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, justifyContent: "center", backgroundColor: '#859a9b' }}>
-      {/* <TouchableOpacity
-        style={{ position: "absolute", top: 8, right: 32, zIndex: 10 }}
-        // onPress={ }
-      >
-        <AntDesign name="close" size={24} color="black" />
-      </TouchableOpacity> */}
-
+    <GestureHandlerRootView
+      style={{ flex: 1, justifyContent: "center", backgroundColor: "#859a9b" }}
+    >
+      <AddModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        listID={listID}
+        tIndex={index}
+        type="step"
+      />
       <TouchableOpacity
-        style={styles.title}
-        onPress={() => toggleCompleted(task)}
+        style={{ position: "absolute", top: 36, left: 16, zIndex: 10 }}
+        onPress={() => {
+          navigation.goBack();
+        }}
       >
-        <Ionicons
-          name={task.complete ? "ios-square" : "ios-square-outline"}
-          size={24}
-          color={styles.color1}
-          style={{ width: 32 }}
-        />
-        <View>
-          <Text style={{ fontSize: 25 }}>{task.title}</Text>
-          {task.steps.length > 0 ? (
-            <Text>
-              {task.steps.filter((step) => step.complete).length} of{" "}
-              {task.steps.length}
-            </Text>
-          ) : null}
-        </View>
+        <Ionicons name="arrow-back-sharp" size={26} color="white" />
       </TouchableOpacity>
+
+      <View style={styles.title}>
+        <TouchableOpacity onPress={() => toggleCompleted(task)}>
+          <Ionicons
+            name={task.complete ? "ios-checkbox-outline" : "ios-square"}
+            size={35}
+            color={task.complete ? "#e3e3e3" : "#ffffff"}
+            style={{ width: 40 }}
+          />
+        </TouchableOpacity>
+
+        <View style={{ marginLeft: 10 }}>
+          <Text
+            style={{
+              fontSize: 22,
+              color: task.complete ? "#e3e3e3" : "#ffffff",
+            }}
+          >
+            {task.title}
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            {task.steps.length > 0 ? (
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={[
+                    styles.taskSubText,
+                    { color: task.complete ? "#e3e3e3" : "#ffffff" },
+                  ]}
+                >
+                  {task.steps.filter((step) => step.complete).length} of{" "}
+                  {task.steps.length}
+                </Text>
+                <Text
+                  style={[
+                    styles.taskSubText,
+                    {
+                      paddingHorizontal: 10,
+                      color: task.complete ? "#e3e3e3" : "#ffffff",
+                    },
+                  ]}
+                >
+                  ||
+                </Text>
+              </View>
+            ) : null}
+
+            <Text
+              style={[
+                styles.taskSubText,
+                { color: task.complete ? "#e3e3e3" : "#ffffff" },
+              ]}
+            >
+              Type: {task.type}
+            </Text>
+          </View>
+        </View>
+      </View>
 
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
-        //extraData={refresh}
         contentContainerStyle={{ paddingHorizontal: 15 }}
         renderItem={({ item, index }) => (
           <Swipeable
@@ -136,35 +207,24 @@ const Steps = ({ route }) => {
             <View style={styles.taskContainer}>
               <TouchableOpacity onPress={() => toggleCompleted(item)}>
                 <Ionicons
-                  name={item.complete ? "ios-square" : "ios-square-outline"}
+                  name={item.complete ? "ios-checkbox-outline" : "ios-square"}
                   size={24}
-                  color={styles.color1}
-                  style={{ width: 32 }}
+                  color={item.complete ? "#e3e3e3" : "#ffffff"}
+                  style={{ width: 40 }}
                 />
               </TouchableOpacity>
-              <Text
-                style={{
-                  textDecorationLine: item.complete ? "line-through" : "none",
-                }}
-              >
-                {item.title}
-              </Text>
+              <Text style={{}}>{item.title}</Text>
             </View>
           </Swipeable>
         )}
       />
 
-      <View style={[styles.section, styles.footer]} behavior="padding">
-        <TextInput
-          style={[styles.input, { borderColor: "black" }]}
-          onChangeText={(text) => setNewStep(text)}
-          value={newStep}
-        />
+      <View style={[styles.section, styles.footer]}>
         <TouchableOpacity
-          style={[styles.addTodo, { backgroundColor: "black" }]}
-          onPress={() => addStep()}
+          style={[styles.addTodo, { backgroundColor: "white" }]}
+          onPress={() => setModalVisible(true)}
         >
-          <AntDesign name="plus" size={24} color={"white"} />
+          <AntDesign name="plus" size={24} color={"#677d7e"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -175,17 +235,16 @@ export default Steps;
 
 const styles = StyleSheet.create({
   title: {
-    //backgroundColor: 'grey',
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 90,
     marginHorizontal: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
   section: {
     flex: 1,
-    alignSelf: "stretch",
+    alignSelf: "flex-end",
   },
   footer: {
     paddingHorizontal: 32,
@@ -201,13 +260,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   addTodo: {
-    borderRadius: 4,
+    borderRadius: 30,
     padding: 12,
+    position: "absolute",
+    bottom: 10,
+    opacity: 0.85,
     alignItems: "center",
     justifyContent: "center",
   },
   taskContainer: {
-    // backgroundColor: "lightgrey",
     marginBottom: 3,
     marginLeft: 20,
     paddingVertical: 8,
@@ -225,6 +286,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 70,
-    marginBottom: 3,
+    marginBottom: 5,
   },
 });
