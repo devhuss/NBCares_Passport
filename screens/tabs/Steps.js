@@ -24,43 +24,20 @@ const Steps = ({ route, navigation }) => {
   const { index } = route.params;
   const { listID } = route.params;
   const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
-  const [newStep, setNewStep] = useState("");
   const [points, setPoints] = pointss;
   const [refresh, setRefresh] = refreshs;
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
-  const toggleCompleted = (item) => {
-    if (item.completed && item.type != "system") {
-      item.complete = !item.complete;
-      fire.updateList(list);
-    }
 
-    if (!item.complete && !item.completed) {
-      if (item.type == "system") {
-        Alert.alert(
-          "Complete [" + item.title + "]",
-          "You will not be able to uncomplete this task",
-          [
-            {
-              text: "Cancel",
-              onPress: () => {},
-              style: "cancel",
-            },
-            {
-              text: "OK",
-              onPress: () => {
-                add_completeTask(item);
-              },
-            },
-          ]
-        );
-      } else {
-        add_completeTask(item);
-      }
-    }
+  const toggleCompleted = (item) => {
+    
+      item.complete = !item.complete;
+      console.log(item);
+      console.log(item);
+      fire.updateList(list);
+
     setRefresh(!refresh);
   };
 
@@ -72,6 +49,12 @@ const Steps = ({ route, navigation }) => {
     item.complete = true;
     item.completed = true;
     fire.updateList(list);
+  };
+
+  const deleteStep = (index) => {
+    task.steps.splice(index, 1);
+    fire.updateList(list);
+    setRefresh(!refresh);
   };
 
   const rightActions = (dragX, index) => {
@@ -196,10 +179,18 @@ const Steps = ({ route, navigation }) => {
         </View>
       </View>
 
+      <View
+        style={{
+          marginHorizontal: 35,
+          borderBottomColor: "white",
+          borderBottomWidth: 2,
+        }}
+      />
+
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
-        contentContainerStyle={{ paddingHorizontal: 15 }}
+        contentContainerStyle={{ paddingHorizontal: 45, marginTop: 15 }}
         renderItem={({ item, index }) => (
           <Swipeable
             renderRightActions={(_, dragX) => rightActions(dragX, index)}
@@ -213,7 +204,21 @@ const Steps = ({ route, navigation }) => {
                   style={{ width: 40 }}
                 />
               </TouchableOpacity>
-              <Text style={{}}>{item.title}</Text>
+              <View>
+                <Text style={{ color: item.complete ? "#e3e3e3" : "#ffffff" }}>
+                  {item.title}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={[
+                      styles.taskSubText,
+                      { color: item.complete ? "#e3e3e3" : "#e8e8e8" },
+                    ]}
+                  >
+                    Type: {item.type}
+                  </Text>
+                </View>
+              </View>
             </View>
           </Swipeable>
         )}

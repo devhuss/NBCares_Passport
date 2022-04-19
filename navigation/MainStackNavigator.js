@@ -13,10 +13,15 @@ import VitalScreen from "../screens/tabs/vital";
 import Tasks from "../screens/tabs/Tasks";
 import Steps from "../screens/tabs/Steps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { PageContext } from "../context";
-import DrawerNavigator from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
+
+const Drawer = createDrawerNavigator();
+
+const Tab = createBottomTabNavigator();
 
 const screenOptionStyle = {
   headerStyle: {
@@ -70,4 +75,22 @@ const LoginStackNav = () => {
   );
 };
 
-export { MainStackNavigator, VitalStackNavigator, LoginStackNav };
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name="Home" component={BottomTabNavigator} />
+      <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
+    </Drawer.Navigator>
+  );
+};
+
+const BottomTabNavigator = () => {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
+      <Tab.Screen name="Home" component={MainStackNavigator} />
+      {/* <Tab.Screen name="Vital Signs" component={VitalStackNavigator} /> */}
+    </Tab.Navigator>
+  );
+};
+
+export { MainStackNavigator, LoginStackNav };

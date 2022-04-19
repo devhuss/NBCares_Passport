@@ -3,23 +3,19 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Modal,
   Animated,
   Alert,
 } from "react-native";
 import React, { useState } from "react";
 
-import { AntDesign, Ionicons } from "@expo/vector-icons";
-import TodoModal from "./TodoModal";
+import { Ionicons } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import { PageContext } from "../context";
 import { useNavigation } from "@react-navigation/native";
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 const TaskList = ({ task, index, listID }) => {
   // showList displays Modal if set to true
   // refresh updatees the TaskList if a value in its array changes
-  const [showList, setShowList] = useState(false);
   const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [refresh, setRefresh] = refreshs;
   const [points, setPoints] = pointss;
@@ -125,18 +121,6 @@ const TaskList = ({ task, index, listID }) => {
   const Task = () => {
     return (
       <View>
-        {/* <Modal
-          animationType="slide"
-          visible={showList}
-          onRequestClose={() => setShowList(!showList)}
-        >
-          <TodoModal
-            task={task}
-            listID={listID}
-            closeModal={() => setShowList(!showList)}
-          />
-        </Modal> */}
-
         <TouchableOpacity
           style={[
             styles.taskContainer,

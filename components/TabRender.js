@@ -19,35 +19,11 @@ import AddModal from "./AddModal";
 
 
 export default TabRender = ({ listID }) => {
-  const [newTask, setNewTask] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const { fire, lists } = React.useContext(PageContext);
+  const { lists } = React.useContext(PageContext);
   
   //const [refresh, setRefresh] = refreshs
   const list = lists[listID];
-
-  const addTask = () => {
-    if (newTask) {
-      list.tasks.push({
-        title: newTask,
-        type: "user",
-        complete: false,
-        completed: false,
-        points: 1,
-        steps: [],
-      });
-
-      updateList({ list });
-      setNewTask("");
-      //setRefresh(!refresh);
-    } else {
-      // a message saying text input cannot be empty
-    }
-  };
-
-  const updateList = ({ list }) => {
-    fire.updateList(list);
-  };
   
   return (
     <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
