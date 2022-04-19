@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Text,
@@ -9,44 +9,28 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskList from "./TaskList";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PageContext } from "../context";
+import AddModal from "./AddModal";
+
 
 export default TabRender = ({ listID }) => {
-  const [newTask, setNewTask] = useState("");
-  const { fire, lists } = React.useContext(PageContext);
-  //const [refresh, setRefresh] = refreshs
+  const [modalVisible, setModalVisible] = useState(false);
+  const { lists, refreshs } = React.useContext(PageContext);
+  
+  const [refresh, setRefresh] = refreshs
   const list = lists[listID];
-
-  //console.log('TabRENDER: ', lists[listID])
-
-  const addTask = () => {
-    if (newTask) {
-      list.tasks.push({
-        title: newTask,
-        complete: false,
-        completed: false,
-        steps: [],
-      });
-
-      updateList({ list });
-      setNewTask("");
-      //setRefresh(!refresh);
-    } else {
-      // a message saying text input cannot be empty
-    }
-  };
-
-  const updateList = ({ list }) => {
-    fire.updateList(list);
-  };
-
+  
   return (
     <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
-      <Text style={{ fontSize: 25 }}>itemId: {list.name} </Text>
+
+      <AddModal modalVisible={modalVisible} setModalVisible={setModalVisible} listID={listID}  type='task'/>
+
+      {/* <Text style={{ fontSize: 25 }}>itemId: {list.name} </Text> */}
 
       <FlatList
         data={list.tasks}
@@ -54,31 +38,32 @@ export default TabRender = ({ listID }) => {
           <TaskList task={item} index={index} listID={listID} />
         )}
         keyExtractor={(item, index) => index}
-        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 32 }}
-        //extraData={refresh}
+        contentContainerStyle={{
+          paddingHorizontal: 15,
+          paddingTop: 16,
+          paddingBottom: 62,
+        }}
+        // keyboardShouldPersistTaps="handled"
+        extraData={refresh}
       />
 
-      <View style={[styles.section, styles.footer]} behavior="padding">
-        <TextInput
-          style={[styles.input, { borderColor: "black" }]}
-          onChangeText={(text) => setNewTask(text)}
-          value={newTask}
-        />
+      <View style={[styles.section, styles.footer]}>
         <TouchableOpacity
-          style={[styles.addTodo, { backgroundColor: "black" }]}
-          onPress={() => addTask()}
+          style={[styles.addTodo, { backgroundColor: "#677d7e", opacity: .9 }]}
+          onPress={() => setModalVisible(true)}
         >
           <AntDesign name="plus" size={24} color={"white"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
   );
+  
 };
 
 const styles = StyleSheet.create({
   section: {
     flex: 1,
-    alignSelf: "stretch",
+    alignSelf: "flex-end",
   },
   footer: {
     paddingHorizontal: 32,
@@ -89,13 +74,16 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     borderWidth: 4,
-    borderRadius: 6,
+    borderRadius: 10,
     marginRight: 8,
     paddingHorizontal: 8,
   },
   addTodo: {
-    borderRadius: 4,
+    borderRadius: 30,
     padding: 12,
+    position: "absolute",
+    bottom: 10,
+    //opacity: 0.85,
     alignItems: "center",
     justifyContent: "center",
   },

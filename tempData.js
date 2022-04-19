@@ -8,7 +8,7 @@ const templateData = [
       //   type: "system",
       //   complete: false,
       //   completed: false,
-      //   points: 1,
+      //   points: 100,
       //   steps: [
       //     {
       //       id: 0,
@@ -16,7 +16,7 @@ const templateData = [
       //       type: "system",
       //       complete: false,
       //       completed: false,
-      //       points: 1,
+      //       points: 100,
       //     },
       //   ],
       // },
@@ -26,7 +26,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       }, //to here
       {
@@ -34,7 +34,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -42,7 +42,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -50,7 +50,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -58,7 +58,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -66,7 +66,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
     ],
@@ -79,7 +79,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -87,7 +87,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -95,15 +95,15 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [
           {
             id: 0,
-            title: "Step 1: Employment Plan",
+            title: "Step 100: Employment Plan",
             type: "system",
             complete: false,
             completed: false,
-            points: 1,
+            points: 100,
           },
         ],
       },
@@ -112,7 +112,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -120,7 +120,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -128,7 +128,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
     ],
@@ -141,7 +141,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -149,7 +149,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -157,7 +157,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -165,7 +165,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -173,7 +173,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -181,7 +181,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
     ],
@@ -194,7 +194,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -202,7 +202,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -210,7 +210,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -218,7 +218,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -226,7 +226,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -234,7 +234,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
     ],
@@ -247,7 +247,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -255,7 +255,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -263,7 +263,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -271,7 +271,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -279,7 +279,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
       {
@@ -287,7 +287,7 @@ const templateData = [
         type: "system",
         complete: false,
         completed: false,
-        points: 1,
+        points: 100,
         steps: [],
       },
     ],
