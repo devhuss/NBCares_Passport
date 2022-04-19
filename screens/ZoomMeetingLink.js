@@ -9,6 +9,7 @@ const ZoomMeetingLink = () => {
           <Text onPress = {() =>
             Linking.openURL("https://us05web.zoom.us/j/3760490541?pwd=VmtrcHlnQTVnbnV3dnA0K3Vld0dYUT09#success")} style = {styles.buttonText}>Click here to join a zoom meeting</Text>
         </TouchableOpacity>
+        <Text style = {styles.text}>Password: 4thePeople1</Text>
       </SafeAreaView>
   );
 };
@@ -41,4 +42,10 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  text:{
+    color: "springgreen",
+    fontWeight:"200",
+    fontSize:16,
+    bottom: 375
+  }
 });
