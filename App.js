@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Fire } from "./firebase";
 import { PageContext } from "./context";
 import 'react-native-gesture-handler';
-import DrawerNavigator from "./navigation/DrawerNavigator";
 import { LoginStackNav } from "./navigation/MainStackNavigator";
 
 

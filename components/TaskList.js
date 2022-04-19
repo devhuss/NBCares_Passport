@@ -128,7 +128,6 @@ const TaskList = ({ task, index, listID }) => {
           ]}
           onPress={() => {
             navigation.navigate("Steps", {
-              task: task,
               index: index,
               listID: listID,
             });

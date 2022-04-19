@@ -20,9 +20,9 @@ import AddModal from "./AddModal";
 
 export default TabRender = ({ listID }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { lists } = React.useContext(PageContext);
+  const { lists, refreshs } = React.useContext(PageContext);
   
-  //const [refresh, setRefresh] = refreshs
+  const [refresh, setRefresh] = refreshs
   const list = lists[listID];
   
   return (
@@ -44,7 +44,7 @@ export default TabRender = ({ listID }) => {
           paddingBottom: 62,
         }}
         // keyboardShouldPersistTaps="handled"
-        //extraData={refresh}
+        extraData={refresh}
       />
 
       <View style={[styles.section, styles.footer]}>

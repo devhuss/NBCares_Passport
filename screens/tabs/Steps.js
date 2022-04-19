@@ -20,7 +20,6 @@ import { PageContext } from "../../context";
 import AddModal from "../../components/AddModal";
 
 const Steps = ({ route, navigation }) => {
-  const { task } = route.params;
   const { index } = route.params;
   const { listID } = route.params;
   const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
@@ -30,15 +29,39 @@ const Steps = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const list = lists[listID];
+  const task = list.tasks[index]
 
   const toggleCompleted = (item) => {
-    
+    if (item.completed && item.type != "system") {
       item.complete = !item.complete;
-      console.log(item);
-      console.log(item);
       fire.updateList(list);
+    }
 
-    setRefresh(!refresh);
+    if (!item.complete && !item.completed) {
+      if (item.type == "system") {
+        Alert.alert(
+          "Complete [" + item.title + "]",
+          "You will not be able to uncomplete this task",
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+              style: "cancel",
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                add_completeTask(item);
+              },
+            },
+          ]
+        );
+      } else {
+        add_completeTask(item);
+      }
+    }
+
+    //setRefresh(!refresh);
   };
 
   const add_completeTask = (item) => {
