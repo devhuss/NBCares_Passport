@@ -3,7 +3,7 @@ const text =
 
 Authorization to Disclose/Obtain Information\n
 
-I, hereby authorize agencies participating in the NB
+I hereby authorize agencies participating in the NB
 CARES Program to disclose, obtain, or communicate information about my participation and
 progress in this self-sufficiency initiative. Authorized agencies include the American Job Center,
 the Bristol Department of Adult Education, Central Connecticut State University, Community
@@ -30,7 +30,9 @@ participants of the program.\n
 
 This release of information shall be effective until December 31, 2022. I understand that I may
 revoke this authorization by informing any participating agency in writing that I have withdrawn
-my participation in the NB CARES initiative.`;
+my participation in the NB CARES initiative.\n
+
+By clicking continue, you are agreeing to all that has been stated above.`;
 
 
 

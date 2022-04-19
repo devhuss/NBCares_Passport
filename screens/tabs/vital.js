@@ -145,7 +145,7 @@ const Vital = () => {
         {/* these are the values that are just printed out under the grid.
             basically we replace {income} with the previous database value
             and cruise like that */}
-        <View style={{ top: 80 }}>
+        <View style={{ top: 100 }}>
           <Text style={[styles.text, { position: "absolute", bottom: 282 }]}>
             {" "}
             Previous Income: ${income}

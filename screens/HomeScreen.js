@@ -7,6 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -94,6 +95,8 @@ const HomeScreen = () => {
   // these functions is to toggle the center button. it will be the animation
 
   return (
+
+    <ScrollView>
     <SafeAreaView style={styles.container}>
       {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
       <Text>userID: {fire.userID}</Text>
@@ -246,6 +249,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -258,16 +262,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    //backgroundColor: 'blue',
-    width: "60%",
+    backgroundColor: 'blue',
+    width: "90%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 40,
-    bottom: 30,
+    top:125
   },
   buttonText: {
-    color: "lightblue",
+    color: "white",
     fontWeight: "700",
     fontSize: 16,
   },

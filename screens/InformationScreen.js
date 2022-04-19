@@ -20,12 +20,12 @@ import CheckBox from "@react-native-community/checkbox";
 
 const InformationScreen = () => {
   const { fire } = React.useContext(PageContext)
-  const [familyOrFriend, setFamilyOrFriend] = useState("");
-  const [familyOrFriend2, setFamilyOrFriend2] = useState("");
-  const [familyOrFriend3, setFamilyOrFriend3] = useState("");
-  const [familyOrFriend4, setFamilyOrFriend4] = useState("");
-  const [familyOrFriend5, setFamilyOrFriend5] = useState("");
-  const [familyOrFriend6, setFamilyOrFriend6] = useState("");
+  // const [familyOrFriend, setFamilyOrFriend] = useState("");
+  // const [familyOrFriend2, setFamilyOrFriend2] = useState("");
+  // const [familyOrFriend3, setFamilyOrFriend3] = useState("");
+  // const [familyOrFriend4, setFamilyOrFriend4] = useState("");
+  // const [familyOrFriend5, setFamilyOrFriend5] = useState("");
+  // const [familyOrFriend6, setFamilyOrFriend6] = useState("");
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [complianceModal, setComplianceModal] = useState(true);
@@ -52,7 +52,7 @@ const InformationScreen = () => {
               <View style={styles.modalView}>
                 <Text style={styles.modalComplianceTitle}>NB CARES</Text>
                 <Text>{text}</Text>
-                <Text>Enter up to six family members</Text>
+                {/* <Text>Enter up to six family members</Text>
                 <View style={styles.inputContainer}>
                   <TextInput
                     placeholder="Enter Family or Friend"
@@ -103,7 +103,7 @@ const InformationScreen = () => {
                     onChangeText={(text) => setFamilyOrFriend6(text)}
                     style={styles.input}
                   />
-                </View>
+                </View> */}
 
                 <TouchableOpacity
                   style={[
