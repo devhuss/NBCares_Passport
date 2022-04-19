@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  Pressable,
+  Pressable
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
@@ -43,8 +43,8 @@ const Vital = () => {
     //   alert('Please fill out the missing information');
     // }
     //   else
-    alert("Nice Job! Your evaluation score is " + total);
-  };
+    alert('Nice Job! Your evaluation score is ' + total);
+  }
 
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
@@ -56,7 +56,72 @@ const Vital = () => {
   const [num8, setNum8] = useState(0);
   const [num9, setNum9] = useState(0);
 
-  const total = num1 + num2 + num3 + num4 + num5 + num6 + num7 + num8 + num9;
+  const total = num1+num2+num3+num4+num5+num6+num7+num8+num9;
+
+  //the next three functions are for the likert scale. background is the button color
+  //where reset makes sure no two buttons are colored at the same time
+  //and change color lets the background color change when each button is triggered
+  //the information is stored in variable likert which is saved using the same process as the smilies
+  const [background1, setBackground1] = useState(true);
+  const [background2, setBackground2] = useState(true);
+  const [background3, setBackground3] = useState(true);
+  const [background4, setBackground4] = useState(true);
+  const [background5, setBackground5] = useState(true);
+
+  const reset1 = () => {
+    setBackground2('white')
+    setBackground3('white')
+    setBackground4('white')
+    setBackground5('white')
+  }
+  const reset2 = () => {
+    setBackground1('white')
+    setBackground3('white')
+    setBackground4('white')
+    setBackground5('white')
+  }
+  const reset3 = () => {
+    setBackground1('white')
+    setBackground2('white')
+    setBackground4('white')
+    setBackground5('white')
+  }
+  const reset4 = () => {
+    setBackground1('white')
+    setBackground2('white')
+    setBackground3('white')
+    setBackground5('white')
+  }
+  const reset5 = () => {
+    setBackground1('white')
+    setBackground2('white')
+    setBackground3('white')
+    setBackground4('white')
+  }
+
+  const colorChange1 = () => {
+    setBackground1(!background1)
+    setLikert('Excellent')
+  }
+  const colorChange2 = () => {
+    setBackground2(!background2)
+    setLikert('Good')
+  }
+  const colorChange3 = () => {
+    setBackground3(!background3)
+    setLikert('Okay')
+  }
+  const colorChange4 = () => {
+    setBackground4(!background4)
+    setLikert('Bad')
+  }
+  const colorChange5 = () => {
+    setBackground5(!background5)
+    setLikert('Horrible')
+  }
+
+  const [likert, setLikert] = useState("");
+
 
   const saveData = () => {
     fire.addVitalsign({
@@ -75,9 +140,8 @@ const Vital = () => {
       job: job,
       education: education,
       total: total,
+      likert: likert,
     });
-
-    userPrompt();
   };
 
   return (
@@ -87,7 +151,7 @@ const Vital = () => {
           Financial
         </Text>
       </View>
-      <View style={[styles.container, { bottom: 15 }]}>
+      <View style={[styles.container, {bottom: 15}]}>
         {/* multiline makes it so that everything wraps
             numeric makes the num pad come up on click
             placeholder is the gray text inside the box that gets replaced
@@ -118,61 +182,72 @@ const Vital = () => {
           onChangeText={(val) => setEmergency(val)}
           maxLength={16}
         />
-      </View>
+        </View>
 
-      {/* likert scale. currently does nothing 
+        {/* likert scale. currently does nothing 
             note: onPressIn -> onPressOut -> onPress by order of execution
             reset with pressIn, highlight with pressOut*/}
-      <View style={{ flexDirection: "row", left: 5 }}>
-        <TouchableOpacity
-          style={[styles.likert, { left: 20, bottom: 13 }]}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.likert, { left: 80, bottom: 13 }]}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.likert, { left: 140, bottom: 13 }]}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.likert, { left: 200, bottom: 13 }]}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.likert, { left: 260, bottom: 13 }]}
-        ></TouchableOpacity>
-      </View>
+        <Text style={{fontSize: 20, bottom: 20, left: 10}}>{"\n"}Overall Confidence in my Financial Situation:</Text>
+        <View style={{flexDirection:'row', left:5}}>
+        <TouchableOpacity style={[styles.likert, {left:20, bottom:13, backgroundColor: background1 ? 'white' : 'black'}]}
+        onPressIn={reset1}
+        onPress={colorChange1}>
+        </TouchableOpacity>
 
-      <View>
+        <TouchableOpacity style={[styles.likert, {left:80, bottom:13, backgroundColor: background2 ? 'white' : 'black'}]}
+        onPressIn={reset2}
+        onPress={colorChange2 || setLikert('Good')}>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.likert, {left:140, bottom:13, backgroundColor: background3 ? 'white' : 'black'}]}
+        onPressIn={reset3}
+        onPress={colorChange3 || setLikert('Okay')}>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.likert, {left:200, bottom:13, backgroundColor: background4 ? 'white' : 'black'}]}
+        onPressIn={reset4}
+        onPress={colorChange4 || setLikert('Bad')}>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.likert, {left:260, bottom:13, backgroundColor: background5 ? 'white' : 'black'}]}
+        onPressIn={reset5}
+        onPress={colorChange5 || setLikert('Horrible')}>
+        </TouchableOpacity>
+        </View>
+
+        {/* forgive me for hard coding this lol */}
+        <Text style={{fontSize:15, left:7, bottom: 10}}>Excellent                                Okay                                Horrible</Text>  
+
+        <View>
         {/* these are the values that are just printed out under the grid.
             basically we replace {income} with the previous database value
             and cruise like that */}
-        <View style={{ top: 100 }}>
-          <Text style={[styles.text, { position: "absolute", bottom: 282 }]}>
+        <View style={{top:7}}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 282}]}>
             {" "}
             Previous Income: ${income}
           </Text>
-          <Text style={[styles.text, { position: "absolute", bottom: 217 }]}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 217}]}>
             {" "}
             Previous Credit Score: {creditScore}
           </Text>
-          <Text style={[styles.text, { position: "absolute", bottom: 152 }]}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 152}]}>
             {" "}
             Previous EF: ${emergency}
           </Text>
+
+
+
         </View>
 
         {/* start of the smiles page. Everything is its own button so it is a bit of a mess */}
-        <Text style={styles.text2}>How I feel about my... {"\n"}</Text>
+        <Text style={styles.text2}>{"\n"}How I feel about my... </Text>
         {/* life */}
-        <Text style={{ fontSize: 20, position: "absolute", top: 37, left: 10 }}>
+        <Text style={{ fontSize: 20, left: 10}}>
           Life: {life}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood1("Excellent");
-              setNum1(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood1('Excellent'); setNum1(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -180,12 +255,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood1("Good");
-              setNum1(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood1('Good'); setNum1(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -193,12 +263,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood1("Okay");
-              setNum1(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood1('Okay'); setNum1(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -206,12 +271,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood1("Bad");
-              setNum1(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood1('Bad'); setNum1(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -219,12 +279,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood1("Horrible");
-              setNum1(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood1('Horrible'); setNum1(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -233,16 +288,11 @@ const Vital = () => {
           </TouchableOpacity>
         </View>
         {/* vision of self */}
-        <Text style={{ fontSize: 20, left: 10 }}>
-          {"\n"}Vision of Self: {vision}
+        <Text style={{ fontSize: 20, left: 10}}>
+        {"\n"}Vision of Self: {vision}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood2("Excellent");
-              setNum2(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood2('Excellent'); setNum2(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -250,12 +300,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood2("Good");
-              setNum2(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood2('Good'); setNum2(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -263,12 +308,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood2("Okay");
-              setNum2(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood2('Okay'); setNum2(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -276,12 +316,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood2("Bad");
-              setNum2(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood2('Bad'); setNum2(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -289,12 +324,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood2("Horrible");
-              setNum2(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood2('Horrible'); setNum2(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -307,12 +337,7 @@ const Vital = () => {
           {"\n"}Physical Health: {physical}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood3("Excellent");
-              setNum3(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood3('Excellent'); setNum3(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -320,12 +345,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood3("Good");
-              setNum3(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood3('Good'); setNum3(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -333,12 +353,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood3("Okay");
-              setNum3(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood3('Okay'); setNum3(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -346,12 +361,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood3("Bad");
-              setNum3(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood3('Bad'); setNum3(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -359,12 +369,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood3("Horrible");
-              setNum3(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood3('Horrible'); setNum3(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -377,12 +382,7 @@ const Vital = () => {
           {"\n"}Mental Health: {mental}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood4("Excellent");
-              setNum4(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood4('Excellent'); setNum4(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -390,12 +390,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood4("Good");
-              setNum4(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood4('Good'); setNum4(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -403,12 +398,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood4("Okay");
-              setNum4(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood4('Okay'); setNum4(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -416,12 +406,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood4("Bad");
-              setNum4(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood4('Bad'); setNum4(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -429,12 +414,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood4("Horrible");
-              setNum4(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood4('Horrible'); setNum4(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -447,12 +427,7 @@ const Vital = () => {
           {"\n"}Housing: {housing}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood5("Excellent");
-              setNum5(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood5('Excellent'); setNum5(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -460,12 +435,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood5("Good");
-              setNum5(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood5('Good'); setNum5(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -473,12 +443,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood5("Okay");
-              setNum5(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood5('Okay'); setNum5(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -486,12 +451,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood5("Bad");
-              setNum5(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood5('Bad'); setNum5(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -499,12 +459,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood5("Horrible");
-              setNum5(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood5('Horrible'); setNum5(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -517,12 +472,7 @@ const Vital = () => {
           {"\n"}Community: {community}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood6("Excellent");
-              setNum6(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood6('Excellent'); setNum6(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -530,12 +480,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood6("Good");
-              setNum6(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood6('Good'); setNum6(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -543,12 +488,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood6("Okay");
-              setNum6(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood6('Okay'); setNum6(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -556,12 +496,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood6("Bad");
-              setNum6(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood6('Bad'); setNum6(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -569,12 +504,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood6("Horrible");
-              setNum6(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood6('Horrible'); setNum6(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -587,12 +517,7 @@ const Vital = () => {
           {"\n"}Network: {network}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood7("Excellent");
-              setNum7(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood7('Excellent'); setNum7(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -600,12 +525,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood7("Good");
-              setNum7(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood7('Good'); setNum7(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -613,12 +533,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood7("Okay");
-              setNum7(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood7('Okay'); setNum7(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -626,12 +541,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood7("Bad");
-              setNum7(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood7('Bad'); setNum7(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -639,12 +549,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood7("Horrible");
-              setNum7(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood7('Horrible'); setNum7(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -657,12 +562,7 @@ const Vital = () => {
           {"\n"}Job/Career: {job}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood8("Excellent");
-              setNum8(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood8('Excellent'); setNum8(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -670,12 +570,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood8("Good");
-              setNum8(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood8('Good'); setNum8(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -683,12 +578,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood8("Okay");
-              setNum8(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood8('Okay'); setNum8(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -696,12 +586,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood8("Bad");
-              setNum8(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood8('Bad'); setNum8(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -709,12 +594,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood8("Horrible");
-              setNum8(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood8('Horrible'); setNum8(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -727,12 +607,7 @@ const Vital = () => {
           {"\n"}Education/Training: {education}
         </Text>
         <View style={styles.pictures}>
-          <TouchableOpacity
-            onPress={() => {
-              setMood9("Excellent");
-              setNum9(5);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood9('Excellent'); setNum9(5)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -740,12 +615,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood9("Good");
-              setNum9(4);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood9('Good'); setNum9(4)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -753,12 +623,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood9("Okay");
-              setNum9(3);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood9('Okay'); setNum9(3)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -766,12 +631,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood9("Bad");
-              setNum9(2);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood9('Bad'); setNum9(2)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -779,12 +639,7 @@ const Vital = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => {
-              setMood9("Horrible");
-              setNum9(1);
-            }}
-          >
+          <TouchableOpacity onPress={() => {setMood9('Horrible'); setNum9(1)}}>
             <Image
               style={{ width: 75, height: 70 }}
               resizeMode="contain"
@@ -795,8 +650,8 @@ const Vital = () => {
       </View>
       {/* save data */}
       <TouchableOpacity
-        style={[styles.button, { alignItems: "center", left: 130 }]}
-        onPress={saveData}
+        style={[styles.button, {alignItems: 'center', left: 130, top: 15 }]}
+        onPress={saveData && userPrompt}
       >
         <Text style={{ color: "white" }}>SAVE</Text>
       </TouchableOpacity>
@@ -836,7 +691,7 @@ const styles = StyleSheet.create({
     left: 170,
   },
   text2: {
-    left: 10,
+    left:10,
     fontSize: 25,
     fontWeight: "bold",
   },
@@ -854,6 +709,5 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: "black",
-    backgroundColor: "white",
   },
 });
