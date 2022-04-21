@@ -1,0 +1,98 @@
+import React from 'react'; import { StyleSheet, Text, View, Button } from
+'react-native'; import * as Print from 'expo-print'; import * as Sharing from
+'expo-sharing'; export default function App() { async function execute() { const
+html = `
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>A Basic HTML5 Template</title>
+
+    <style>
+      body {
+        background-color: #2d89ef;
+        font-family: "Titillium Web", Helvetica, Arial, sans-serif;
+      }
+      .verticalChart {
+        width: 100%;
+      }
+      .singleBar {
+        width: 9%;
+        float: left;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+      }
+
+      .bar {
+        position: relative;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+      }
+
+      .value {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: #ffffff;
+        color: #ffffff;
+      }
+
+      span {
+        position: absolute;
+        font-size: 12px;
+        bottom: 0;
+        width: 100%;
+        height: 20px;
+        color: #dddddd;
+        text-shadow: 0px -1px 0px #ffffff, 0px 1px 0px #ffffff,
+          1px 0px 0px #ffffff, -1px 0px 0px #ffffff, -1px -1px 0px #ffffff,
+          -1px 1px 0px #ffffff, 1px 1px 0px #ffffff, 1px -1px 0px #ffffff;
+        display: none;
+        text-align: center;
+      }
+
+      .title {
+        margin-top: 5px;
+        text-align: center;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table id="bar-example-1" class="charts-css bar">
+      <caption>
+        Bar Example #1
+      </caption>
+      <tbody>
+        <tr>
+          <td style="--size: 0.5"></td>
+          <td style="--size: 0.5"></td>
+        </tr>
+        <tr>
+          <td style="--size: 0.4"></td>
+        </tr>
+        <tr>
+          <td style="--size: 0.6"></td>
+        </tr>
+        <tr>
+          <td style="--size: 0.8"></td>
+        </tr>
+        <tr>
+          <td style="--size: 1"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+` ; const { uri } = await Print.printToFileAsync({ html });
+Sharing.shareAsync(uri); } return (
+<View style="{styles.container}">
+  <Button title="Print and Share" onPress={() => execute()} />
+</View>
+); } const styles = StyleSheet.create({ container: { flex: 1, backgroundColor:
+'#fff', alignItems: 'center', justifyContent: 'center', }, });
