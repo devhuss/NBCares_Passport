@@ -7,6 +7,7 @@ import { PageContext } from "./context";
 import 'react-native-gesture-handler';
 import { LoginStackNav } from "./navigation/MainStackNavigator";
 
+import {LogBox} from 'react-native';
 
 
 
@@ -15,6 +16,7 @@ const Stack = createNativeStackNavigator();
 
 
 const fire = new Fire();
+LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
 
 let initialRender = true;
 export default function App() {

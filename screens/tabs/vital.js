@@ -223,15 +223,15 @@ const Vital = () => {
             basically we replace {income} with the previous database value
             and cruise like that */}
         <View style={{top:7}}>
-          <Text style={[styles.text, {position: 'absolute', bottom: 282}]}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 252}]}>
             {" "}
             Previous Income: ${income}
           </Text>
-          <Text style={[styles.text, {position: 'absolute', bottom: 217}]}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 197}]}>
             {" "}
             Previous Credit Score: {creditScore}
           </Text>
-          <Text style={[styles.text, {position: 'absolute', bottom: 152}]}>
+          <Text style={[styles.text, {position: 'absolute', bottom: 140}]}>
             {" "}
             Previous EF: ${emergency}
           </Text>
