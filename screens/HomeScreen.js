@@ -8,16 +8,26 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
+  Pressable
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { PageContext } from "../context";
+import Reports from "../components/Reports";
 
 let initialRender = true;
 const HomeScreen = () => {
   // These variables can be considered 'global' to any file that is under the context provider in the root file
-  const { fire, authen, lists, refreshs, vitals, pointss, headers } =
-    React.useContext(PageContext);
+  const {
+    fire,
+    authen,
+    lists,
+    refreshs,
+    vitals,
+    pointss,
+    headers,
+    showHeaders,
+  } = React.useContext(PageContext);
   const [authID, setAuthID] = authen;
   const [refresh, setRefresh] = refreshs;
   const [vitalsigns, setVitalsigns] = vitals;
@@ -25,11 +35,29 @@ const HomeScreen = () => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const [header, setHeader] = headers;
+  const [showHeader, setShowHeader] = showHeaders;
 
+  // console.log(vitalsigns[0].eduTasks)
 
-  //const test = new Date(vitalsigns[0].createdAt.toDate()).toString()
+  const isFocused = useIsFocused();
 
-  //console.log("HOME: ", vitalsigns);
+  // if (isFocused) {
+  //   setHeader("Home");
+  //   setShowHeader(true);
+  // }
+
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerLeft: () => (
+  //       <Pressable
+  //         onPress={() => navigator.openDrawer()}
+  //         style={{width: 20, height: 20, backgroundColor: 'white'}}
+  //       >
+        
+  //       </Pressable>
+  //   )
+  //   })
+  // }, []);
 
   const increasePoints = () => {
     setPoints(points + 1);
@@ -95,160 +123,142 @@ const HomeScreen = () => {
   // these functions is to toggle the center button. it will be the animation
 
   return (
-
     <ScrollView>
-    <SafeAreaView style={styles.container}>
-      {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
+      <SafeAreaView style={styles.container}>
+        {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
       <Text>userID: {fire.userID}</Text>
       <Text>POINTS: {points}</Text> */}
 
-      <Text
-        style={{
-          position: "absolute",
-          alignItems: "center",
-          top: 0,
-          fontSize: 30,
-        }}
-      >
-        {state ? "Push to Begin!" : "Welcome!"}
-      </Text>
-
-      <View style={{ right: 120, top: 200 }}>
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[0].name);
-            navigation.navigate("Tasks", { listID: 0 });
+        <Text
+          style={{
+            position: "absolute",
+            alignItems: "center",
+            top: 0,
+            fontSize: 30,
           }}
-          style={[styles.circleButton, { left: 60, bottom: 70 }]}
         >
-          <Image
-            style={{ width: 60, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/education.png")}
-          />
-        </TouchableOpacity>
+          {state ? "Push to Begin!" : "Welcome!"}
+        </Text>
 
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[1].name);
-            navigation.navigate("Tasks", { listID: 1 });
-          }}
-          style={[styles.circleButton, { left: 290, bottom: 140 }]}
-        >
-          <Image
-            style={{ width: 60, height: 55, bottom: 2 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/employment.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[2].name);
-            navigation.navigate("Tasks", { listID: 2 });
-          }}
-          style={[styles.circleButton, { left: 60, bottom: 20 }]}
-        >
-          <Image
-            style={{ width: 60, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/money.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[3].name);
-            navigation.navigate("Tasks", { listID: 3 });
-          }}
-          style={[styles.circleButton, { left: 170, bottom: 40 }]}
-        >
-          <Image
-            style={{ width: 55, height: 60, right: 2, top: 1 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/healthcare.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[4].name);
-            navigation.navigate("Tasks", { listID: 4 });
-          }}
-          style={[styles.circleButton, { left: 290, bottom: 160 }]}
-        >
-          <Image
-            style={{ width: 50, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/housing.png")}
-          />
-        </TouchableOpacity>
-
-        {/* replace the image with the counter. But this is the man in the center*/}
-        <TouchableOpacity
-          style={[styles.largeCircle, { left: 122, bottom: 380 }]}
-          onPress={toggle}
-        >
-          <Text style={[styles.pointsText]}>{points}</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ bottom: 100 }}>
-        <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
-          <Image
-            style={{ width: 50 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/vital.png")}
-          />
-        </TouchableOpacity>
-
-        {/* <View style={{ flexDirection: "row" }}>
+        <View style={{ right: 120, top: 200 }}>
           <TouchableOpacity
-            onPress={increasePoints}
-            style={styles.circleButton}
+            onPress={() => {
+              // setHeader(lists[0].name);
+              navigation.navigate("Tasks", { listID: 0, header: lists[0].name });
+            }}
+            style={[styles.circleButton, { left: 60, bottom: 70 }]}
           >
-            <Text style={styles.circleText}>increase</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={decreasePoints}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>decrease</Text>
+            <Image
+              style={{ width: 60, height: 60 }}
+              resizeMode="contain"
+              source={require("../assets/education.png")}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              // fire.refUser.get().then((doc) => {
-              //   console.log(doc.data())
-              // })
-
-              let time = fire.timeStamp;
-
-              fire.addVitalsign({
-                createdAt: time,
-              });
+              // setHeader(lists[1].name);
+              navigation.navigate("Tasks", { listID: 1 });
             }}
-            style={styles.circleButton}
+            style={[styles.circleButton, { left: 290, bottom: 140 }]}
           >
-            <Text style={styles.circleText}>Change to admin</Text>
+            <Image
+              style={{ width: 60, height: 55, bottom: 2 }}
+              resizeMode="contain"
+              source={require("../assets/employment.png")}
+            />
           </TouchableOpacity>
-        </View> */}
 
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={[styles.button]}
-        >
-          <Text style={styles.buttonText}>Sign out</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <TouchableOpacity
+            onPress={() => {
+              // setHeader(lists[2].name);
+              navigation.navigate("Tasks", { listID: 2 });
+            }}
+            style={[styles.circleButton, { left: 60, bottom: 20 }]}
+          >
+            <Image
+              style={{ width: 60, height: 60 }}
+              resizeMode="contain"
+              source={require("../assets/money.png")}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              // setHeader(lists[3].name);
+              navigation.navigate("Tasks", { listID: 3 });
+            }}
+            style={[styles.circleButton, { left: 170, bottom: 40 }]}
+          >
+            <Image
+              style={{ width: 55, height: 60, right: 2, top: 1 }}
+              resizeMode="contain"
+              source={require("../assets/healthcare.png")}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              // setHeader(lists[4].name);
+              navigation.navigate("Tasks", { listID: 4 });
+            }}
+            style={[styles.circleButton, { left: 290, bottom: 160 }]}
+          >
+            <Image
+              style={{ width: 50, height: 60 }}
+              resizeMode="contain"
+              source={require("../assets/housing.png")}
+            />
+          </TouchableOpacity>
+
+          {/* replace the image with the counter. But this is the man in the center*/}
+          <TouchableOpacity
+            style={[styles.largeCircle, { left: 122, bottom: 380 }]}
+            onPress={toggle}
+          >
+            <Text style={[styles.pointsText]}>{points}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ bottom: 100 }}>
+          <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
+            <Image
+              style={{ width: 50 }}
+              resizeMode="contain"
+              source={require("../assets/vital.png")}
+            />
+          </TouchableOpacity>
+
+          <View style={{ flexDirection: "row" }}>
+            {/* <TouchableOpacity
+              onPress={increasePoints}
+              style={styles.circleButton}
+            >
+              <Text style={styles.circleText}>increase</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={decreasePoints}
+              style={styles.circleButton}
+            >
+              <Text style={styles.circleText}>decrease</Text>
+            </TouchableOpacity> */}
+
+            <TouchableOpacity
+              onPress={() => navigation.openDrawer()}
+              style={styles.circleButton}
+            >
+              <Text style={styles.circleText}>open</Text>
+            </TouchableOpacity>
+
+            <Reports />
+          </View>
+
+          <TouchableOpacity onPress={handleSignOut} style={[styles.button]}>
+            <Text style={styles.buttonText}>Sign out</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </ScrollView>
   );
 };
@@ -262,13 +272,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     width: "90%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 40,
-    top:125
+    top: 125,
   },
   buttonText: {
     color: "white",

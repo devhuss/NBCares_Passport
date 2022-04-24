@@ -25,6 +25,7 @@ export default function App() {
   const [vitalsigns, setVitalsigns] = useState([])
   const [points, setPoints] = useState(0);
   const [header, setHeader] = useState('');
+  const [showHeader, setShowHeader] = useState(true);
 
   // useEffect is a Effect hook that triggers depending on render
   // this useEffect triggers once when App.js renders, when triggered it calls the firebase getLists function
@@ -57,9 +58,7 @@ export default function App() {
       });
 
       // Unsubscribes to the lists listener
-      return function cleanup() {
-        fire.detach();
-      };
+      return fire.detach();
     }
     // Updates on authID change
   }, [authID]);
@@ -76,6 +75,7 @@ export default function App() {
         vitals: [vitalsigns, setVitalsigns],
         pointss: [points, setPoints],
         headers: [header, setHeader],
+        showHeaders: [showHeader, setShowHeader],
       }}
     >
       {/* <NavigationContainer>

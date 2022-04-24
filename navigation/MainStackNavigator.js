@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
 import { PageContext } from "../context";
-import { Image } from "react-native"
+import { Image } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,9 +28,25 @@ const screenOptionStyle = {
   headerBackTitle: "Back",
 };
 
-const MainStackNavigator = () => {
+const title = (title) => {
   const { headers } = React.useContext(PageContext);
   const [header, setHeader] = headers;
+  if (title) {
+    setHeader(title);
+  }
+  return header;
+};
+
+const showHeader = (show) => {
+  const { showHeaders } = React.useContext(PageContext);
+  const [showHeader, setShowHeader] = showHeaders;
+  if (show) {
+    setHeader(show);
+  }
+  return showHeader;
+};
+
+const MainStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={(screenOptionStyle, { headerShown: false })}
@@ -40,12 +56,12 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Vital Signs" component={VitalScreen} />
       <Stack.Screen
         name="Tasks"
-        options={{ title: header }}
+        // options={{ title: head() }}
         component={Tasks}
       />
       <Stack.Screen
         name="Steps"
-        options={{ headerShown: false }}
+        // options={{ headerShown: false }}
         component={Steps}
       />
     </Stack.Navigator>
@@ -76,7 +92,11 @@ const LoginStackNav = () => {
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator screenOptions={screenOptionStyle}>
-      <Drawer.Screen name="Home" component={BottomTabNavigator} />
+      <Drawer.Screen
+        name="Home"
+        // options={{ title: title(), headerShown: showHeader() }}
+        component={BottomTabNavigator}
+      />
       <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
       <Drawer.Screen name="Zoom Meeting" component={ZoomScreen} />
     </Drawer.Navigator>
@@ -100,14 +120,18 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen name="Progress" component={ProgressScreen} options={{
+      <Tab.Screen
+        name="Progress"
+        component={ProgressScreen}
+        options={{
           tabBarIcon: () => (
             <Image
               source={require("../assets/progress-bottom-tab.png")}
               style={{ width: 20, height: 20 }}
             />
           ),
-        }} />
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -124,10 +148,10 @@ export { MainStackNavigator, LoginStackNav };
 //       </DrawerContentScrollView>
 //     )
 //   }}>
-  
+
 //       <Drawer.Screen name="Home" component={BottomTabNavigator} />
 //       <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
 //       <Drawer.Screen name="Zoom Meeting" component={ZoomScreen} />
 //     </Drawer.Navigator>
-  
+
 //};

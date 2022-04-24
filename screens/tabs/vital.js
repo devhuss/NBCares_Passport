@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -14,12 +14,12 @@ import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAt
 import { PageContext } from "../../context";
 
 const Vital = () => {
-  const { fire } = React.useContext(PageContext);
+  const { fire, lists } = React.useContext(PageContext);
   //these are for the top boxes
   const [income, setIncome] = useState("");
   const [creditScore, setCreditScore] = useState("");
   const [emergency, setEmergency] = useState("");
-  const [budget, setBudget] = useState("");
+
 
   /* this is for the mood smiles I'm trying to set the variables so that once you
     click a button it shows next to the large text what you pressed i.e. excellent or
@@ -122,14 +122,36 @@ const Vital = () => {
 
   const [likert, setLikert] = useState("");
 
+  const [edu, setEducation] = useState([]);
+  const [employ, setEmployment] = useState([]);
+  const [fin, setFinancial] = useState([]);
+  const [health, setHealthcare] = useState([]);
+  const [house, setHousing] = useState([]);
+  
+
+  const TaskData = (item) => {
+    let completed = item.tasks
+      .filter((task) => task.type == "system")
+      .filter((task) => task.complete).length;
+    let length = lists[0].tasks.filter((task) => task.type == "system").length;
+    return [completed, length]
+  };
+
+  useEffect(() => {
+    setEducation(TaskData(lists[0]))
+    setEmployment(TaskData(lists[1]))
+    setFinancial(TaskData(lists[2]))
+    setHealthcare(TaskData(lists[3]))
+    setHousing(TaskData(lists[4]))
+  }, [lists])
+
 
   const saveData = () => {
     fire.addVitalsign({
       createdAt: fire.timeStamp,
       income: income,
-      creditScore: creditScore,
       emergency: emergency,
-      budget: budget,
+      creditScore: creditScore,
       life: life,
       vision: vision,
       physical: physical,
@@ -141,7 +163,18 @@ const Vital = () => {
       education: education,
       total: total,
       likert: likert,
+      eduTasks: edu,
+      // eduSteps: ,
+      employTasks: employ,
+      // employSteps: ,
+      finTasks: fin,
+      // finSteps: ,
+      healthTasks: health,
+      // healthSteps ,
+      housingTasks: house,
+      // housingSteps: ,
     });
+    userPrompt();
   };
 
   return (
@@ -651,7 +684,7 @@ const Vital = () => {
       {/* save data */}
       <TouchableOpacity
         style={[styles.button, {alignItems: 'center', left: 130, top: 15 }]}
-        onPress={saveData && userPrompt}
+        onPress={saveData}
       >
         <Text style={{ color: "white" }}>SAVE</Text>
       </TouchableOpacity>

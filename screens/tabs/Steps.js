@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import {
   GestureHandlerRootView,
@@ -18,18 +18,21 @@ import {
 } from "react-native-gesture-handler";
 import { PageContext } from "../../context";
 import AddModal from "../../components/AddModal";
+import { useIsFocused } from "@react-navigation/native";
 
 const Steps = ({ route, navigation }) => {
   const { index } = route.params;
   const { listID } = route.params;
-  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
+  const { fire, lists, pointss, refreshs, showHeaders } =
+    React.useContext(PageContext);
   const [points, setPoints] = pointss;
   const [refresh, setRefresh] = refreshs;
+  const [showHeader, setShowHeader] = showHeaders;
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const list = lists[listID];
-  const task = list.tasks[index]
+  const task = list.tasks[index];
 
   const toggleCompleted = (item) => {
     if (item.completed && item.type != "system") {
@@ -136,24 +139,17 @@ const Steps = ({ route, navigation }) => {
         tIndex={index}
         type="step"
       />
-      <TouchableOpacity
-        style={{ position: "absolute", top: 36, left: 16, zIndex: 10 }}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Ionicons name="arrow-back-sharp" size={26} color="white" />
-      </TouchableOpacity>
 
       <View style={styles.title}>
-        <TouchableOpacity onPress={() => toggleCompleted(task)}>
-          <Ionicons
-            name={task.complete ? "ios-checkbox-outline" : "ios-square"}
-            size={35}
-            color={task.complete ? "#e3e3e3" : "#ffffff"}
-            style={{ width: 40 }}
-          />
+        <TouchableOpacity
+          
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons name="arrow-back-circle" size={35} color="white" style={{ width: 35, marginLeft: 10}} />
         </TouchableOpacity>
+  
 
         <View style={{ marginLeft: 10 }}>
           <Text
@@ -265,7 +261,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 90,
+    marginTop: 15,
     marginHorizontal: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
