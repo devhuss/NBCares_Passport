@@ -14,11 +14,13 @@ import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAt
 import { PageContext } from "../../context";
 
 const Vital = () => {
-  const { fire, lists } = React.useContext(PageContext);
+  const { fire, lists, pointss } = React.useContext(PageContext);
+
+  const [points, setPoints] = pointss
   //these are for the top boxes
-  const [income, setIncome] = useState("");
-  const [creditScore, setCreditScore] = useState("");
-  const [emergency, setEmergency] = useState("");
+  const [income, setIncome] = useState(0);
+  const [creditScore, setCreditScore] = useState(0);
+  const [emergency, setEmergency] = useState(0);
 
 
   /* this is for the mood smiles I'm trying to set the variables so that once you
@@ -173,6 +175,7 @@ const Vital = () => {
       // healthSteps ,
       housingTasks: house,
       // housingSteps: ,
+      points: points
     });
     userPrompt();
   };
@@ -194,7 +197,7 @@ const Vital = () => {
           keyboardType="numeric"
           style={styles.inputBox}
           placeholder="Monthly Income"
-          onChangeText={(val) => setIncome(val)}
+          onChangeText={(val) => setIncome(Number(val))}
           maxLength={16}
         />
 
@@ -203,7 +206,7 @@ const Vital = () => {
           keyboardType="numeric"
           style={styles.inputBox}
           placeholder="Credit Score"
-          onChangeText={(val) => setCreditScore(val)}
+          onChangeText={(val) => setCreditScore(Number(val))}
           maxLength={3}
         />
 
@@ -212,7 +215,7 @@ const Vital = () => {
           keyboardType="numeric"
           style={styles.inputBox}
           placeholder="Emergency Funds"
-          onChangeText={(val) => setEmergency(val)}
+          onChangeText={(val) => setEmergency(Number(val))}
           maxLength={16}
         />
         </View>

@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import * as Print from "expo-print";
 import * as MailComposer from "expo-mail-composer";
 import { PageContext } from "../context";
+import { set } from "react-native-reanimated";
 
 export default Reports = () => {
-
   const TaskData = (item) => {
     let completed = item.tasks
       .filter((task) => task.type == "system")
@@ -14,13 +14,20 @@ export default Reports = () => {
     return [completed, length];
   };
 
-  const { lists, vitals } = React.useContext(PageContext);
-  // Current tasks data
-  const [education, setEducation] = useState([]);
-  const [employment, setEmployment] = useState([]);
-  const [financial, setFinancial] = useState([]);
-  const [healthcare, setHealthcare] = useState([]);
-  const [housing, setHousing] = useState([]);
+  const { fire, lists, vitals, pointss } = React.useContext(PageContext);
+
+  const [vitalsigns, setVitalsigns] = vitals;
+  const [points, setPoints] = pointss;
+
+  const currentDate = new Date().toDateString()
+
+  const userEmail = fire.auth.currentUser.email
+
+  console.log(userEmail)
+
+  const vLength = vitalsigns.length;
+  const intV = vitalsigns[0];
+  const currV = vitalsigns[vLength > 1 ? vLength - 1 : 0];
 
   // Saved tasks data from vital signs assessment
   const [eduTasks, setEduTasks] = useState([]);
@@ -29,21 +36,50 @@ export default Reports = () => {
   const [healthTasks, setHealthTasks] = useState([]);
   const [housingTasks, setHousingTasks] = useState([]);
 
-  
-  const [vitalsigns, setVitalsigns] = vitals;
+  const [intIncome, setIntIncome] = useState(0);
+  const [intEmergency, setIntEmergency] = useState(0);
+  const [intCredit, setIntCredit] = useState(0);
 
-  
-    
+  const [intScore, setIntScore] = useState(0);
+  const [intPoints, setIntPoints] = useState(0);
+
+  // Current tasks data
+  const [education, setEducation] = useState([]);
+  const [employment, setEmployment] = useState([]);
+  const [financial, setFinancial] = useState([]);
+  const [healthcare, setHealthcare] = useState([]);
+  const [housing, setHousing] = useState([]);
+
   useEffect(() => {
-    
-      setEduTasks(vitalsigns.length > 0 ? vitalsigns[0].eduTasks : TaskData(lists[0]));
-      setEmployTasks(vitalsigns.length > 0 ? vitalsigns[0].employTasks : TaskData(lists[1]));
-      setFinTasks(vitalsigns.length > 0 ? vitalsigns[0].finTasks : TaskData(lists[2]));
-      setHealthTasks(vitalsigns.length > 0 ? vitalsigns[0].healthTasks : TaskData(lists[3]));
-      setHousingTasks(vitalsigns.length > 0 ? vitalsigns[0].housingTasks : TaskData(lists[4]));
-      console.log('==============')
-      console.log(eduTasks)
+    setEduTasks(vLength > 0 ? intV.eduTasks : TaskData(lists[0]));
+    setEmployTasks(vLength > 0 ? intV.employTasks : TaskData(lists[1]));
+    setFinTasks(vLength > 0 ? intV.finTasks : TaskData(lists[2]));
+    setHealthTasks(vLength > 0 ? intV.healthTasks : TaskData(lists[3]));
+    setHousingTasks(vLength > 0 ? intV.housingTasks : TaskData(lists[4]));
+
+    setIntIncome(vLength > 0 ? intV.income : 0);
+    setIntEmergency(vLength > 0 ? intV.emergency : 0);
+    setIntCredit(vLength > 0 ? intV.creditScore : 0);
+    setIntScore(vLength > 0 ? intV.total : 0);
+    setIntPoints(vLength > 0 ? intV.points : points);
   }, [vitals]);
+
+  const currIncome = vLength > 1 ? currV.income : intIncome;
+  const currEmergency = vLength > 1 ? currV.emergency : intEmergency;
+  const currCredit = vLength > 1 ? currV.creditScore : intCredit;
+  const currScore = vLength > 1 ? currV.total : intScore;
+  const currPoints = vLength > 1 ? currV.points : points;
+
+  // Delta
+  const deltaIncome = currIncome - intIncome;
+  const deltaEmergency = currEmergency - intEmergency;
+  const deltaCredit = currCredit - intCredit;
+  // Likert Score
+  const deltaScore = currScore - intScore;
+
+  // SS Points
+  const deltaPoints = currPoints - intPoints;
+  console.log(deltaIncome);
 
   useEffect(() => {
     setEducation(TaskData(lists[0]));
@@ -180,10 +216,10 @@ export default Reports = () => {
   <body>
     <div class="header">
       <h3 style="margin-bottom: 2px">
-        User Report: <span style="font-weight: lighter">user1@test.com</span>
+        User Report: <span style="font-weight: lighter">${userEmail}</span>
       </h3>
       <hr style="border-color: black; margin: 0" />
-      <p style="margin: 0">Date: (date)</p>
+      <p style="margin: 0; font-size: 15px">Date: ${currentDate}</p>
     </div>
 
     <div class="content">
@@ -263,48 +299,48 @@ export default Reports = () => {
             <tbody>
               <tr>
                 <th scope="row" class="label">Monthly Income</th>
-                <td style="--size: calc(1200 / 20000)">
-                  <span class="data"> 1200 </span>
+                <td style="--size: calc(${intIncome} / 20000)">
+                  <span class="data"> ${intIncome} </span>
                 </td>
-                <td style="--size: calc(2000 / 20000)">
-                  <span class="data"> 2000 </span>
+                <td style="--size: calc(${currIncome} / 20000)">
+                  <span class="data"> ${currIncome} </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="label">Emergency Fund</th>
-                <td style="--size: calc(250 / 5000)">
-                  <span class="data"> 250 </span>
+                <td style="--size: calc(${intEmergency} / 5000)">
+                  <span class="data"> ${intEmergency} </span>
                 </td>
-                <td style="--size: calc(200 / 5000)">
-                  <span class="data"> 200 </span>
+                <td style="--size: calc(${currEmergency} / 5000)">
+                  <span class="data"> ${currEmergency} </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="label">Credit Score</th>
-                <td style="--size: calc(575 / 850)">
-                  <span class="data"> 575 </span>
+                <td style="--size: calc(${intCredit} / 850)">
+                  <span class="data"> ${intCredit} </span>
                 </td>
-                <td style="--size: calc(675 / 850)">
-                  <span class="data"> 675 </span>
+                <td style="--size: calc(${currCredit} / 850)">
+                  <span class="data"> ${currCredit} </span>
                 </td>
               </tr>
 
               <tr>
                 <th scope="row" class="label">Self Assessment</th>
-                <td style="--size: calc(30 / 45)">
-                  <span class="data"> 30 </span>
+                <td style="--size: calc(${intScore} / 45)">
+                  <span class="data"> ${intScore} </span>
                 </td>
-                <td style="--size: calc(36 / 45)">
-                  <span class="data"> 36 </span>
+                <td style="--size: calc(${currScore} / 45)">
+                  <span class="data"> ${currScore} </span>
                 </td>
               </tr>
               <tr>
                 <th scope="row" class="label">SS Score</th>
-                <td style="--size: calc(300 / 6000)">
-                  <span class="data"> 300 </span>
+                <td style="--size: calc(${intPoints} / 6000)">
+                  <span class="data"> ${intPoints} </span>
                 </td>
-                <td style="--size: calc(1600 / 6000)">
-                  <span class="data"> 1600 </span>
+                <td style="--size: calc(${currPoints} / 6000)">
+                  <span class="data"> ${currPoints} </span>
                 </td>
               </tr>
             </tbody>
@@ -387,33 +423,33 @@ export default Reports = () => {
           <tbody>
             <tr>
               <td class="tg-amwm">Monthly Income</td>
-              <td class="tg-lqy6">$1200</td>
-              <td class="tg-lqy6">$2000</td>
-              <td class="tg-lqy6">+$800</td>
+              <td class="tg-lqy6">$${intIncome}</td>
+              <td class="tg-lqy6">$${currIncome}</td>
+              <td class="tg-lqy6">$${deltaIncome}</td>
             </tr>
             <tr>
               <td class="tg-amwm">Emergency Fund</td>
-              <td class="tg-lqy6">$250</td>
-              <td class="tg-lqy6">$200</td>
-              <td class="tg-lqy6">-$50</td>
+              <td class="tg-lqy6">$${intEmergency}</td>
+              <td class="tg-lqy6">$${currEmergency}</td>
+              <td class="tg-lqy6">$${deltaEmergency}</td>
             </tr>
             <tr>
               <td class="tg-amwm">Credit Score</td>
-              <td class="tg-lqy6">575</td>
-              <td class="tg-lqy6">675</td>
-              <td class="tg-lqy6">+100</td>
+              <td class="tg-lqy6">${intCredit}</td>
+              <td class="tg-lqy6">${currCredit}</td>
+              <td class="tg-lqy6">${deltaCredit}</td>
             </tr>
             <tr>
               <td class="tg-amwm">Self-Assessment</td>
-              <td class="tg-lqy6">30</td>
-              <td class="tg-lqy6">36</td>
-              <td class="tg-lqy6">+6</td>
+              <td class="tg-lqy6">${intScore}</td>
+              <td class="tg-lqy6">${currScore}</td>
+              <td class="tg-lqy6">${deltaScore}</td>
             </tr>
             <tr>
               <td class="tg-amwm">Self-Sufficiency Score</td>
-              <td class="tg-lqy6">300</td>
-              <td class="tg-lqy6">1600</td>
-              <td class="tg-lqy6">+1300</td>
+              <td class="tg-lqy6">${intPoints}</td>
+              <td class="tg-lqy6">${currPoints}</td>
+              <td class="tg-lqy6">${deltaPoints}</td>
             </tr>
           </tbody>
         </table>
