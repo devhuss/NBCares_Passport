@@ -220,7 +220,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={{ bottom: 100 }}>
+        <View style={{ bottom: 85}}>
           <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
             <Image
               style={{ width: 50 }}
@@ -244,12 +244,12 @@ const HomeScreen = () => {
               <Text style={styles.circleText}>decrease</Text>
             </TouchableOpacity> */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.openDrawer()}
               style={styles.circleButton}
             >
               <Text style={styles.circleText}>open</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Reports />
           </View>

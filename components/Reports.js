@@ -470,9 +470,9 @@ export default Reports = () => {
     const { uri } = await Print.printToFileAsync({ html });
 
     MailComposer.composeAsync({
-      subject: "Sending email with attachment",
-      recipients: ["dozabro32@gmail.com"],
-      body: "Enter email body here...",
+      subject: "User Report",
+      recipients: ["khouse@nbhact.org"],
+      body: "Some text to go with the report email",
       attachments: [uri],
     });
   }
