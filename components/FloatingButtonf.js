@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Animated, TouchableWithoutFeedback } from 'react-native';
 import { PageContext } from "../context";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FloatingButtonf() {
     const { lists, pointss, headers } = React.useContext(PageContext);
+    const points = pointss;
+    const list = lists;
+    const [header, setHeader] = headers;
+    const navigation = useNavigation();
 
     const [state, setState] = useState(true);
     const [open, setOpen] = useState(true);
 
     const toggle = () => {
         setState(!state);
+        toggleMenu();
     };
 
     const toggleMenu = () => {
@@ -21,12 +27,14 @@ export default function FloatingButtonf() {
         }).start()
     
         setOpen(!open);
+        education(50,50);
       };
 
+    //shiftEdX for shift education x, shift education y
     const animation = new Animated.ValueXY({x:0,y:0})
-    const education = () => {
+    const education = (shiftEdX, shiftEdY) => {
     Animated.spring(animation, {
-        toValue: {x:50,y:50},
+        toValue: open ? {x:0,y:0} : {x:shiftEdX, y:shiftEdY},
         friction:10,
         useNativeDriver: true,
     }).start();};
@@ -46,20 +54,22 @@ export default function FloatingButtonf() {
                     position: "absolute",
                     alignItems: "center",
                     top: 0,
-                    fontSize: 30,
-                }}>
+                    fontSize: 30, }}>
                 {state ? "Push to Begin!" : "Welcome!"}
             </Text>
 
-            <TouchableWithoutFeedback>
-                <Animated.View style={[styles.circleButton, education()]}>
+            <TouchableWithoutFeedback onPress={() => {
+            setHeader(list[0].name);
+            navigation.navigate("Tasks", { listID: 0 });
+            }}>
+                <Animated.View style={[styles.circleButton]}>
 
                 </Animated.View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={() => {toggle(); toggleMenu()}}>
+            <TouchableWithoutFeedback onPress={toggle}>
                 <Animated.View style={[styles.largeCircle,{position:'absolute', top:150}]}>
-
+                    <Text style={styles.pointsText}>{points}</Text>
                 </Animated.View>
             </TouchableWithoutFeedback>
         </View>
@@ -92,4 +102,9 @@ const styles = StyleSheet.create({
         borderColor: "black",
         backgroundColor: "#c5b358",
     },
+    pointsText: {
+        color: "white",
+        fontWeight: "700",
+        fontSize: 60,
+      },
 })
