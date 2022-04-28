@@ -1,12 +1,16 @@
 import { StyleSheet, Text, SafeAreaView, View} from "react-native";
 import React from "react";
+import FloatingButtonf from "../../components/FloatingButtonf";
 
 const Progress = () => {
     return (
 
-        <View styles = {styles.container}>
-            <Text styles = {styles.text}>Progress Chart is in Progress</Text>
-            </View>
+      <View styles = {styles.container}>
+        {/* the new button animation class */}
+        <View style={styles.container}>
+            <FloatingButtonf style={{top:0}}/>
+        </View>
+      </View>
      
     );
   };
