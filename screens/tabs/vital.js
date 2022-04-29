@@ -6,11 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Alert,
-  Pressable
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import { PageContext } from "../../context";
 
 const Vital = () => {
@@ -36,13 +33,12 @@ const Vital = () => {
   const [education, setMood9] = useState("");
 
   // upon saving the data, the user is prompted with an alert that gives them their total
-  // score for the smilies only. 9 is the least and 45 is the best. commented code was
-  // the attempt to catch the user forgetting a category. but, it says 'num1 is read only'
+  // score for the smilies only. 9 is the least and 45 is the best.
   const userPrompt = () => {
-    // if((num1=0)||(num2=0)||(num3=0)||(num4=0)||(num5=0)||(num6=0)||(num7=0)||(num8=0)||(num9=0)){
-    //   alert('Please fill out the missing information');
-    // }
-    //   else
+     if((num1==0)||(num2==0)||(num3==0)||(num4==0)||(num5==0)||(num6==0)||(num7==0)||(num8==0)||(num9==0)){
+       alert('Please fill out the missing information');
+     }
+       else
     alert('Nice Job! Your evaluation score is ' + total);
   }
 
@@ -184,9 +180,7 @@ const Vital = () => {
         />
         </View>
 
-        {/* likert scale. currently does nothing 
-            note: onPressIn -> onPressOut -> onPress by order of execution
-            reset with pressIn, highlight with pressOut*/}
+        {/* likert scale */}
         <Text style={{fontSize: 20, bottom: 20, left: 10}}>{"\n"}Overall Confidence in my Financial Situation:</Text>
         <View style={{flexDirection:'row', left:5}}>
         <TouchableOpacity style={[styles.likert, {left:20, bottom:13, backgroundColor: background1 ? 'white' : 'black'}]}
@@ -219,10 +213,11 @@ const Vital = () => {
         <Text style={{fontSize:15, left:7, bottom: 10}}>Excellent                                Okay                                Horrible</Text>  
 
         <View>
+
         {/* these are the values that are just printed out under the grid.
             basically we replace {income} with the previous database value
             and cruise like that */}
-        <View style={{top:7}}>
+        {/* <View style={{top:7}}>
           <Text style={[styles.text, {position: 'absolute', bottom: 252}]}>
             {" "}
             Previous Income: ${income}
@@ -235,10 +230,7 @@ const Vital = () => {
             {" "}
             Previous EF: ${emergency}
           </Text>
-
-
-
-        </View>
+        </View> */}
 
         {/* start of the smiles page. Everything is its own button so it is a bit of a mess */}
         <Text style={styles.text2}>{"\n"}How I feel about my... </Text>
