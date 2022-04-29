@@ -43,31 +43,32 @@ const HomeScreen = () => {
     }
   }, [lists]);
 
-  const handleSignOut = () => {
-    fire.detach();
-    fire.auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-      })
-      .catch((error) => alert(error.message));
+  const handleVital = () => {
+    navigation.navigate("Vital Signs");
   };
 
+  const [state, setState] = useState(true);
+
+  const toggle = () => {
+    setState(!state);
+  };
+
+  // If loading is true then display activity indicator
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={"#af272f"} />
+      </View>
+    );
+  }
+
+  // these functions is to toggle the center button. it will be the animation
   return (
     <SafeAreaView style={[styles.container,{bottom:230}]}>
       {/* functional homescreen button call */}
       <View style={styles.container}>
         <FloatingButtonf />
-      </View>
-
-      <View>
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={[styles.button, {top:200}]}>
-          <Text style={styles.buttonText}>Sign out</Text>
-        </TouchableOpacity>
-      </View>
-      
+      </View> 
     </SafeAreaView>
   );
 }

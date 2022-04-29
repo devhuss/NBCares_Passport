@@ -5,27 +5,16 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Modal,
-  SafeAreaView,
-  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import text from "./text";
 import { PageContext } from "../context";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
-  const [complianceModal, setComplianceModal] = useState(true);
-  const [familyOrFriend, setFamilyOrFriend] = useState("");
-  const [familyOrFriend2, setFamilyOrFriend2] = useState("");
-  const [familyOrFriend3, setFamilyOrFriend3] = useState("");
-  const [familyOrFriend4, setFamilyOrFriend4] = useState("");
-  const [familyOrFriend5, setFamilyOrFriend5] = useState("");
-  const [familyOrFriend6, setFamilyOrFriend6] = useState("");
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const { fire } = React.useContext(PageContext);
 
   const navigation = useNavigation();
@@ -54,6 +43,9 @@ const SignUpScreen = () => {
       style={styles.container}
       //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+     <View style = {styles.registerIcon}>
+     <Ionicons name="person-add-outline" size={200}/>
+     </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -73,15 +65,7 @@ const SignUpScreen = () => {
         />
       </View>
 
-      {/* <View style={styles.inputContainer}>
-        <TextInput
-          placeholder='Confirm Password'
-          value={passwordRepeat}
-          onChangeText={text => setPasswordRepeat(text)}
-          style={styles.input}
-          // secureTextEntry
-        />
-      </View> */}
+    
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleSignUp} style={styles.button}>
@@ -102,6 +86,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
+    bottom: 100
   },
   input: {
     backgroundColor: "white",
@@ -115,6 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+    bottom: 100
   },
   button: {
     backgroundColor: "darkred",
@@ -139,4 +125,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  registerIcon:{
+    bottom: 100
+  }
 });

@@ -13,8 +13,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PageContext } from "../context";
+import {LogBox} from 'react-native';
+
 
 const LoginScreen = () => {
+  LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { fire } = React.useContext(PageContext);
