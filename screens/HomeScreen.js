@@ -87,7 +87,7 @@ const HomeScreen = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color={"blue"} />
+        <ActivityIndicator size="large" color={"#af272f"} />
       </View>
     );
   }
@@ -208,45 +208,8 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
 
-        {/* <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            onPress={increasePoints}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>increase</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={decreasePoints}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>decrease</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              // fire.refUser.get().then((doc) => {
-              //   console.log(doc.data())
-              // })
-
-              let time = fire.timeStamp;
-
-              fire.addVitalsign({
-                createdAt: time,
-              });
-            }}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>Change to admin</Text>
-          </TouchableOpacity>
-        </View> */}
-
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={[styles.button]}
-        >
-          <Text style={styles.buttonText}>Sign out</Text>
-        </TouchableOpacity>
+     
       </View>
     </SafeAreaView>
     </ScrollView>

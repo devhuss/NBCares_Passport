@@ -13,6 +13,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import text from "./text";
 import { PageContext } from "../context";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -54,6 +56,9 @@ const SignUpScreen = () => {
       style={styles.container}
       //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+     <View style = {styles.registerIcon}>
+     <Ionicons name="person-add-outline" size={200}/>
+     </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -102,6 +107,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
+    bottom: 100
   },
   input: {
     backgroundColor: "white",
@@ -115,6 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+    bottom: 100
   },
   button: {
     backgroundColor: "darkred",
@@ -139,4 +146,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  registerIcon:{
+    bottom: 100
+  }
 });

@@ -13,6 +13,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
 import { PageContext } from "../context";
 import { Image } from "react-native"
+import CustomDrawer from "../components/CustomDrawer";
+import AboutUs from "../screens/AboutUsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +24,7 @@ const Tab = createBottomTabNavigator();
 
 const screenOptionStyle = {
   headerStyle: {
-    backgroundColor: "#677d7e",
+    backgroundColor: "#af272f",
   },
   headerTintColor: "white",
   headerBackTitle: "Back",
@@ -36,18 +38,21 @@ const MainStackNavigator = () => {
       screenOptions={(screenOptionStyle, { headerShown: false })}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Information" component={InformationScreen} />
-      <Stack.Screen name="Vital Signs" component={VitalScreen} />
       <Stack.Screen
         name="Tasks"
-        options={{ title: header }}
+        options={{ title: header, headerShown: false }}
         component={Tasks}
       />
       <Stack.Screen
         name="Steps"
-        options={{ headerShown: false }}
+        options={{ headerShown: false}}
         component={Steps}
       />
+      <Stack.Screen name="Information" component={InformationScreen} />
+      <Stack.Screen name="Vital Signs" component={VitalScreen} />
+      <Stack.Screen name="About Us" component={AboutUs} />
+
+     
     </Stack.Navigator>
   );
 };
@@ -73,9 +78,27 @@ const LoginStackNav = () => {
   );
 };
 
+const HomeStackNav = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Tasks"
+        options={{ title: header, headerShown: false }}
+        component={Tasks}
+      />
+      <Stack.Screen
+        name="Steps"
+        options={{ headerShown: false}}
+        component={Steps}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator screenOptions={screenOptionStyle}>
+    <Drawer.Navigator drawerContent ={props => <CustomDrawer {...props}/>}screenOptions={screenOptionStyle} initialRouteName = "Home">
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
       <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
       <Drawer.Screen name="Zoom Meeting" component={ZoomScreen} />
@@ -86,7 +109,7 @@ const DrawerNavigator = () => {
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}
+      screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true, }  }
     >
       <Tab.Screen
         name="Home"
@@ -114,20 +137,3 @@ const BottomTabNavigator = () => {
 
 export { MainStackNavigator, LoginStackNav };
 
-// draft
-// const DrawerNavigator = () => {
-//   <Drawer.Navigator screenOptions={screenOptionStyle} initialRouteName="Home" drawerContent={props => {
-//     return (
-//       <DrawerContentScrollView {...props}>
-//         <DrawerItemList {...props} />
-//         <DrawerItem label="Logout" onPress={() => props.navigation.navigate("Register")} />
-//       </DrawerContentScrollView>
-//     )
-//   }}>
-  
-//       <Drawer.Screen name="Home" component={BottomTabNavigator} />
-//       <Drawer.Screen name="Vital Signs" component={VitalStackNavigator} />
-//       <Drawer.Screen name="Zoom Meeting" component={ZoomScreen} />
-//     </Drawer.Navigator>
-  
-//};

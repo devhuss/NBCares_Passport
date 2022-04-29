@@ -20,12 +20,6 @@ import CheckBox from "@react-native-community/checkbox";
 
 const InformationScreen = () => {
   const { fire } = React.useContext(PageContext)
-  // const [familyOrFriend, setFamilyOrFriend] = useState("");
-  // const [familyOrFriend2, setFamilyOrFriend2] = useState("");
-  // const [familyOrFriend3, setFamilyOrFriend3] = useState("");
-  // const [familyOrFriend4, setFamilyOrFriend4] = useState("");
-  // const [familyOrFriend5, setFamilyOrFriend5] = useState("");
-  // const [familyOrFriend6, setFamilyOrFriend6] = useState("");
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [complianceModal, setComplianceModal] = useState(true);
