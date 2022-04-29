@@ -8,10 +8,14 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
+  TouchableWithoutFeedback,
+  Animated,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PageContext } from "../context";
+import FloatingButtonf from '../components/FloatingButtonf';
+import { render } from "react-dom";
 
 let initialRender = true;
 const HomeScreen = () => {
@@ -77,12 +81,6 @@ const HomeScreen = () => {
     navigation.navigate("Vital Signs");
   };
 
-  const [state, setState] = useState(true);
-
-  const toggle = () => {
-    setState(!state);
-  };
-
   // If loading is true then display activity indicator
   if (loading) {
     return (
@@ -95,163 +93,24 @@ const HomeScreen = () => {
   // these functions is to toggle the center button. it will be the animation
 
   return (
-
-    <ScrollView>
-    <SafeAreaView style={styles.container}>
-      {/* <Text>Email: {fire.auth.currentUser?.email}</Text>
-      <Text>userID: {fire.userID}</Text>
-      <Text>POINTS: {points}</Text> */}
-
-      <Text
-        style={{
-          position: "absolute",
-          alignItems: "center",
-          top: 0,
-          fontSize: 30,
-        }}
-      >
-        {state ? "Push to Begin!" : "Welcome!"}
-      </Text>
-
-      <View style={{ right: 120, top: 200 }}>
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[0].name);
-            navigation.navigate("Tasks", { listID: 0 });
-          }}
-          style={[styles.circleButton, { left: 60, bottom: 70 }]}
-        >
-          <Image
-            style={{ width: 60, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/education.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[1].name);
-            navigation.navigate("Tasks", { listID: 1 });
-          }}
-          style={[styles.circleButton, { left: 290, bottom: 140 }]}
-        >
-          <Image
-            style={{ width: 60, height: 55, bottom: 2 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/employment.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[2].name);
-            navigation.navigate("Tasks", { listID: 2 });
-          }}
-          style={[styles.circleButton, { left: 60, bottom: 20 }]}
-        >
-          <Image
-            style={{ width: 60, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/money.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[3].name);
-            navigation.navigate("Tasks", { listID: 3 });
-          }}
-          style={[styles.circleButton, { left: 170, bottom: 40 }]}
-        >
-          <Image
-            style={{ width: 55, height: 60, right: 2, top: 1 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/healthcare.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setHeader(lists[4].name);
-            navigation.navigate("Tasks", { listID: 4 });
-          }}
-          style={[styles.circleButton, { left: 290, bottom: 160 }]}
-        >
-          <Image
-            style={{ width: 50, height: 60 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/housing.png")}
-          />
-        </TouchableOpacity>
-
-        {/* replace the image with the counter. But this is the man in the center*/}
-        <TouchableOpacity
-          style={[styles.largeCircle, { left: 122, bottom: 380 }]}
-          onPress={toggle}
-        >
-          <Text style={[styles.pointsText]}>{points}</Text>
-        </TouchableOpacity>
+    <SafeAreaView style={[styles.container,{bottom:230}]}>
+      {/* functional homescreen button call */}
+      <View style={styles.container}>
+        <FloatingButtonf />
       </View>
 
-      <View style={{ bottom: 100 }}>
-        <TouchableOpacity onPress={handleVital} style={styles.circleButton}>
-          <Image
-            style={{ width: 50 }}
-            resizeMode="contain"
-            source={require("../assets/good.png")}
-            // source={require("../assets/vital.png")}
-          />
-        </TouchableOpacity>
-
-        {/* <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            onPress={increasePoints}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>increase</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={decreasePoints}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>decrease</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              // fire.refUser.get().then((doc) => {
-              //   console.log(doc.data())
-              // })
-
-              let time = fire.timeStamp;
-
-              fire.addVitalsign({
-                createdAt: time,
-              });
-            }}
-            style={styles.circleButton}
-          >
-            <Text style={styles.circleText}>Change to admin</Text>
-          </TouchableOpacity>
-        </View> */}
-
+      <View>
         <TouchableOpacity
           onPress={handleSignOut}
-          style={[styles.button]}
-        >
+          style={[styles.button, {top:200}]}>
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
+      
     </SafeAreaView>
-    </ScrollView>
   );
-};
+}
+
 
 export default HomeScreen;
 
