@@ -16,10 +16,12 @@ import { PageContext } from "../context";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 
 const CustomDrawer = props => {
    
+  const Drawer = createDrawerNavigator();
 
    
 
@@ -75,7 +77,9 @@ const handleSignOut = () => {
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>
           <DrawerItemList {...props} />
         </View>
+        
       </DrawerContentScrollView>
+  
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
         <TouchableOpacity onPress={() =>Linking.openURL("https://jmkryzanski.pythonanywhere.com")} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
