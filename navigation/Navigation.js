@@ -5,7 +5,7 @@ import Steps from "../screens/tabs/Steps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { PageContext } from "../context";
-import { Button, View, Icon, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Stack = createNativeStackNavigator();

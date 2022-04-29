@@ -3,20 +3,16 @@ import {
   Text,
   TextInput,
   View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Button,
-  Linking,
+  TouchableOpacity, 
   SafeAreaView,
   Modal,
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import text from "./text";
 import { PageContext } from "../context";
-import CheckBox from "@react-native-community/checkbox";
+
 
 const InformationScreen = () => {
   const { fire } = React.useContext(PageContext)
@@ -46,58 +42,6 @@ const InformationScreen = () => {
               <View style={styles.modalView}>
                 <Text style={styles.modalComplianceTitle}>NB CARES</Text>
                 <Text>{text}</Text>
-                {/* <Text>Enter up to six family members</Text>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend}
-                    onChangeText={(text) => setFamilyOrFriend(text)}
-                    style={styles.input}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend2}
-                    onChangeText={(text) => setFamilyOrFriend2(text)}
-                    style={styles.input}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend3}
-                    onChangeText={(text) => setFamilyOrFriend3(text)}
-                    style={styles.input}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend4}
-                    onChangeText={(text) => setFamilyOrFriend4(text)}
-                    style={styles.input}
-                  />
-
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend5}
-                    onChangeText={(text) => setFamilyOrFriend5(text)}
-                    style={styles.input}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Enter Family or Friend"
-                    value={familyOrFriend6}
-                    onChangeText={(text) => setFamilyOrFriend6(text)}
-                    style={styles.input}
-                  />
-                </View> */}
 
                 <TouchableOpacity
                   style={[

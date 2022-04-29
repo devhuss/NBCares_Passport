@@ -1,45 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text, View , StatusBar} from "react-native";
+import {  StyleSheet, StatusBar} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Fire } from "./firebase";
 import { PageContext } from "./context";
 import "react-native-gesture-handler";
 import { LoginStack } from "./navigation/LoginStack";
-import { DrawerNavigator } from "./navigation/DrawerNavigator";
 
-import { LogBox } from "react-native";
-import HomeScreen from "./screens/HomeScreen";
-import Vital from "./screens/tabs/vital";
-import ZoomMeetingLink from "./screens/ZoomMeetingLink";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import CustomDrawer from "./components/CustomDrawer";
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
 
-const screenOptionStyle = {
-  headerStyle: {
-    backgroundColor: "#af272f",
-  },
-  headerTintColor: "white",
-  headerBackTitle: "Back",
-};
+
 const fire = new Fire();
 
 let initialRender = true;
 export default function App() {
-  LogBox.ignoreLogs([
-    "Warning: Async Storage has been extracted from react-native core",
-  ]);
 
-  //   <NavigationContainer>
-  //   <Drawer.Navigator drawerContent ={props => <CustomDrawer {...props}/>}screenOptions={screenOptionStyle} initialRouteName = "Home">
-  //   <Drawer.Screen name="Home" component={HomeScreen} />
-  //   <Drawer.Screen name="Vital Signs" component={Vital} />
-  //   <Drawer.Screen name="Zoom Meeting" component={ZoomMeetingLink} />
-  // </Drawer.Navigator>
-  // </NavigationContainer>
+
+
 
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
