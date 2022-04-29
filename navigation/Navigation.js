@@ -3,11 +3,10 @@ import HomeScreen from "../screens/HomeScreen";
 import Tasks from "../screens/tabs/Tasks";
 import Steps from "../screens/tabs/Steps";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
+
 import { PageContext } from "../context";
-import { Button, View, Icon } from "react-native";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { Button, View, Icon, TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,11 +28,9 @@ const Navigation = ({ navigation }) => {
         component={HomeScreen}
         options={{
           headerLeft: () => (
-            <Button
-              onPress={() => navigation.openDrawer()} // open drawer
-              title="---" 
-              color="#551E18"
-            ></Button>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Ionicons name="menu-outline" size={22} />
+            </TouchableOpacity>
           ),
         }}
       />
