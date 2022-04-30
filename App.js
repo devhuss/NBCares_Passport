@@ -14,9 +14,6 @@ const fire = new Fire();
 let initialRender = true;
 export default function App() {
 
-
-
-
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
   const [refresh, setRefresh] = useState(false);

@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   informationText: {
-    fontSize: 75,
+    fontSize: 55,
     fontVariant: [
       "small-caps",
       "oldstyle-nums",
@@ -201,7 +201,10 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     justifyContent: "center",
+  
     // alignItems:'center'
     top: 75,
+    backgroundColor: "white",
+    width: "90%"
   },
 });
