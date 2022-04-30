@@ -25,11 +25,11 @@ const CustomDrawer = props => {
 
    
 
-const { fire, pointss,} =
+const { fire, pointss, namee} =
 React.useContext(PageContext);
 const navigation = useNavigation();
 const [points, setPoints] = pointss;
-const [name, setName] = useState("");
+const [name, setName] = namee;
 
 
 const onAboutUsPress = () => {
@@ -61,7 +61,7 @@ const handleSignOut = () => {
               fontSize: 18,
               marginBottom: 5,
             }}>
-           Welcome back!
+           {name}
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Text

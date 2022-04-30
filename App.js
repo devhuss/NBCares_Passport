@@ -23,6 +23,7 @@ export default function App() {
   const [vitalsigns, setVitalsigns] = useState([]);
   const [points, setPoints] = useState(0);
   const [header, setHeader] = useState("");
+  const [name, setName] = useState("");
 
   // useEffect is a Effect hook that triggers depending on render
   // this useEffect triggers once when App.js renders, when triggered it calls the firebase getLists function
@@ -69,6 +70,7 @@ export default function App() {
         fire: fire,
         lists: lists,
         authen: [authID, setAuthID],
+        namee: [name, setName],
         refreshs: [refresh, setRefresh],
         vitals: [vitalsigns, setVitalsigns],
         pointss: [points, setPoints],

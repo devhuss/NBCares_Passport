@@ -15,23 +15,32 @@ import { PageContext } from "../context";
 
 
 const InformationScreen = () => {
-  const { fire } = React.useContext(PageContext)
+  const { fire, namee } = 
+  React.useContext(PageContext)
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [complianceModal, setComplianceModal] = useState(true);
 
-  const [name, setName] = useState("");
+  const [name, setName] = namee;
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const navigation = useNavigation();
 
-  const onContinuePress = () => {
-    fire.updateUser({
-      userName: name,
-      phone: phoneNumber,
-    })
-    navigation.navigate("Home");
-  };
+ 
+
+  const userPrompt = () => {
+    if(name == "" || phoneNumber == ""){
+      alert('Please fill out the missing information');
+    }
+    else{
+        fire.updateUser({
+          userName: name,
+          phone: phoneNumber,
+        })
+        navigation.navigate("Home");
+      
+    }
+ }
 
   return (
     <View>
@@ -51,7 +60,7 @@ const InformationScreen = () => {
                   ]}
                   disabled={toggleCheckBox}
                   onPress={
-                    (() => onContinuePress(true),
+                    (() => userPrompt(true),
                     () => setComplianceModal(false))
                   }
                 >
@@ -82,7 +91,7 @@ const InformationScreen = () => {
             keyboardType="numeric"
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onContinuePress} style={styles.button}>
+            <TouchableOpacity onPress={userPrompt} style={styles.button}>
               <Text style={styles.buttonText}>Continue</Text>
             </TouchableOpacity>
           </View>

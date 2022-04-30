@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, Animated, TouchableWithoutFeedback} from 'react-native';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 //this is component programming for button animations. currently unused
 export default class FloatingButton extends React.Component {

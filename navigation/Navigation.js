@@ -31,7 +31,11 @@ const Navigation = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Ionicons name="menu-outline" size={22} />
             </TouchableOpacity>
-          ),
+          ), headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Ionicons name="information-outline" size={22} />
+            </TouchableOpacity>
+          )
         }}
       />
       <Stack.Screen

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { PageContext } from "../context";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function FloatingButtonf() {
   const { pointss } = React.useContext(PageContext);
