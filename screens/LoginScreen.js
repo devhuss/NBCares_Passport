@@ -1,4 +1,3 @@
-
 import {
   StyleSheet,
   Text,
@@ -6,19 +5,25 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Image
+  Image,
+  Linking,
+  Button,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { PageContext } from "../context";
+import {LogBox} from 'react-native';
+
 
 const LoginScreen = () => {
+  LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { fire } = React.useContext(PageContext);
 
   const navigation = useNavigation();
-
-  const fire = new Fire();
 
   useEffect(() => {
     const unsubscribe = fire.auth.onAuthStateChanged((user) => {
@@ -30,7 +35,6 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-   
   const onSignUpPress = () => {
     navigation.navigate("Register");
   };
@@ -50,19 +54,21 @@ const LoginScreen = () => {
   };
 
   return (
-    
     <KeyboardAvoidingView
       style={styles.container}
-    //behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-<Image
-  style={{width: '75%', height: 175,resizeMode : 'stretch', marginBottom: 15 }}
- source={require("../assets/nbcares_gold.png" )}
-/> 
+      <Image
+        style={{
+          width: "75%",
+          height: 175,
+          resizeMode: "stretch",
+          marginBottom: 15,
+        }}
+        source={require("../assets/nbcares_gold.png")}
+      />
 
-      
-      
-<View style={styles.inputContainer}>
+      <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
           value={email}
@@ -81,13 +87,12 @@ const LoginScreen = () => {
         />
       </View>
       <TouchableOpacity
-          onPress={onForgetPasswordPress}
-          style={[styles.buttonFrgt, styles.buttonOutlineFgt]}
-        >
-          <Text style={styles.buttonOutlineText_Frgt}>Forgot Password?</Text>
-        </TouchableOpacity>
+        onPress={onForgetPasswordPress}
+        style={[styles.buttonFrgt, styles.buttonOutlineFgt]}
+      >
+        <Text style={styles.buttonOutlineText_Frgt}>Forgot Password?</Text>
+      </TouchableOpacity>
 
-      
       <View style={styles.buttonContainer}>
         {/* login button */}
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
@@ -99,11 +104,24 @@ const LoginScreen = () => {
           onPress={onSignUpPress}
           style={[styles.buttonRgst, styles.buttonOutlineRgst]}
         >
-          <Text style={styles.buttonOutlineText_Rgst}>Don't have an Account? Register here</Text>
+          <Text style={styles.buttonOutlineText_Rgst}>
+            Don't have an Account? Register here
+          </Text>
         </TouchableOpacity>
 
-        
+        <Button
+          title="Visit our Website"
+          onPress={() =>
+            Linking.openURL("https://jmkryzanski.pythonanywhere.com")
+          }
+        />
       </View>
+
+      <Image
+        style={styles.paraDYM}
+        source={require("../assets/paraDYM_academy.png")}
+        // source={{uri: 'https://www.paradymacademy.org/'}}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -111,11 +129,21 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  paraDYM: {
+    alignItems: "flex-start",
+    width: "25%",
+    height: 100,
+    resizeMode: "stretch",
+    justifyContent: "flex-end",
+    bottom: -125,
+  },
+
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
+
   inputContainer: {
     width: "80%",
   },
@@ -127,9 +155,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 14,
   },
   button: {
@@ -137,8 +165,8 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
-    borderColor: 'darkred',
+    alignItems: "center",
+    borderColor: "darkred",
   },
   buttonOutline: {
     backgroundColor: "white",
@@ -148,37 +176,37 @@ const styles = StyleSheet.create({
   },
   buttonRgst: {
     marginTop: 75,
-     width: '81%',
-     padding: 1,
-     alignItems: 'flex-end',
-     fontWeight: '700',
-     fontSize: 16,
-     bottom: 1
-   },
+    width: "81%",
+    padding: 1,
+    alignItems: "flex-end",
+    fontWeight: "700",
+    fontSize: 16,
+    bottom: 1,
+  },
 
   buttonFrgt: {
-   marginTop: 5,
-    width: '80%',
+    marginTop: 5,
+    width: "80%",
     padding: 1,
-    alignItems: 'flex-end',
-    fontWeight: '700',
-    fontSize: 16
+    alignItems: "flex-end",
+    fontWeight: "700",
+    fontSize: 16,
   },
- 
+
   buttonText: {
     color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
   buttonOutlineText_Frgt: {
-    color: 'darkred',
-    fontWeight: '700',
-    fontSize: 12
+    color: "darkred",
+    fontWeight: "700",
+    fontSize: 12,
   },
   buttonOutlineText_Rgst: {
-    color: 'black',
-    fontWeight: '700',
+    color: "black",
+    fontWeight: "700",
     fontSize: 10,
-    bottom: 1
+    bottom: 1,
   },
 });

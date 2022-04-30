@@ -7,26 +7,22 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Fire } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { PageContext } from "../context";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
-
-  const fire = new Fire();
+  const { fire } = React.useContext(PageContext);
 
   const navigation = useNavigation();
-
-  const onLoginPress = () => {
-    navigation.navigate("Login");
-  };
 
   useEffect(() => {
     const unsubscribe = fire.auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Information");
       }
     });
     return unsubscribe;
@@ -38,15 +34,18 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log(user.email);
-        fire.addUser(user.uid, user.email)
+        fire.addUser(user.uid, user.email);
       })
       .catch((error) => alert(error.message));
   };
   return (
     <KeyboardAvoidingView
       style={styles.container}
-    //behavior={Platform.OS === "ios" ? "padding" : "height"}
+      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+     <View style = {styles.registerIcon}>
+     <Ionicons name="person-add-outline" size={200}/>
+     </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -66,15 +65,7 @@ const SignUpScreen = () => {
         />
       </View>
 
-      {/* <View style={styles.inputContainer}>
-        <TextInput
-          placeholder='Confirm Password'
-          value={passwordRepeat}
-          onChangeText={text => setPasswordRepeat(text)}
-          style={styles.input}
-          secureTextEntry
-        />
-      </View> */}
+    
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleSignUp} style={styles.button}>
@@ -95,6 +86,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
+    bottom: 100
   },
   input: {
     backgroundColor: "white",
@@ -108,6 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 40,
+    bottom: 100
   },
   button: {
     backgroundColor: "darkred",
@@ -132,4 +125,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  registerIcon:{
+    bottom: 100
+  }
 });
