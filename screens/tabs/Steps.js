@@ -23,11 +23,10 @@ import { useIsFocused } from "@react-navigation/native";
 const Steps = ({ route, navigation }) => {
   const { index } = route.params;
   const { listID } = route.params;
-  const { fire, lists, pointss, refreshs, showHeaders } =
+  const { fire, lists, pointss, refreshs } =
     React.useContext(PageContext);
   const [points, setPoints] = pointss;
   const [refresh, setRefresh] = refreshs;
-  const [showHeader, setShowHeader] = showHeaders;
 
   const [modalVisible, setModalVisible] = useState(false);
 

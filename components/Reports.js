@@ -4,6 +4,7 @@ import * as Print from "expo-print";
 import * as MailComposer from "expo-mail-composer";
 import { PageContext } from "../context";
 import { set } from "react-native-reanimated";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export default Reports = () => {
   const TaskData = (item) => {
@@ -477,16 +478,20 @@ export default Reports = () => {
     });
   }
   return (
-    <View style="{styles.container}">
-      <Button title="Print and Share" onPress={() => execute()} />
+    <View style={styles.container}>
+      <Button color="#ff5c5c" title="Generate Report" onPress={() => execute()} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 300
   },
+  button: {
+    borderRadius:100,
+    backgroundColor: "red"
+  }
 });
