@@ -9,16 +9,24 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { PageContext } from "../context";
+import Reports from "../components/Reports";
 import FloatingButtonf from '../components/FloatingButtonf';
 import { render } from "react-dom";
 
 let initialRender = true;
 const HomeScreen = () => {
   // These variables can be considered 'global' to any file that is under the context provider in the root file
-  const { fire, authen, lists, refreshs, vitals, pointss, headers } =
-    React.useContext(PageContext);
+  const {
+    fire,
+    authen,
+    lists,
+    refreshs,
+    vitals,
+    pointss,
+    headers,
+  } = React.useContext(PageContext);
   const [authID, setAuthID] = authen;
   const [refresh, setRefresh] = refreshs;
   const [vitalsigns, setVitalsigns] = vitals;
@@ -64,10 +72,11 @@ const HomeScreen = () => {
 
   // these functions is to toggle the center button. it will be the animation
   return (
-    <SafeAreaView style={[styles.container,{bottom:230}]}>
+    <SafeAreaView style={[styles.container]}>
       {/* functional homescreen button call */}
       <View style={styles.container}>
         <FloatingButtonf />
+        <Reports />
       </View> 
     </SafeAreaView>
   );

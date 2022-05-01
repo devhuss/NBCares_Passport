@@ -52,9 +52,7 @@ export default function App() {
       });
 
       // Unsubscribes to the lists listener
-      return function cleanup() {
-        fire.detach();
-      };
+      return fire.detach();
     }
     // Updates on authID change
   }, [authID]);

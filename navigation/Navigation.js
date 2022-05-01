@@ -20,7 +20,6 @@ const screenOptionStyle = {
 
 const Navigation = ({ navigation }) => {
   const { headers } = React.useContext(PageContext);
-  const [header, setHeader] = headers;
   return (
     <Stack.Navigator screenOptions={(screenOptionStyle, { headerShown: true })}>
       <Stack.Screen
@@ -40,12 +39,12 @@ const Navigation = ({ navigation }) => {
       />
       <Stack.Screen
         name="Tasks"
-        options={{ title: header, headerShown: true }}
+        options={{ headerShown: true }}
         component={Tasks}
       />
       <Stack.Screen
         name="Steps"
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
         component={Steps}
       />
     </Stack.Navigator>

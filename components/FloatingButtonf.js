@@ -188,8 +188,9 @@ export default FloatingButtonf;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
-    position: "absolute",
+    // position: "absolute",
   },
   circleButton: {
     position: "absolute",
