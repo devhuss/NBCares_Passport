@@ -11,19 +11,19 @@ import { PageContext } from "../context";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function FloatingButtonf() {
+const FloatingButtonf = () => {
   const { pointss } = React.useContext(PageContext);
-  const points = pointss;
+  const [points, setPoints] = pointss;
 
   const navigation = useNavigation();
 
   const [state, setState] = useState(true);
   const [open, setOpen] = useState(false);
 
-    const toggle = () => {
-      setState(!state);
-      //toggleMenu();
-    };
+  const toggle = () => {
+    setState(!state);
+    //toggleMenu();
+  };
 
   // One animated value correlates to one animation the animated value
   // should be put in the animated view's transform style in order to work
@@ -42,12 +42,11 @@ export default function FloatingButtonf() {
     animation(pos5, 110, 300);
   }, [open]);
 
-
   const animation = (pos, shiftX, shiftY) => {
     Animated.spring(pos, {
       toValue: open ? { x: shiftX, y: shiftY } : { x: 0, y: 205 },
       useNativeDriver: true,
-      friction:10,
+      friction: 10,
     }).start(() => {});
   };
 
@@ -59,7 +58,8 @@ export default function FloatingButtonf() {
           alignItems: "center",
           top: 0,
           fontSize: 30,
-        }}>
+        }}
+      >
         {state ? "Push to Begin!" : "Welcome!"}
       </Text>
 
@@ -69,77 +69,122 @@ export default function FloatingButtonf() {
         }}
       >
         <Animated.View
-          style={[styles.circleButton,{
-              transform: [{ translateX: pos1.x }, { translateY: pos1.y }],},]}>
-                  <Image
-                    style={{ width: 55, height: 60 }}
-                    resizeMode="contain"
-                    source={require("../assets/education.png")}
-                  />
+          style={[
+            styles.circleButton,
+            {
+              transform: [{ translateX: pos1.x }, { translateY: pos1.y }],
+            },
+          ]}
+        >
+          <Image
+            style={{ width: 55, height: 60 }}
+            resizeMode="contain"
+            source={require("../assets/education.png")}
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
 
       <TouchableWithoutFeedback
-        onPress={() => {navigation.navigate("Tasks", { listID: 1 });}}>
+        onPress={() => {
+          navigation.navigate("Tasks", { listID: 1 });
+        }}
+      >
         <Animated.View
-          style={[styles.circleButton,{
-              transform: [{ translateX: pos2.x }, { translateY: pos2.y }],},]}>
-                  <Image
-                    style={{ width: 60, height: 55, bottom:2 }}
-                    resizeMode="contain"
-                    source={require("../assets/employment.png")}
-                  />
+          style={[
+            styles.circleButton,
+            {
+              transform: [{ translateX: pos2.x }, { translateY: pos2.y }],
+            },
+          ]}
+        >
+          <Image
+            style={{ width: 60, height: 55, bottom: 2 }}
+            resizeMode="contain"
+            source={require("../assets/employment.png")}
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
 
       <TouchableWithoutFeedback
-        onPress={() => {navigation.navigate("Tasks", { listID: 2 });}}>
+        onPress={() => {
+          navigation.navigate("Tasks", { listID: 2 });
+        }}
+      >
         <Animated.View
-          style={[styles.circleButton,{
-              transform: [{ translateX: pos3.x }, { translateY: pos3.y }],},]}>
-                  <Image
-                    style={{ width: 60, height: 60 }}
-                    resizeMode="contain"
-                    source={require("../assets/money.png")}
-                  />
+          style={[
+            styles.circleButton,
+            {
+              transform: [{ translateX: pos3.x }, { translateY: pos3.y }],
+            },
+          ]}
+        >
+          <Image
+            style={{ width: 60, height: 60 }}
+            resizeMode="contain"
+            source={require("../assets/money.png")}
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
 
       <TouchableWithoutFeedback
-        onPress={() => {navigation.navigate("Tasks", { listID: 3 });}}>
+        onPress={() => {
+          navigation.navigate("Tasks", { listID: 3 });
+        }}
+      >
         <Animated.View
-          style={[styles.circleButton,{
-              transform: [{ translateX: pos4.x }, { translateY: pos4.y }],},]}>
-                  <Image
-                    style={{ width: 60, height: 60 }}
-                    resizeMode="contain"
-                    source={require("../assets/healthcare2.png")}
-                  />
+          style={[
+            styles.circleButton,
+            {
+              transform: [{ translateX: pos4.x }, { translateY: pos4.y }],
+            },
+          ]}
+        >
+          <Image
+            style={{ width: 60, height: 60 }}
+            resizeMode="contain"
+            source={require("../assets/healthcare2.png")}
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
 
       <TouchableWithoutFeedback
-        onPress={() => {navigation.navigate("Tasks", { listID: 4 });}}>
+        onPress={() => {
+          navigation.navigate("Tasks", { listID: 4 });
+        }}
+      >
         <Animated.View
-          style={[styles.circleButton,{
-              transform: [{ translateX: pos5.x }, { translateY: pos5.y }],},]}>
-                  <Image
-                    style={{ width: 60, height: 52, bottom: 2 }}
-                    resizeMode="contain"
-                    source={require("../assets/housing.png")}
-                  />
+          style={[
+            styles.circleButton,
+            {
+              transform: [{ translateX: pos5.x }, { translateY: pos5.y }],
+            },
+          ]}
+        >
+          <Image
+            style={{ width: 60, height: 52, bottom: 2 }}
+            resizeMode="contain"
+            source={require("../assets/housing.png")}
+          />
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => {setOpen(!open); toggle()}}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setOpen(!open);
+          toggle();
+        }}
+      >
         <Animated.View
-          style={[styles.largeCircle, { position: "absolute", top: 150 }]}>
+          style={[styles.largeCircle, { position: "absolute", top: 150 }]}
+        >
           <Text style={styles.pointsText}>{points}</Text>
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
   );
-}
+};
+
+export default FloatingButtonf;
 
 const styles = StyleSheet.create({
   container: {
