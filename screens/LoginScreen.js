@@ -40,7 +40,7 @@ const LoginScreen = () => {
   };
 
   const onForgetPasswordPress = () => {
-    navigation.navigate("Forgot Password");
+    navigation.navigate("Forgot");
   };
 
   const handleLogin = () => {

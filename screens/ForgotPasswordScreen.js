@@ -5,29 +5,31 @@ import {
   View,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, u } from "react";
-
-import { auth } from "../firebase";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import { PageContext } from "../context";
 
 const ForgotPasswordScreen = () => {
+  const { fire } = React.useContext(PageContext);
   const [email, setEmail] = useState("");
 
   const navigation = useNavigation();
 
   const handleforgotPassword = (Email) => {
-    auth;
-    sendPasswordResetEmail(auth, email)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
+    fire.auth
+      .sendPasswordResetEmail(Email)
+      .then(() => {
+        Alert.alert("Password Reset", "Email sent!", [
+          {
+            text: "OK",
+            onPress: () => {},
+          },
+        ]);
+        navigation.navigate("Login");
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -45,7 +47,7 @@ const ForgotPasswordScreen = () => {
       </View>
 
       <TouchableOpacity
-        onPress={handleforgotPassword}
+        onPress={() => handleforgotPassword(email)}
         style={[styles.button, styles.buttonOutline]}
       >
         <Text style={styles.buttonOutlineText}>Forgot Password?</Text>

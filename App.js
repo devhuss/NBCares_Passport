@@ -73,7 +73,7 @@ export default function App() {
       }}
     >
 
-      <StatusBar barStyle="dark-content" />
+      {/* <StatusBar barStyle="dark-content" /> */}
       <NavigationContainer>
         <LoginStack/>
       </NavigationContainer>

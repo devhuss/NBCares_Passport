@@ -129,7 +129,7 @@ const Steps = ({ route, navigation }) => {
 
   return (
     <GestureHandlerRootView
-      style={{ flex: 1, justifyContent: "center", backgroundColor: "#859a9b" }}
+      style={{ flex: 1, justifyContent: "center", backgroundColor: "#c6b886" }}
     >
       <AddModal
         modalVisible={modalVisible}
@@ -247,7 +247,7 @@ const Steps = ({ route, navigation }) => {
           style={[styles.addTodo, { backgroundColor: "white" }]}
           onPress={() => setModalVisible(true)}
         >
-          <AntDesign name="plus" size={24} color={"#677d7e"} />
+          <AntDesign name="plus" size={24} color={"#b4a25f"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 55,
     marginHorizontal: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
