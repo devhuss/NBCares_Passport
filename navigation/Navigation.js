@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 const screenOptionStyle = {
   headerStyle: {
-    backgroundColor: "#551E18",
+    backgroundColor: "#b4a25f",
   },
   headerTintColor: "white",
   headerBackTitle: "Back",
@@ -21,20 +21,21 @@ const screenOptionStyle = {
 const Navigation = ({ navigation }) => {
   const { headers } = React.useContext(PageContext);
   return (
-    <Stack.Navigator screenOptions={(screenOptionStyle, { headerShown: true })}>
+    <Stack.Navigator screenOptions={(screenOptionStyle)}>
       <Stack.Screen
         name="Home "
         component={HomeScreen}
         options={{
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Ionicons name="menu-outline" size={22} />
+              <Ionicons style={{marginRight: 30}} color="white" name="menu-outline" size={22} />
             </TouchableOpacity>
-          ), headerRight: () => (
+          ),
+          headerRight: () => (
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Ionicons name="information-outline" size={22} />
+              <Ionicons name="information-outline" color="white" size={22} />
             </TouchableOpacity>
-          )
+          ),
         }}
       />
       <Stack.Screen

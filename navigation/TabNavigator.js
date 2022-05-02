@@ -9,6 +9,7 @@ import { Image } from "react-native"
 
 const Tab = createBottomTabNavigator();
 
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator>
