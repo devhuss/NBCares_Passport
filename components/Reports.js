@@ -476,7 +476,7 @@ export default Reports = () => {
   }
   return (
     <View style={styles.container}>
-      <Button color="#ff5c5c" title="Generate Report" onPress={() => execute()} />
+      <Button color="#af272f" title="Generate Report" onPress={() => execute()} />
     </View>
   );
 };

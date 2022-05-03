@@ -7,10 +7,20 @@ import {
   TouchableWithoutFeedback,
   Image,
   LayoutAnimation,
+  UIManager,
+  Button,
 } from "react-native";
 import { PageContext } from "../context";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { CountUp } from 'use-count-up'
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const FloatingButtonf = () => {
   const { pointss, counter, fire } = React.useContext(PageContext);
@@ -29,9 +39,9 @@ const FloatingButtonf = () => {
     // Animate the update
     setCount(0);
     LayoutAnimation.configureNext({
-      duration: 500,
+      duration: 400,
       create: { type: "easeInEaseOut", property: "opacity" },
-      update: { type: "spring", springDamping: 0.8 },
+      update: { type: "spring", springDamping: 0.85 },
       delete: { type: "linear", property: "opacity" },
     });
     setW(open ? 200 : 350);
@@ -80,11 +90,6 @@ const FloatingButtonf = () => {
   let pos5 = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   let pos6 = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
 
-  // const currSize = size.interpolate({
-  //   inputRange: [0, 1],
-  //   outputRange: [0, 300], // <-- any value larger than your content's height
-  // });
-
   // When the center circle is pushed this will trigger the animations
   useEffect(() => {
     animation(pos1, -125, -115); // education
@@ -94,15 +99,15 @@ const FloatingButtonf = () => {
     animation(pos4, -125, 115); // financial
     animation(pos5, 0, 165); // health
     animation(pos6, 125, 115); // housing
+
     increase();
-    // sizeChange(currSize, 1);
   }, [open]);
 
   const animation = (pos, shiftX, shiftY) => {
     Animated.spring(pos, {
       toValue: open ? { x: shiftX, y: shiftY } : { x: 0, y: 0 },
       useNativeDriver: true,
-      friction: 7,
+      friction: 6,
     }).start(() => {});
   };
 
@@ -136,6 +141,7 @@ const FloatingButtonf = () => {
             style={{ width: 55, height: 60 }}
             resizeMode="contain"
             source={require("../assets/education.png")}
+            tintColor="#e7ca5f"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -178,6 +184,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 55, bottom: 2 }}
             resizeMode="contain"
             source={require("../assets/employment.png")}
+            tintColor="#e7ca5f"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -199,6 +206,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 60 }}
             resizeMode="contain"
             source={require("../assets/money.png")}
+            tintColor="#e7ca5f"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -220,6 +228,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 60 }}
             resizeMode="contain"
             source={require("../assets/healthcare2.png")}
+            tintColor="#e7ca5f"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -241,6 +250,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 52, bottom: 2 }}
             resizeMode="contain"
             source={require("../assets/housing.png")}
+            tintColor="#e7ca5f"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -250,13 +260,18 @@ const FloatingButtonf = () => {
           setOpen(!open);
         }}
       >
-        <LinearGradient colors={open ?['#dc6068', '#e58a90'] : ['#af272f', '#dc6068']} style={[styles.largeCircle, { width: w, height: h }]}>
-          <Animated.View>
-            {/* <View style={[styles.largeCircle, { width: w, height: h }]}> */}
-              <Text style={[styles.pointsText, {}]}>{points}</Text>
-            {/* </View> */}
-          </Animated.View>
-        </LinearGradient>
+        <Animated.View>
+          <LinearGradient
+            colors={['#af272f', '#dd8064']}
+            locations={[.70,1]}
+            // locations={gradientOptions.locations}
+            // start={gradientOptions.start}
+            // end={gradientOptions.end}
+            style={[styles.largeCircle, { width: w, height: h }]}
+          >
+            <Text style={[styles.pointsText, {}]}><CountUp isCounting end={points} duration={2} /></Text>
+          </LinearGradient>
+        </Animated.View>
       </TouchableWithoutFeedback>
     </View>
   );
@@ -278,8 +293,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#c5b783",
     backgroundColor: "#af272f",
   },
   largeCircle: {
@@ -293,7 +306,7 @@ const styles = StyleSheet.create({
     transform: [{ translateX: 0 }, { translateY: 0 }],
   },
   pointsText: {
-    color: "white",
+    color: "#e7ca5f",
     fontWeight: "700",
     fontSize: 60,
     textAlign: "center",

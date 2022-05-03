@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PageContext } from "../context";
 import {LogBox} from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const LoginScreen = () => {
@@ -58,6 +59,12 @@ const LoginScreen = () => {
       style={styles.container}
       //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#d0c49a","#d0c49a", "#ffffff"]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
       <Image
         style={{
           width: "75%",
@@ -66,6 +73,7 @@ const LoginScreen = () => {
           marginBottom: 15,
         }}
         source={require("../assets/nbcares_gold.png")}
+        tintColor='#af272f'
       />
 
       <View style={styles.inputContainer}>
@@ -208,5 +216,12 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 10,
     bottom: 1,
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });
