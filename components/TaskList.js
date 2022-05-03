@@ -6,7 +6,7 @@ import {
   Animated,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
@@ -22,6 +22,12 @@ const TaskList = ({ task, index, listID }) => {
   const list = lists[listID];
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: list.name,
+    });
+  }, []);
 
   // This toggles the Completed Boolean of the array item then updates the TaskList
   const toggleCompleted = (item) => {

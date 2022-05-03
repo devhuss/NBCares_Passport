@@ -24,8 +24,6 @@ export default Reports = () => {
 
   const userEmail = fire.auth.currentUser.email
 
-  console.log(userEmail)
-
   const vLength = vitalsigns.length;
   const intV = vitalsigns[0];
   const currV = vitalsigns[vLength > 1 ? vLength - 1 : 0];
@@ -80,7 +78,6 @@ export default Reports = () => {
 
   // SS Points
   const deltaPoints = currPoints - intPoints;
-  console.log(deltaIncome);
 
   useEffect(() => {
     setEducation(TaskData(lists[0]));
@@ -485,13 +482,6 @@ export default Reports = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 300
-  },
-  button: {
-    borderRadius:100,
-    backgroundColor: "red"
+    marginBottom: 20
   }
 });
