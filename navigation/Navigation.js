@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React from "react";
 import HomeScreen from "../screens/HomeScreen";
 import Tasks from "../screens/tabs/Tasks";
@@ -55,4 +53,3 @@ const Navigation = ({ navigation }) => {
 };
 
 export { Navigation };
->>>>>>> 7abc91388140e946de480ca0f9973eb993590908
