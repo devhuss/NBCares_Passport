@@ -144,7 +144,6 @@ class Fire extends React.Component {
 
   updateList(list) {
     let ref = this.refLists;
-    console.log('FIRE: TEST')
     ref.doc(list.id).update(list);
   }
 

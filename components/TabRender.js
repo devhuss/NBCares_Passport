@@ -49,7 +49,7 @@ export default TabRender = ({ listID }) => {
 
       <View style={[styles.section, styles.footer]}>
         <TouchableOpacity
-          style={[styles.addTodo, { backgroundColor: "#677d7e", opacity: .9 }]}
+          style={[styles.addTodo, { backgroundColor: "#b4a25f", opacity: .9 }]}
           onPress={() => setModalVisible(true)}
         >
           <AntDesign name="plus" size={24} color={"white"} />

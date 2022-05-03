@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {  StyleSheet, StatusBar} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { Fire } from "./firebase";
 import { PageContext } from "./context";
-import 'react-native-gesture-handler';
-import { LoginStackNav } from "./navigation/MainStackNavigator";
-
-import {LogBox} from 'react-native';
+import "react-native-gesture-handler";
+import { LoginStack } from "./navigation/LoginStack";
 
 
-
-
-const Stack = createNativeStackNavigator();
 
 
 const fire = new Fire();
-LogBox.ignoreLogs(['Warning: Async Storage has been extracted from react-native core']);
 
 let initialRender = true;
 export default function App() {
@@ -24,9 +17,10 @@ export default function App() {
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const [vitalsigns, setVitalsigns] = useState([])
+  const [vitalsigns, setVitalsigns] = useState([]);
   const [points, setPoints] = useState(0);
-  const [header, setHeader] = useState('');
+  const [header, setHeader] = useState("");
+  const [name, setName] = useState("");
 
   // useEffect is a Effect hook that triggers depending on render
   // this useEffect triggers once when App.js renders, when triggered it calls the firebase getLists function
@@ -34,7 +28,6 @@ export default function App() {
   // listener that recieves the data
 
   useEffect(() => {
-
     // prevents the useEffect from doing anything on first render
     if (initialRender) {
       initialRender = false;
@@ -59,9 +52,7 @@ export default function App() {
       });
 
       // Unsubscribes to the lists listener
-      return function cleanup() {
-        fire.detach();
-      };
+      return fire.detach();
     }
     // Updates on authID change
   }, [authID]);
@@ -74,19 +65,20 @@ export default function App() {
         fire: fire,
         lists: lists,
         authen: [authID, setAuthID],
+        namee: [name, setName],
         refreshs: [refresh, setRefresh],
         vitals: [vitalsigns, setVitalsigns],
         pointss: [points, setPoints],
         headers: [header, setHeader],
       }}
     >
-      {/* <NavigationContainer>
-        <AppStack/></NavigationContainer> */}
-      
+
+      {/* <StatusBar barStyle="dark-content" /> */}
       <NavigationContainer>
-      <LoginStackNav/>
+        <LoginStack/>
       </NavigationContainer>
     </PageContext.Provider>
+
   );
 }
 
@@ -96,5 +88,9 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     alignItems: "center",
     justifyContent: "center",
+  },
+  safeArea: {
+    flex: 1,
+    overflow: 'hidden',
   },
 });

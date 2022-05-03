@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, Animated, TouchableWithoutFeedback} from 'react-native';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
+//this is component programming for button animations. currently unused
 export default class FloatingButton extends React.Component {
   animation = new Animated.Value(0)
   //tells the center button whether or not the buttons are open or closed.
@@ -17,6 +19,7 @@ export default class FloatingButton extends React.Component {
 
   render() {
 
+    //each of these corresponds to a different animation position for each button
     const hat = {
       transform: [
         {scale: this.animation},
