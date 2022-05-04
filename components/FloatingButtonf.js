@@ -93,7 +93,7 @@ const FloatingButtonf = () => {
   // When the center circle is pushed this will trigger the animations
   useEffect(() => {
     animation(pos1, -125, -115); // education
-    animation(pos2, 0, -165); // chat
+    //animation(pos2, 0, -165); // chat
     animation(pos3, 125, -115); // career
 
     animation(pos4, -125, 115); // financial
@@ -141,12 +141,13 @@ const FloatingButtonf = () => {
             style={{ width: 55, height: 60 }}
             resizeMode="contain"
             source={require("../assets/education.png")}
-            tintColor="#e7ca5f"
+            tintColor="#FFF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback
+          {/* Chat button for the future */}
+      {/* <TouchableWithoutFeedback
         onPress={() => {
           navigation.navigate("Tasks", { listID: 1 });
         }}
@@ -159,13 +160,9 @@ const FloatingButtonf = () => {
             },
           ]}
         >
-          {/* <Image
-            style={{ width: 60, height: 55, bottom: 2 }}
-            resizeMode="contain"
-            source={require("../assets/employment.png")}
-          /> */}
+          
         </Animated.View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
       <TouchableWithoutFeedback
         onPress={() => {
@@ -184,7 +181,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 55, bottom: 2 }}
             resizeMode="contain"
             source={require("../assets/employment.png")}
-            tintColor="#e7ca5f"
+            tintColor="#FFF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -206,7 +203,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 60 }}
             resizeMode="contain"
             source={require("../assets/money.png")}
-            tintColor="#e7ca5f"
+            tintColor="#FFF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -228,7 +225,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 60 }}
             resizeMode="contain"
             source={require("../assets/healthcare2.png")}
-            tintColor="#e7ca5f"
+            tintColor="#FFF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -250,7 +247,7 @@ const FloatingButtonf = () => {
             style={{ width: 60, height: 52, bottom: 2 }}
             resizeMode="contain"
             source={require("../assets/housing.png")}
-            tintColor="#e7ca5f"
+            tintColor="#FFF"
           />
         </Animated.View>
       </TouchableWithoutFeedback>
@@ -293,6 +290,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
+    borderWidth: 3,
+    borderColor: '#75171d',
     backgroundColor: "#af272f",
   },
   largeCircle: {
@@ -302,11 +301,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 300,
-    borderWidth: 0,
+    borderWidth: 3,
+    borderColor: '#75171d',
     transform: [{ translateX: 0 }, { translateY: 0 }],
   },
   pointsText: {
-    color: "#e7ca5f",
+    color: "#FFF",
     fontWeight: "700",
     fontSize: 60,
     textAlign: "center",
