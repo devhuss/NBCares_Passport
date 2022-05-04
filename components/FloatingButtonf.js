@@ -9,18 +9,21 @@ import {
   LayoutAnimation,
   UIManager,
   Button,
+  Platform,
 } from "react-native";
 import { PageContext } from "../context";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { CountUp } from 'use-count-up'
+import { CountUp } from "use-count-up";
 
 if (
   Platform.OS === "android" &&
   UIManager.setLayoutAnimationEnabledExperimental
 ) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+  UIManager.setLayoutAnimationEnabledExperimental(false);
 }
+
+const AnimatedGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const FloatingButtonf = () => {
   const { pointss, counter, fire } = React.useContext(PageContext);
@@ -35,51 +38,18 @@ const FloatingButtonf = () => {
   const [w, setW] = useState(200);
   const [h, setH] = useState(200);
 
-  const increase = () => {
-    // Animate the update
-    setCount(0);
-    LayoutAnimation.configureNext({
-      duration: 400,
-      create: { type: "easeInEaseOut", property: "opacity" },
-      update: { type: "spring", springDamping: 0.85 },
-      delete: { type: "linear", property: "opacity" },
-    });
-    setW(open ? 200 : 350);
-    setH(open ? 200 : 350);
-  };
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     if (!open) {
-  //       setInter(
-  //         setInterval(() => {
-  //           setCount((prevNum) => {
-  //             if (prevNum < points / 1.05) {
-  //               return prevNum + 12;
-  //             } else {
-  //               if (prevNum < points) {
-  //                 return prevNum + 1;
-  //               } else {
-  //                 return points;
-  //               }
-
-  //               // return prevNum + 1;
-  //             }
-  //           });
-  //         }, 10)
-  //       );
-  //     }
-  //   }, [open, points])
-  // );
-
-  // useEffect(() => {
-  //   if (count > points - 2) {
-  //     clearInterval(interval);
-  //     // fire.updateUser({
-  //     //   counter: count,
-  //     // });
-  //   }
-  // }, [count]);
+  // const increase = () => {
+  //   // Animate the update
+  //   setCount(0);
+  //   LayoutAnimation.configureNext({
+  //     duration: 400,
+  //     create: { type: "easeInEaseOut", property: "opacity" },
+  //     update: { type: "spring", springDamping: 0.85 },
+  //     delete: { type: "linear", property: "opacity" },
+  //   });
+  //   setW(open ? 200 : 350);
+  //   setH(open ? 200 : 350);
+  // };
 
   // One animated value correlates to one animation the animated value
   // should be put in the animated view's transform style in order to work
@@ -89,6 +59,7 @@ const FloatingButtonf = () => {
   let pos4 = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   let pos5 = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   let pos6 = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
+  let test = useRef(new Animated.Value(1.25)).current;
 
   // When the center circle is pushed this will trigger the animations
   useEffect(() => {
@@ -99,8 +70,8 @@ const FloatingButtonf = () => {
     animation(pos4, -125, 115); // financial
     animation(pos5, 0, 165); // health
     animation(pos6, 125, 115); // housing
-
-    increase();
+    animSize(test);
+    //increase();
   }, [open]);
 
   const animation = (pos, shiftX, shiftY) => {
@@ -108,6 +79,14 @@ const FloatingButtonf = () => {
       toValue: open ? { x: shiftX, y: shiftY } : { x: 0, y: 0 },
       useNativeDriver: true,
       friction: 6,
+    }).start(() => {});
+  };
+
+  const animSize = (pos) => {
+    Animated.spring(pos, {
+      toValue: open ? .55 : 1,
+      useNativeDriver: true,
+      friction: 7,
     }).start(() => {});
   };
 
@@ -146,7 +125,7 @@ const FloatingButtonf = () => {
         </Animated.View>
       </TouchableWithoutFeedback>
 
-          {/* Chat button for the future */}
+      {/* Chat button for the future */}
       {/* <TouchableWithoutFeedback
         onPress={() => {
           navigation.navigate("Tasks", { listID: 1 });
@@ -257,17 +236,35 @@ const FloatingButtonf = () => {
           setOpen(!open);
         }}
       >
-        <Animated.View>
-          <LinearGradient
-            colors={['#af272f', '#dd8064']}
-            locations={[.70,1]}
+        <Animated.View
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <AnimatedGradient
+            colors={["#af272f", "#dd8064"]}
+            locations={[0.7, 1]}
             // locations={gradientOptions.locations}
             // start={gradientOptions.start}
             // end={gradientOptions.end}
-            style={[styles.largeCircle, { width: w, height: h }]}
+            style={[
+              styles.largeCircle,
+              {
+                width: 350,
+                height: 350,
+                borderRadius: Platform.OS === "ios" ? 175 : 200,
+                transform: [{ scale: test }],
+              },
+            ]}
+          ></AnimatedGradient>
+          <Text
+            style={[
+              styles.pointsText,
+              {
+                position: "absolute",
+              },
+            ]}
           >
-            <Text style={[styles.pointsText, {}]}><CountUp isCounting end={points} duration={2} /></Text>
-          </LinearGradient>
+            <CountUp isCounting end={points} duration={2} />
+          </Text>
         </Animated.View>
       </TouchableWithoutFeedback>
     </View>
@@ -291,7 +288,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 100,
     borderWidth: 3,
-    borderColor: '#75171d',
+    borderColor: "#75171d",
     backgroundColor: "#af272f",
   },
   largeCircle: {
@@ -300,9 +297,9 @@ const styles = StyleSheet.create({
     // height: 200,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 300,
+    // borderRadius: 300,
     borderWidth: 3,
-    borderColor: '#75171d',
+    borderColor: "#75171d",
     transform: [{ translateX: 0 }, { translateY: 0 }],
   },
   pointsText: {
