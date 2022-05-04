@@ -18,13 +18,12 @@ import {
 } from "react-native-gesture-handler";
 import { PageContext } from "../../context";
 import AddModal from "../../components/AddModal";
-import { useIsFocused } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Steps = ({ route, navigation }) => {
   const { index } = route.params;
   const { listID } = route.params;
-  const { fire, lists, pointss, refreshs } =
-    React.useContext(PageContext);
+  const { fire, lists, pointss, refreshs } = React.useContext(PageContext);
   const [points, setPoints] = pointss;
   const [refresh, setRefresh] = refreshs;
 
@@ -131,6 +130,13 @@ const Steps = ({ route, navigation }) => {
     <GestureHandlerRootView
       style={{ flex: 1, justifyContent: "center", backgroundColor: "#c6b886" }}
     >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#d0c49a", "#ffffff"]}
+        locations={[0.5,1]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
       <AddModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -141,14 +147,17 @@ const Steps = ({ route, navigation }) => {
 
       <View style={styles.title}>
         <TouchableOpacity
-          
           onPress={() => {
             navigation.goBack();
           }}
         >
-          <Ionicons name="arrow-back-circle" size={35} color="white" style={{ width: 35, marginLeft: 10}} />
+          <Ionicons
+            name="arrow-back-circle"
+            size={35}
+            color="white"
+            style={{ width: 35, marginLeft: 10 }}
+          />
         </TouchableOpacity>
-  
 
         <View style={{ marginLeft: 10 }}>
           <Text
@@ -208,7 +217,7 @@ const Steps = ({ route, navigation }) => {
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
-        contentContainerStyle={{ paddingHorizontal: 45, marginTop: 15 }}
+        contentContainerStyle={{ paddingHorizontal: 45, marginTop: 15, paddingBottom: 250 }}
         renderItem={({ item, index }) => (
           <Swipeable
             renderRightActions={(_, dragX) => rightActions(dragX, index)}
@@ -310,5 +319,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 70,
     marginBottom: 5,
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });

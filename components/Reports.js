@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  Pressable,
+  TouchableOpacity,
+  Alert,
+  Platform
+} from "react-native";
 import * as Print from "expo-print";
 import * as MailComposer from "expo-mail-composer";
 import { PageContext } from "../context";
-import { set } from "react-native-reanimated";
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { WebView } from "react-native-webview";
+import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
 
 export default Reports = () => {
   const TaskData = (item) => {
@@ -20,11 +30,9 @@ export default Reports = () => {
   const [vitalsigns, setVitalsigns] = vitals;
   const [points, setPoints] = pointss;
 
-  const currentDate = new Date().toDateString()
+  const currentDate = new Date().toDateString();
 
-  const userEmail = fire.auth.currentUser.email
-
-  console.log(userEmail)
+  const userEmail = fire.auth.currentUser.email;
 
   const vLength = vitalsigns.length;
   const intV = vitalsigns[0];
@@ -90,10 +98,11 @@ export default Reports = () => {
     setHousing(TaskData(lists[4]));
   }, [lists]);
 
-  //console.log(education);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [html, setHtml] = useState("");
 
-  async function execute() {
-    const html = `
+  const genReport = () => {
+    setHtml(`
 
     <!DOCTYPE html>
 
@@ -462,36 +471,115 @@ export default Reports = () => {
     </div>
   </body>
 </html>
+`);
+  };
 
+  useEffect(() => {
+    genReport();
+  }, [modalVisible]);
 
-
-
-    
-`;
+  const execute = async () => {
     const { uri } = await Print.printToFileAsync({ html });
 
     MailComposer.composeAsync({
       subject: "User Report",
       recipients: ["khouse@nbhact.org"],
-      body: "Some text to go with the report email",
+      body: "Generated User Report",
       attachments: [uri],
     });
-  }
+  };
   return (
-    <View style={styles.container}>
-      <Button color="#ff5c5c" title="Generate Report" onPress={() => execute()} />
+    <View>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <WebView
+          style={{ flex: 1, marginTop: 75 }}
+          source={{ html: html }}
+          injectedJavaScript={`const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.55, maximum-scale=1, user-scalable=1'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); `}
+          scalesPageToFit={true}
+          useWebKit={true}
+        />
+        <TouchableOpacity
+          style={[
+            styles.buttonClose,
+            {
+              right: 15,
+              top: Platform.OS === "ios" ? 50 : 20,
+            },
+          ]}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Ionicons name="close" size={40} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.buttonSend]} onPress={() => execute()}>
+          <Text>Send to Case Manager</Text>
+        </TouchableOpacity>
+      </Modal>
+      <TouchableOpacity
+        style={[styles.button]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>
+          Generate Report
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    marginTop: Constants.statusBarHeight,
+  },
+  centeredView: {
+    flex: 1,
     justifyContent: "center",
-    marginTop: 300
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   button: {
-    borderRadius:100,
-    backgroundColor: "red"
-  }
+    backgroundColor: "#af272f",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 20,
+  },
+  buttonClose: {
+    position: "absolute",
+  },
+  buttonSend: {
+    backgroundColor: "#af272f",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    right: 10,
+    left: 10,
+    borderRadius: 10,
+    bottom: 25,
+    height: 50,
+  },
 });

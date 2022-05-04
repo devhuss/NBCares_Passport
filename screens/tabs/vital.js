@@ -229,7 +229,7 @@ const Vital = () => {
       </View>
 
       {/* likert scale */}
-      <Text style={{ fontSize: 20, bottom: 20, left: 10 }}>
+      <Text style={{ fontSize: 20, bottom: 20, left: 8 }}>
         {"\n"}Overall Confidence in my Financial Situation:
       </Text>
       <View style={{ flexDirection: "row", left: 5 }}>
@@ -299,15 +299,21 @@ const Vital = () => {
         ></TouchableOpacity>
       </View>
 
-      {/* forgive me for hard coding this lol */}
+      {/* likert confidence scale words for financial */}
       <Text style={{ fontSize: 15, left: 7, bottom: 10 }}>
-        Excellent Okay Horrible
+        Excellent
+      </Text>
+      <Text style={{ fontSize: 15, left: 188, bottom: 30 }}>
+        Okay
+      </Text>
+      <Text style={{ fontSize: 15, left: 345, bottom: 50 }}>
+        Horrible
       </Text>
 
       <View>
         {/* these are the values that are just printed out under the grid.
             basically we replace {income} with the previous database value
-            and cruise like that */}
+            and cruise like that. removed since no update*/}
         {/* <View style={{top:7}}>
           <Text style={[styles.text, {position: 'absolute', bottom: 252}]}>
             {" "}
@@ -324,7 +330,7 @@ const Vital = () => {
         </View> */}
 
         {/* start of the smiles page. Everything is its own button so it is a bit of a mess */}
-        <Text style={styles.text2}>{"\n"}How I feel about my... </Text>
+        <Text style={styles.text2}>How I feel about my... </Text>
         {/* life */}
         <Text style={{ fontSize: 20, left: 10 }}>Life: {life}</Text>
         <View style={styles.pictures}>

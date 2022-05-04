@@ -118,6 +118,7 @@ class Fire extends React.Component {
       cManagers: [],
       email: email,
       userPoints: 0,
+      counter: 0,
     });
 
     // Takes the data from tempData.js and adds it into the database
