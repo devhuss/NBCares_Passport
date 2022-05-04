@@ -12,6 +12,8 @@ import React, { useEffect, useState, u } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PageContext } from "../context";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { LinearGradient } from "expo-linear-gradient";
+
 
 
 const ForgotPasswordScreen = () => {
@@ -39,7 +41,9 @@ const ForgotPasswordScreen = () => {
     
   
       <View style = {styles.container}>
+      
         <View style = {styles.header}>
+          
           <Text style = {styles.text_header}>Forgot Password?</Text>
         </View>
         <View style = {styles.footer}>

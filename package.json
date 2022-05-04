@@ -19,10 +19,7 @@
     "@react-navigation/native-stack": "^6.5.2",
     "@react-navigation/stack": "^6.2.1",
     "expo": "~44.0.0",
-<<<<<<< HEAD
     "expo-linear-gradient": "~11.0.3",
-=======
->>>>>>> a75d4dcb577445ef686ce5f677d691444fe81170
     "expo-mail-composer": "~11.1.0",
     "expo-print": "~11.1.0",
     "expo-status-bar": "~1.2.0",
@@ -41,13 +38,9 @@
     "react-native-screens": "~3.10.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-<<<<<<< HEAD
     "react-native-webview": "^11.18.2",
     "react-navigation": "^4.4.4",
     "use-count-up": "^3.0.1"
-=======
-    "react-navigation": "^4.4.4"
->>>>>>> a75d4dcb577445ef686ce5f677d691444fe81170
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

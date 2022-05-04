@@ -61,7 +61,7 @@ const LoginScreen = () => {
     >
       <LinearGradient
         // Background Linear Gradient
-        colors={["#d0c49a", "#ffffff"]}
+        colors={["#af272f", "#ffffff"]}
         end={{ x: 0, y: 1 }}
         style={styles.background}
       />
@@ -124,12 +124,15 @@ const LoginScreen = () => {
           }
         />
       </View>
-
+          
       <Image
+      
         style={styles.paraDYM}
         source={require("../assets/paraDYM_academy.png")}
+        
         // source={{uri: 'https://www.paradymacademy.org/'}}
       />
+      
     </KeyboardAvoidingView>
   );
 };
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   button: {
-    backgroundColor: "darkred",
+    backgroundColor: "#af272f",
     width: "100%",
     padding: 15,
     borderRadius: 10,
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
-    borderColor: "darkred",
+    borderColor: "#af272f",
     borderWidth: 2,
   },
   buttonRgst: {
@@ -207,12 +210,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText_Frgt: {
-    color: "darkred",
+    color: "#af272f",
     fontWeight: "700",
     fontSize: 12,
   },
   buttonOutlineText_Rgst: {
-    color: "black",
+    color: "#af272f",
     fontWeight: "700",
     fontSize: 10,
     bottom: 1,
@@ -224,4 +227,5 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
   },
+
 });

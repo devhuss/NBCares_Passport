@@ -51,6 +51,7 @@ const Navigation = ({ navigation }) => {
                   setModalVisible(!modalVisible);
                 }}
               >
+                
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
                     <Text style={styles.modalText}>{InfoText}</Text>

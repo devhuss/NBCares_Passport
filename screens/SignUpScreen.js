@@ -92,7 +92,6 @@ const SignUpScreen = () => {
           <Text style={styles.buttonText}>Register & Login</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-          <ScrollView>
               <Modal
                 animationType="slide"
                 transparent={true}
@@ -102,8 +101,10 @@ const SignUpScreen = () => {
                   setModalVisible(!modalVisible);
                 }}
               >
+                <ScrollView>
                 <View style={styles.centeredView}>
                   <View style={styles.modalView}>
+                    <ScrollView>
                     <Text style={styles.modalText}>{AgreementText}</Text>
                     <Pressable
                       style={[styles.buttonModal, styles.buttonClose]}
@@ -111,10 +112,12 @@ const SignUpScreen = () => {
                     >
                       <Text style={styles.textStyle}>Close</Text>
                     </Pressable>
+                    </ScrollView>
                   </View>
                 </View>
+                </ScrollView>
               </Modal>
-              </ScrollView>
+             
             <Text style = {styles.termsClick}>By registering, you are agreeing to authorize information.</Text></TouchableOpacity>
  
   
@@ -232,7 +235,7 @@ action: {
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
-    borderColor: "darkred",
+    borderColor: "#af272f",
     borderWidth: 2,
   },
   buttonText: {
@@ -288,7 +291,7 @@ action: {
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: "left",
     fontSize:8,
   },
   termsClick: {

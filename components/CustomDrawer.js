@@ -94,22 +94,7 @@ const CustomDrawer = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onAboutUsPress}
-          style={{ paddingVertical: 15 }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="information-circle-outline" size={22} />
-            <Text
-              style={{
-                fontSize: 15,
-                marginLeft: 5,
-              }}
-            >
-              About Us
-            </Text>
-          </View>
-        </TouchableOpacity>
+        
         <TouchableOpacity
           onPress={handleSignOut}
           style={{ paddingVertical: 15 }}
