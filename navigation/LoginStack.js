@@ -15,7 +15,6 @@ const LoginStack = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={SignUpScreen} />
         <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
-        <Stack.Screen name="Information" component={InformationScreen} />
         <Stack.Screen name="Home" component={DrawerNavigator} />
         <Stack.Screen name="About Us" component={AboutUs} />
 

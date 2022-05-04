@@ -1,4 +1,4 @@
-const text = 
+const AgreementText = 
 `NB CARES Collaborating Actively on Resident Empowerment and Success in New Britain\n 
 
 Authorization to Disclose/Obtain Information\n
@@ -36,4 +36,4 @@ By clicking continue, you are agreeing to all that has been stated above.`;
 
 
 
-export default text;
+export default AgreementText;
