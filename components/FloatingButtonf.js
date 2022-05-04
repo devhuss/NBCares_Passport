@@ -250,7 +250,7 @@ const FloatingButtonf = () => {
               {
                 width: 200,
                 height: 200,
-                borderRadius: Platform.OS === "ios" ? 125 : 200,
+                borderRadius: Platform.OS === "ios" ? 100 : 200,
                 transform: [{ scale: test }],
               },
             ]}
@@ -261,7 +261,6 @@ const FloatingButtonf = () => {
               styles.pointsText,
               {
                 position: "absolute",
-                display: 'none'
               },
             ]}
           >

@@ -16,19 +16,31 @@ import TaskList from "./TaskList";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PageContext } from "../context";
 import AddModal from "./AddModal";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 export default TabRender = ({ listID }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { lists, refreshs } = React.useContext(PageContext);
-  
-  const [refresh, setRefresh] = refreshs
+
+  const [refresh, setRefresh] = refreshs;
   const list = lists[listID];
-  
+
   return (
     <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#efebdc", "#ffffff"]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
 
-      <AddModal modalVisible={modalVisible} setModalVisible={setModalVisible} listID={listID}  type='task'/>
+      <AddModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        listID={listID}
+        type="task"
+      />
 
       {/* <Text style={{ fontSize: 25 }}>itemId: {list.name} </Text> */}
 
@@ -49,7 +61,7 @@ export default TabRender = ({ listID }) => {
 
       <View style={[styles.section, styles.footer]}>
         <TouchableOpacity
-          style={[styles.addTodo, { backgroundColor: "#b4a25f", opacity: .9 }]}
+          style={[styles.addTodo, { backgroundColor: "#b4a25f", opacity: 0.9 }]}
           onPress={() => setModalVisible(true)}
         >
           <AntDesign name="plus" size={24} color={"white"} />
@@ -57,7 +69,6 @@ export default TabRender = ({ listID }) => {
       </View>
     </GestureHandlerRootView>
   );
-  
 };
 
 const styles = StyleSheet.create({
@@ -111,5 +122,12 @@ const styles = StyleSheet.create({
   },
   color2: {
     color: "#000000",
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });

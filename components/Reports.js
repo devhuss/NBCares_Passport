@@ -483,8 +483,8 @@ export default Reports = () => {
 
     MailComposer.composeAsync({
       subject: "User Report",
-      recipients: ["mendozaji327@gmail.com"],
-      body: "Some text to go with the report email",
+      recipients: ["khouse@nbhact.org"],
+      body: "Generated User Report",
       attachments: [uri],
     });
   };
