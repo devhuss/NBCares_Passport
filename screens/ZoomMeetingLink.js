@@ -3,11 +3,11 @@ import React from "react";
 
 const ZoomMeetingLink = () => {
   return (
-      <SafeAreaView style = {styles.container} >
+      <SafeAreaView style = {[styles.container]} >
         <Image style = {styles.zoom} source={require("../assets/zoom_logo.png")}/>
-        <TouchableOpacity style = {styles.button}>
+        <TouchableOpacity style = {[styles.button,{position:'absolute',top:220}]}>
           <Text onPress = {() =>
-            Linking.openURL("https://us05web.zoom.us/j/3760490541?pwd=VmtrcHlnQTVnbnV3dnA0K3Vld0dYUT09#success")} style = {styles.buttonText}>Click here to join a zoom meeting</Text>
+            Linking.openURL("https://us05web.zoom.us/j/3760490541?pwd=VmtrcHlnQTVnbnV3dnA0K3Vld0dYUT09#success")} style = {[styles.buttonText]}>Click here to join a zoom meeting</Text>
         </TouchableOpacity>
       </SafeAreaView>
   );
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
      alignItems: "center",
     justifyContent: "center",
+    margin:20,
   },
   zoom:{
     height: '100%',
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     borderColor: "dodgerblue",
-    bottom: 400
   },
   buttonText: {
     color: "white",
