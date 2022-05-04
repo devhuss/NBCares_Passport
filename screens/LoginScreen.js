@@ -61,7 +61,7 @@ const LoginScreen = () => {
     >
       <LinearGradient
         // Background Linear Gradient
-        colors={["#d0c49a","#d0c49a", "#ffffff"]}
+        colors={["#d0c49a", "#ffffff"]}
         end={{ x: 0, y: 1 }}
         style={styles.background}
       />

@@ -132,7 +132,8 @@ const Steps = ({ route, navigation }) => {
     >
       <LinearGradient
         // Background Linear Gradient
-        colors={["#b4a25f","#b4a25f","#b4a25f", "#ffffff"]}
+        colors={["#d0c49a", "#ffffff"]}
+        locations={[0.5,1]}
         end={{ x: 0, y: 1 }}
         style={styles.background}
       />

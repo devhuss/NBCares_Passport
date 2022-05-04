@@ -68,7 +68,8 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <LinearGradient
         // Background Linear Gradient
-        colors={["#d0c49a","#d0c49a", "#ffffff"]}
+        colors={["#d0c49a", "#ffffff"]}
+        locations={[0.5,1]}
         end={{ x: 0, y: 1 }}
         style={styles.background}
       />

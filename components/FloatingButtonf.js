@@ -84,7 +84,7 @@ const FloatingButtonf = () => {
 
   const animSize = (pos) => {
     Animated.spring(pos, {
-      toValue: open ? .80 : 1.50,
+      toValue: open ? 1 : 1.75,
       useNativeDriver: true,
       friction: 7,
     }).start(() => {});
@@ -248,8 +248,8 @@ const FloatingButtonf = () => {
             style={[
               styles.largeCircle,
               {
-                width: 250,
-                height: 250,
+                width: 200,
+                height: 200,
                 borderRadius: Platform.OS === "ios" ? 125 : 200,
                 transform: [{ scale: test }],
               },
@@ -261,10 +261,11 @@ const FloatingButtonf = () => {
               styles.pointsText,
               {
                 position: "absolute",
+                display: 'none'
               },
             ]}
           >
-            <CountUp isCounting end={points} duration={2} />
+            <CountUp isCounting end={points} duration={3} />
           </Text>
         </Animated.View>
       </TouchableWithoutFeedback>
