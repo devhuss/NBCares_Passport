@@ -84,7 +84,7 @@ const FloatingButtonf = () => {
 
   const animSize = (pos) => {
     Animated.spring(pos, {
-      toValue: open ? .55 : 1,
+      toValue: open ? .80 : 1.50,
       useNativeDriver: true,
       friction: 7,
     }).start(() => {});
@@ -248,12 +248,13 @@ const FloatingButtonf = () => {
             style={[
               styles.largeCircle,
               {
-                width: 350,
-                height: 350,
-                borderRadius: Platform.OS === "ios" ? 175 : 200,
+                width: 250,
+                height: 250,
+                borderRadius: Platform.OS === "ios" ? 125 : 200,
                 transform: [{ scale: test }],
               },
             ]}
+            resizeMode="contain"
           ></AnimatedGradient>
           <Text
             style={[
