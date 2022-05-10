@@ -1,15 +1,32 @@
-import { StyleSheet, Text, Image, SafeAreaView , TouchableOpacity, Linking} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import React from "react";
 
 const ZoomMeetingLink = () => {
   return (
-      <SafeAreaView style = {[styles.container]} >
-        <Image style = {styles.zoom} source={require("../assets/zoom_logo.png")}/>
-        <TouchableOpacity style = {[styles.button,{position:'absolute',top:220}]}>
-          <Text onPress = {() =>
-            Linking.openURL("https://us05web.zoom.us/j/3760490541?pwd=VmtrcHlnQTVnbnV3dnA0K3Vld0dYUT09#success")} style = {[styles.buttonText]}>Click here to join a zoom meeting</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+    <SafeAreaView style={[styles.container]}>
+      <Image style={styles.zoom} source={require("../assets/zoom_logo.png")} />
+      <TouchableOpacity
+        style={[styles.button, { position: "absolute", top: 220 }]}
+      >
+        <Text
+          onPress={() =>
+            Linking.openURL(
+              "https://us05web.zoom.us/j/3760490541?pwd=VmtrcHlnQTVnbnV3dnA0K3Vld0dYUT09#success"
+            )
+          }
+          style={[styles.buttonText]}
+        >
+          Click here to join a zoom meeting
+        </Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
@@ -18,15 +35,15 @@ export default ZoomMeetingLink;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-     alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
-    margin:20,
+    margin: 20,
   },
-  zoom:{
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
-    bottom:200,
+  zoom: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+    bottom: 200,
   },
   button: {
     backgroundColor: "dodgerblue",
@@ -35,11 +52,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     borderColor: "dodgerblue",
+    marginTop: 120,
   },
   buttonText: {
     color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
-  
 });

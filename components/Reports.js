@@ -7,7 +7,7 @@ import {
   Pressable,
   TouchableOpacity,
   Alert,
-  Platform
+  Platform,
 } from "react-native";
 import * as Print from "expo-print";
 import * as MailComposer from "expo-mail-composer";
@@ -88,7 +88,6 @@ export default Reports = () => {
 
   // SS Points
   const deltaPoints = currPoints - intPoints;
-  console.log(deltaIncome);
 
   useEffect(() => {
     setEducation(TaskData(lists[0]));

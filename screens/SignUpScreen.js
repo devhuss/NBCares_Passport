@@ -29,14 +29,14 @@ const SignUpScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = fire.auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace("Information");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = fire.auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.replace("Information");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const handleSignUp = () => {
     fire.auth
