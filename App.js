@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  StyleSheet, StatusBar} from "react-native";
+import {  StyleSheet, } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Fire } from "./firebase";
 import { PageContext } from "./context";
