@@ -57,7 +57,6 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <LinearGradient
         // Background Linear Gradient
@@ -130,7 +129,6 @@ const LoginScreen = () => {
         style={styles.paraDYM}
         source={require("../assets/paraDYM_academy.png")}
         
-        // source={{uri: 'https://www.paradymacademy.org/'}}
       />
       
     </KeyboardAvoidingView>

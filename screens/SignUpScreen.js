@@ -29,14 +29,6 @@ const SignUpScreen = () => {
 
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   const unsubscribe = fire.auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.replace("Information");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, []);
 
   const handleSignUp = () => {
     fire.auth
@@ -127,40 +119,7 @@ const SignUpScreen = () => {
     
   </View>
 
-    // <KeyboardAvoidingView
-    //   style={styles.container}
-    //   //behavior={Platform.OS === "ios" ? "padding" : "height"}
-    // >
-    //  <View style = {styles.registerIcon}>
-    //  <Ionicons name="person-add-outline" size={200}/>
-    //  </View>
-    //   <View style={styles.inputContainer}>
-    //     <TextInput
-    //       placeholder="Email"
-    //       value={email}
-    //       onChangeText={(text) => setEmail(text)}
-    //       style={styles.input}
-    //     />
-    //   </View>
-
-    //   <View style={styles.inputContainer}>
-    //     <TextInput
-    //       placeholder="Password"
-    //       value={password}
-    //       onChangeText={(text) => setPassword(text)}
-    //       style={styles.input}
-    //       secureTextEntry
-    //     />
-    //   </View>
-
-    
-
-      // <View style={styles.buttonContainer}>
-      //   <TouchableOpacity onPress={handleSignUp} style={styles.button}>
-      //     <Text style={styles.buttonText}>Register & Login</Text>
-      //   </TouchableOpacity>
-      // </View>
-    // </KeyboardAvoidingView>
+ 
   );
 };
 
