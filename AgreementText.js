@@ -1,4 +1,4 @@
-const text = 
+const AgreementText = 
 `NB CARES Collaborating Actively on Resident Empowerment and Success in New Britain\n 
 
 Authorization to Disclose/Obtain Information\n
@@ -7,12 +7,10 @@ I hereby authorize agencies participating in the NB
 CARES Program to disclose, obtain, or communicate information about my participation and
 progress in this self-sufficiency initiative. Authorized agencies include the American Job Center,
 the Bristol Department of Adult Education, Central Connecticut State University, Community
-Health Center, Inc., Coram Deo, the Connecticut Association of Human Services, the
-Consolidated School District of New Britain, Family Promise of Central Connecticut, the Hospital
+Health Center, Inc., Coram Deo, the Connecticut Association of Human Services, the Consolidated School District of New Britain, Family Promise of Central Connecticut, the Hospital
 of Central Connecticut, the Housing Authority of the City of New Britain, HRA of New Britain,
 Liberty Integrated Behavioral Health, the Prudence Crandall Center, the Salvation Army, Tunxis
-Community College, the Wheeler Clinic, the YWCA of New Britain, and other participating
-agencies where necessary.\n
+Community College, the Wheeler Clinic, the YWCA of New Britain, and other participating agencies where necessary.\n
 
 The authorized agencies might disclose, obtain, and communicate information to the
 aforementioned agencies concerning housing status, homeownership, primary, secondary, and
@@ -36,4 +34,4 @@ By clicking continue, you are agreeing to all that has been stated above.`;
 
 
 
-export default text;
+export default AgreementText;

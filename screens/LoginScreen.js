@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { PageContext } from "../context";
 import {LogBox} from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
 
 
 const LoginScreen = () => {
@@ -40,7 +41,7 @@ const LoginScreen = () => {
   };
 
   const onForgetPasswordPress = () => {
-    navigation.navigate("Forgot Password");
+    navigation.navigate("Forgot");
   };
 
   const handleLogin = () => {
@@ -56,8 +57,13 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      //behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#af272f", "#ffffff"]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
       <Image
         style={{
           width: "75%",
@@ -66,6 +72,7 @@ const LoginScreen = () => {
           marginBottom: 15,
         }}
         source={require("../assets/nbcares_gold.png")}
+        tintColor='#af272f'
       />
 
       <View style={styles.inputContainer}>
@@ -116,12 +123,14 @@ const LoginScreen = () => {
           }
         />
       </View>
-
+          
       <Image
+      
         style={styles.paraDYM}
         source={require("../assets/paraDYM_academy.png")}
-        // source={{uri: 'https://www.paradymacademy.org/'}}
+        
       />
+      
     </KeyboardAvoidingView>
   );
 };
@@ -161,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   button: {
-    backgroundColor: "darkred",
+    backgroundColor: "#af272f",
     width: "100%",
     padding: 15,
     borderRadius: 10,
@@ -171,7 +180,7 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
-    borderColor: "darkred",
+    borderColor: "#af272f",
     borderWidth: 2,
   },
   buttonRgst: {
@@ -199,14 +208,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText_Frgt: {
-    color: "darkred",
+    color: "#af272f",
     fontWeight: "700",
     fontSize: 12,
   },
   buttonOutlineText_Rgst: {
-    color: "black",
+    color: "#af272f",
     fontWeight: "700",
     fontSize: 10,
     bottom: 1,
   },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
+
 });

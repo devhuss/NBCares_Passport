@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import {
   GestureHandlerRootView,
@@ -18,6 +18,7 @@ import {
 } from "react-native-gesture-handler";
 import { PageContext } from "../../context";
 import AddModal from "../../components/AddModal";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Steps = ({ route, navigation }) => {
   const { index } = route.params;
@@ -29,7 +30,7 @@ const Steps = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const list = lists[listID];
-  const task = list.tasks[index]
+  const task = list.tasks[index];
 
   const toggleCompleted = (item) => {
     if (item.completed && item.type != "system") {
@@ -127,8 +128,15 @@ const Steps = ({ route, navigation }) => {
 
   return (
     <GestureHandlerRootView
-      style={{ flex: 1, justifyContent: "center", backgroundColor: "#859a9b" }}
+      style={{ flex: 1, justifyContent: "center", backgroundColor: "#c6b886" }}
     >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#d0c49a", "#ffffff"]}
+        locations={[0.5,1]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
       <AddModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -136,22 +144,18 @@ const Steps = ({ route, navigation }) => {
         tIndex={index}
         type="step"
       />
-      <TouchableOpacity
-        style={{ position: "absolute", top: 36, left: 16, zIndex: 10 }}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Ionicons name="arrow-back-sharp" size={26} color="white" />
-      </TouchableOpacity>
 
       <View style={styles.title}>
-        <TouchableOpacity onPress={() => toggleCompleted(task)}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <Ionicons
-            name={task.complete ? "ios-checkbox-outline" : "ios-square"}
+            name="arrow-back-circle"
             size={35}
-            color={task.complete ? "#e3e3e3" : "#ffffff"}
-            style={{ width: 40 }}
+            color="white"
+            style={{ width: 35, marginLeft: 10 }}
           />
         </TouchableOpacity>
 
@@ -213,7 +217,7 @@ const Steps = ({ route, navigation }) => {
       <FlatList
         data={task.steps}
         keyExtractor={(item, index) => index}
-        contentContainerStyle={{ paddingHorizontal: 45, marginTop: 15 }}
+        contentContainerStyle={{ paddingHorizontal: 45, marginTop: 15, paddingBottom: 250 }}
         renderItem={({ item, index }) => (
           <Swipeable
             renderRightActions={(_, dragX) => rightActions(dragX, index)}
@@ -252,7 +256,7 @@ const Steps = ({ route, navigation }) => {
           style={[styles.addTodo, { backgroundColor: "white" }]}
           onPress={() => setModalVisible(true)}
         >
-          <AntDesign name="plus" size={24} color={"#677d7e"} />
+          <AntDesign name="plus" size={24} color={"#b4a25f"} />
         </TouchableOpacity>
       </View>
     </GestureHandlerRootView>
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 90,
+    marginTop: 55,
     marginHorizontal: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -315,5 +319,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 70,
     marginBottom: 5,
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  StyleSheet, StatusBar} from "react-native";
+import {  StyleSheet, } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Fire } from "./firebase";
 import { PageContext } from "./context";
@@ -14,14 +14,12 @@ const fire = new Fire();
 let initialRender = true;
 export default function App() {
 
-
-
-
   const [authID, setAuthID] = useState("");
   const [lists, setLists] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [vitalsigns, setVitalsigns] = useState([]);
   const [points, setPoints] = useState(0);
+  const [count, setCount] = useState(0);
   const [header, setHeader] = useState("");
   const [name, setName] = useState("");
 
@@ -52,12 +50,13 @@ export default function App() {
       // Retrieves the points from the user database
       fire.refUser.get().then((doc) => {
         setPoints(doc.data().userPoints);
+        setCount(doc.data().counter);
       });
 
+
+
       // Unsubscribes to the lists listener
-      return function cleanup() {
-        fire.detach();
-      };
+      return fire.detach();
     }
     // Updates on authID change
   }, [authID]);
@@ -74,11 +73,11 @@ export default function App() {
         refreshs: [refresh, setRefresh],
         vitals: [vitalsigns, setVitalsigns],
         pointss: [points, setPoints],
+        counter: [count, setCount],
         headers: [header, setHeader],
       }}
     >
-
-      <StatusBar barStyle="dark-content" />
+      {/* <StatusBar barStyle="dark-content" /> */}
       <NavigationContainer>
         <LoginStack/>
       </NavigationContainer>
@@ -97,5 +96,12 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     overflow: 'hidden',
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 300,
   },
 });

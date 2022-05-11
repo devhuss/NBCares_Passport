@@ -118,6 +118,7 @@ class Fire extends React.Component {
       cManagers: [],
       email: email,
       userPoints: 0,
+      counter: 0,
     });
 
     // Takes the data from tempData.js and adds it into the database
@@ -144,7 +145,6 @@ class Fire extends React.Component {
 
   updateList(list) {
     let ref = this.refLists;
-    console.log('FIRE: TEST')
     ref.doc(list.id).update(list);
   }
 

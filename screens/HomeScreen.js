@@ -9,10 +9,11 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { PageContext } from "../context";
-import FloatingButtonf from '../components/FloatingButtonf';
-import { render } from "react-dom";
+import Reports from "../components/Reports";
+import FloatingButtonf from "../components/FloatingButtonf";
+import { LinearGradient } from "expo-linear-gradient";
 
 let initialRender = true;
 const HomeScreen = () => {
@@ -64,21 +65,33 @@ const HomeScreen = () => {
 
   // these functions is to toggle the center button. it will be the animation
   return (
-    <SafeAreaView style={[styles.container,{bottom:230}]}>
-      {/* functional homescreen button call */}
-      <View style={styles.container}>
-        <FloatingButtonf />
-      </View> 
-    </SafeAreaView>
+    <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#d0c49a", "#ffffff"]}
+        locations={[0.5,1]}
+        end={{ x: 0, y: 1 }}
+        style={styles.background}
+      />
+      <FloatingButtonf />
+      <Reports />
+    </View>
   );
-}
+};
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+  },
+  background: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });
